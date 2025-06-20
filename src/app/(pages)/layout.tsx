@@ -16,8 +16,14 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
           data-topbar="light"
           data-bs-theme="light"
         >
-          <Header />
-          {children}
+          <div id="layout-wrapper">
+            <Header />
+            <div className="main-content">
+              <div className="page-content">
+                <div className="container-fluid">{children}</div>
+              </div>
+            </div>
+          </div>
         </body>
       </html>
     </ThemeProvider>
