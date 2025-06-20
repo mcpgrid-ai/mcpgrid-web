@@ -14,9 +14,9 @@ File: Main Css File
 //Core files
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-@import "./variables";
-@import "./variables-dark";
-@import "~bootstrap/scss/mixins.scss";
+@import "variables";
+@import "variables-dark";
+@import "~bootstrap/scss/mixins";
 
 // Structure
 @import "./structure/general";
@@ -29,7 +29,7 @@ File: Main Css File
 @import "./structure/layouts";
 
 // Components
-// @import "components/root";
+@import "components/root";
 // @import "components/waves";
 // @import "components/accordion";
 // @import "components/avatar";
