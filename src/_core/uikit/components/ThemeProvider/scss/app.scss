@@ -16,20 +16,20 @@ File: Main Css File
 @import "~bootstrap/scss/variables";
 @import "variables";
 @import "variables-dark";
-@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/mixins.scss";
 
 // Structure
-@import "./structure/general";
-@import "./structure/topbar";
-@import "./structure/page-head";
-@import "./structure/footer";
-@import "./structure/right-sidebar";
-@import "./structure/vertical";
-@import "./structure/horizontal-nav";
-@import "./structure/layouts";
+@import "structure/general";
+@import "structure/topbar";
+@import "structure/page-head";
+@import "structure/footer";
+@import "structure/right-sidebar";
+@import "structure/vertical";
+@import "structure/horizontal-nav";
+@import "structure/layouts";
 
 // Components
-@import "components/root";
+// @import "components/root";
 // @import "components/waves";
 // @import "components/accordion";
 // @import "components/avatar";

@@ -1,8 +1,6 @@
 import { FC, Fragment } from 'react';
-import Link from 'next/link';
 
-import { Logo } from '@core/uikit';
-import { AppRoutePath } from '@app/common';
+import { HeaderLogo } from './HeaderLogo';
 
 export const Header: FC = () => {
   return (
@@ -10,11 +8,7 @@ export const Header: FC = () => {
       <header id="page-topbar">
         <div className="navbar-header">
           <div className="d-flex">
-            <div className="navbar-brand-box">
-              <Link href={AppRoutePath.Index}>
-                <Logo />
-              </Link>
-            </div>
+            <HeaderLogo />
           </div>
 
           <div className="d-flex topnav">
