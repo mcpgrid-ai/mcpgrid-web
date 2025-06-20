@@ -6,7 +6,6 @@ import { AppRoutePath } from '@app/common';
 import { IMAGES } from '@core/uikit';
 
 export const HeaderLogo: FC = () => {
-  console.log(IMAGES.LOGO);
   return (
     <div className="navbar-brand-box">
       <Link href={AppRoutePath.Index} className="logo logo-dark">

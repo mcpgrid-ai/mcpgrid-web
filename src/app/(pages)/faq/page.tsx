@@ -4,15 +4,17 @@ import { FC } from 'react';
 import { Button } from '@core/uikit';
 
 interface FaqProps {
-  searchParams: {
+  searchParams: Promise<{
     v: string;
-  };
+  }>;
 }
 
-const Faq: FC<FaqProps> = ({ searchParams }) => {
+const Faq: FC<FaqProps> = async ({ searchParams }) => {
+  const { v } = await searchParams;
+
   return (
     <>
-      {searchParams.v}
+      {v}
       <Button />
     </>
   );
