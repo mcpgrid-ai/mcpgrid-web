@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 import './ThemeProvider.scss';
 
-export const ThemeProvider: FC = () => {
-  return <></>;
+type ThemeProviderProps = PropsWithChildren;
+
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
+  return <>{children}</>;
 };

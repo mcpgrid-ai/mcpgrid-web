@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { ThemeProvider } from '@core/uikit';
+
+// eslint-disable-next-line import/order
 import './globals.css';
 
 const geistSans = Geist({
@@ -24,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        test
-        {children}
-      </body>
-    </html>
+    <ThemeProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          test
+          {children}
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }
