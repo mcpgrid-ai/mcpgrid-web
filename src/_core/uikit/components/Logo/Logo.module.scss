@@ -1,0 +1,32 @@
+.logo {
+  line-height: 69px;
+  color: inherit !important;
+
+  .logo-sm {
+    display: none;
+  }
+}
+
+.logo-txt {
+  font-weight: 700;
+  font-size: 18px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.logo-light {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .logo {
+    span {
+      &.logo-lg {
+        display: none;
+      }
+      &.logo-sm {
+        display: inline-block;
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 
+import { Header } from './_partitions/Header';
+
 import { ThemeProvider } from '@core/uikit';
 
 type DashboardLayoutProps = PropsWithChildren;
@@ -9,6 +11,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
     <ThemeProvider>
       <html lang="en">
         <body data-layout-size="boxed" data-layout="horizontal">
+          <Header />
           {children}
         </body>
       </html>
