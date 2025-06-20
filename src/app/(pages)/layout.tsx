@@ -10,7 +10,12 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
       <html lang="en">
-        <body data-layout-size="boxed" data-layout="horizontal">
+        <body
+          data-layout-size="boxed"
+          data-layout="horizontal"
+          data-topbar="light"
+          data-bs-theme="light"
+        >
           <Header />
           {children}
         </body>

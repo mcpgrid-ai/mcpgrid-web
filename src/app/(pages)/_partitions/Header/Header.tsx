@@ -3,6 +3,8 @@ import { FC, Fragment } from 'react';
 import { HeaderLogo } from './HeaderLogo';
 import { HeaderNavbarNav } from './HeaderNavbarNav';
 
+import { Icon } from '@core/uikit';
+
 export const Header: FC = () => {
   return (
     <Fragment>
@@ -16,7 +18,7 @@ export const Header: FC = () => {
               data-bs-toggle="collapse"
               data-bs-target="#topnav-menu-content"
             >
-              <i className="fa fa-fw fa-bars"></i>
+              <Icon.Fa name="bars" width={16} />
             </button>
           </div>
 
