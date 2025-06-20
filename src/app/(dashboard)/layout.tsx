@@ -2,10 +2,9 @@ import { FC, PropsWithChildren } from 'react';
 
 import { ThemeProvider } from '@core/uikit';
 
-type RootLayoutProps = PropsWithChildren;
+type DashboardLayoutProps = PropsWithChildren;
 
-const RootLayout: FC<RootLayoutProps> = ({ children, ...props }) => {
-  console.log(props);
+const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
       <html lang="en">
@@ -15,4 +14,4 @@ const RootLayout: FC<RootLayoutProps> = ({ children, ...props }) => {
   );
 };
 
-export default RootLayout;
+export default DashboardLayout;
