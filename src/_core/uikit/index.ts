@@ -1,2 +1,3 @@
 // Components
-export * from './components/Test';
+export * from './components/Button';
+export * from './components/ThemeProvider';

@@ -1,10 +1,10 @@
-import { Test } from '@core/uikit';
+import { Button } from '@core/uikit';
 
 const Faq = () => {
   return (
     <>
       text
-      <Test />
+      <Button />
     </>
   );
 };
