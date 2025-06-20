@@ -3,12 +3,14 @@ import Link from 'next/link';
 
 import { useNavbarNav } from './HeaderNavbarNav.hooks';
 
+import { Icon } from '@core/uikit';
+
 export const HeaderNavbarNav: FC = () => {
   const { nav } = useNavbarNav();
 
   return (
     <ul className="navbar-nav">
-      {nav.map(({ href, label }) => {
+      {nav.map(({ href, label, icon }) => {
         return (
           <li key={href} className="nav-item dropdown">
             <Link
@@ -16,7 +18,7 @@ export const HeaderNavbarNav: FC = () => {
               href={href}
               role="button"
             >
-              <i data-feather="home"></i>
+              <Icon.Feather name={icon} />
               <span data-key="t-dashboards">{label}</span>
             </Link>
           </li>

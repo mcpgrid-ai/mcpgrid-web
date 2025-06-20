@@ -7,14 +7,17 @@ export const useNavbarNav = () => {
     {
       href: AppRoutePath.Index,
       label: 'Home',
+      icon: 'home',
     },
     {
       href: AppRoutePath.Blog,
       label: 'Blog',
+      icon: 'message-square',
     },
     {
       href: AppRoutePath.Faq,
       label: 'FAQ',
+      icon: 'help-circle',
     },
   ];
 

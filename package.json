@@ -14,7 +14,9 @@
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
+    "react-bootstrap-icons": "^1.11.6",
     "react-dom": "^19.0.0",
+    "react-feather": "^2.0.10",
     "scheduler": "^0.26.0",
     "use-context-selector": "^2.0.0"
   },
