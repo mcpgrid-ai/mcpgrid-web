@@ -8,8 +8,8 @@ export const Header: FC = () => {
     <Fragment>
       <header id="page-topbar">
         <div className="navbar-header">
-          <HeaderLogo />
           <div className="d-flex">
+            <HeaderLogo />
             <button
               type="button"
               className="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
