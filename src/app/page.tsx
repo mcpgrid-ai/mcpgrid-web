@@ -1,7 +1,8 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from 'next/image';
 
-const Home=() => {
+import styles from './page.module.css';
+
+const Home = () => {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -92,6 +93,6 @@ const Home=() => {
       </footer>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;
