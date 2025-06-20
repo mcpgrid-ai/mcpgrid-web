@@ -14,8 +14,7 @@ const Faq: FC<FaqProps> = async ({ searchParams }) => {
 
   return (
     <>
-      {v}
-      <Button />
+      <Button>{v}</Button>
     </>
   );
 };

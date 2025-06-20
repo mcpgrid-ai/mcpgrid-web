@@ -1,6 +1,8 @@
-import { FC } from 'react';
-import Root from 'react-bootstrap/Button';
+import { FC, PropsWithChildren } from 'react';
+import BsButton from 'react-bootstrap/Button';
 
-export const Button: FC = () => {
-  return <Root>Test</Root>;
+export type ButtonProps = PropsWithChildren;
+
+export const Button: FC<ButtonProps> = ({ children }) => {
+  return <BsButton>{children}</BsButton>;
 };
