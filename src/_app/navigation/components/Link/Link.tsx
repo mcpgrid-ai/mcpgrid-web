@@ -1,0 +1,31 @@
+'use client';
+
+import { ParsedUrlQueryInput } from 'querystring';
+
+import { FC, PropsWithChildren } from 'react';
+import NextLink from 'next/link';
+import { generatePath } from 'react-router';
+
+export type LinkProps = PropsWithChildren<{
+  pathname: string;
+  params?: Record<string, unknown>;
+  query?: ParsedUrlQueryInput;
+}>;
+
+export const Link: FC<LinkProps> = ({
+  pathname,
+  children,
+  params = {},
+  query,
+}) => {
+  return (
+    <NextLink
+      href={{
+        query,
+        pathname: generatePath(pathname, params),
+      }}
+    >
+      {children}
+    </NextLink>
+  );
+};

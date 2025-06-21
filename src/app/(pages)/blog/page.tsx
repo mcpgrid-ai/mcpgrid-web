@@ -1,18 +1,11 @@
-import Link from 'next/link';
 import { FC } from 'react';
 
+import { Link } from '@app/navigation';
 import { AppRoutePath } from '@app/common';
 
 const Blog: FC = () => {
   return (
-    <Link
-      href={{
-        pathname: AppRoutePath.BlogPost,
-        query: {
-          slug: 'test',
-        },
-      }}
-    >
+    <Link pathname={AppRoutePath.BlogPost} params={{ slug: 'test' }}>
       Blog post
     </Link>
   );
