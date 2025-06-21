@@ -2,7 +2,9 @@ import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { strapi } from '@network/strapi';
 
-import { Button, Heading, Row } from '@core/uikit';
+import { Button, Card, Heading, Row } from '@core/uikit';
+import { Link } from '@app/navigation';
+import { AppRoutePath } from '@app/common';
 
 const Faq: FC = async () => {
   const {
@@ -28,6 +30,8 @@ const Faq: FC = async () => {
                 <p className="text-muted">{page?.Description}</p>
                 <div>
                   <Button
+                    as={Link}
+                    pathname={AppRoutePath.ContactUs}
                     variant="primary"
                     className="mt-2 me-2 waves-effect waves-light"
                   >
@@ -52,8 +56,8 @@ const Faq: FC = async () => {
               if (item) {
                 return (
                   <Row.Col key={item.Title} xl={4} sm={6}>
-                    <div className="card">
-                      <div className="card-body overflow-hidden position-relative">
+                    <Card>
+                      <Card.Body className="overflow-hidden position-relative">
                         <div>
                           <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
                         </div>
@@ -64,8 +68,8 @@ const Faq: FC = async () => {
                         <p className="text-muted mt-3 mb-0">
                           {item.Description}
                         </p>
-                      </div>
-                    </div>
+                      </Card.Body>
+                    </Card>
                   </Row.Col>
                 );
               }

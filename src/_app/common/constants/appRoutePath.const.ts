@@ -3,4 +3,5 @@ export enum AppRoutePath {
   Faq = '/faq',
   Blog = '/blog',
   BlogPost = '/blog/:slug',
+  ContactUs = '/contact-us',
 }

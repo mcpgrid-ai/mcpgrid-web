@@ -10,6 +10,7 @@ export type LinkProps = PropsWithChildren<{
   pathname: string;
   params?: Record<string, unknown>;
   query?: ParsedUrlQueryInput;
+  className?: string;
 }>;
 
 export const Link: FC<LinkProps> = ({
@@ -17,6 +18,7 @@ export const Link: FC<LinkProps> = ({
   children,
   params = {},
   query,
+  className,
 }) => {
   return (
     <NextLink
@@ -24,6 +26,7 @@ export const Link: FC<LinkProps> = ({
         query,
         pathname: generatePath(pathname, params),
       }}
+      className={className}
     >
       {children}
     </NextLink>
