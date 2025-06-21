@@ -8,4 +8,7 @@ query getPageFaqs($slug: String!) {
     Title
     Description
   }
+  social {
+    X
+  }
 }

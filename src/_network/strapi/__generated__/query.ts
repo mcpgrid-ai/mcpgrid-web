@@ -72,12 +72,6 @@ export type DeleteMutationResponse = {
   documentId: Scalars['ID']['output'];
 };
 
-export enum Enum_Page_Icon {
-  HelpCircle = 'help_circle',
-  Home = 'home',
-  MessageSquare = 'message_square'
-}
-
 export type Faq = {
   __typename?: 'Faq';
   Description: Scalars['String']['output'];
@@ -143,7 +137,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Faq | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Faq | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -264,6 +258,7 @@ export type Mutation = {
   deletePage?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflow?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflowStage?: Maybe<DeleteMutationResponse>;
+  deleteSocial?: Maybe<DeleteMutationResponse>;
   deleteUploadFile?: Maybe<UploadFile>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
@@ -282,6 +277,7 @@ export type Mutation = {
   updatePage?: Maybe<Page>;
   updateReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
   updateReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
+  updateSocial?: Maybe<Social>;
   updateUploadFile: UploadFile;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
@@ -421,6 +417,12 @@ export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
 };
 
 
+export type MutationUpdateSocialArgs = {
+  data: SocialInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   id: Scalars['ID']['input'];
   info?: InputMaybe<FileInfoInput>;
@@ -441,8 +443,6 @@ export type MutationUpdateUsersPermissionsUserArgs = {
 export type Page = {
   __typename?: 'Page';
   Description?: Maybe<Scalars['String']['output']>;
-  Icon?: Maybe<Enum_Page_Icon>;
-  Navigation?: Maybe<Scalars['Boolean']['output']>;
   Slug: Scalars['String']['output'];
   Subtitle?: Maybe<Scalars['String']['output']>;
   Title: Scalars['String']['output'];
@@ -460,8 +460,6 @@ export type PageEntityResponseCollection = {
 
 export type PageFiltersInput = {
   Description?: InputMaybe<StringFilterInput>;
-  Icon?: InputMaybe<StringFilterInput>;
-  Navigation?: InputMaybe<BooleanFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Subtitle?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
@@ -476,8 +474,6 @@ export type PageFiltersInput = {
 
 export type PageInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
-  Icon?: InputMaybe<Enum_Page_Icon>;
-  Navigation?: InputMaybe<Scalars['Boolean']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Subtitle?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
@@ -522,6 +518,7 @@ export type Query = {
   reviewWorkflowsWorkflowStages_connection?: Maybe<ReviewWorkflowsWorkflowStageEntityResponseCollection>;
   reviewWorkflowsWorkflows: Array<Maybe<ReviewWorkflowsWorkflow>>;
   reviewWorkflowsWorkflows_connection?: Maybe<ReviewWorkflowsWorkflowEntityResponseCollection>;
+  social?: Maybe<Social>;
   uploadFile?: Maybe<UploadFile>;
   uploadFiles: Array<Maybe<UploadFile>>;
   uploadFiles_connection?: Maybe<UploadFileEntityResponseCollection>;
@@ -640,6 +637,11 @@ export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QuerySocialArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -804,6 +806,20 @@ export type ReviewWorkflowsWorkflowStageInput = {
 export type ReviewWorkflowsWorkflowStageRelationResponseCollection = {
   __typename?: 'ReviewWorkflowsWorkflowStageRelationResponseCollection';
   nodes: Array<ReviewWorkflowsWorkflowStage>;
+};
+
+export type Social = {
+  __typename?: 'Social';
+  X: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type SocialInput = {
+  X?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type StringFilterInput = {
@@ -1103,7 +1119,7 @@ export type GetPageFaqsQueryVariables = Exact<{
 }>;
 
 
-export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null> };
+export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
 
 
 export const GetPageFaqs = gql`
@@ -1116,6 +1132,9 @@ export const GetPageFaqs = gql`
   faqs {
     Title
     Description
+  }
+  social {
+    X
   }
 }
     `;

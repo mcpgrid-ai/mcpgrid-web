@@ -10,6 +10,7 @@ const Faq: FC = async () => {
   const {
     data: {
       faqs,
+      social,
       pages: [page],
     },
   } = await strapi.page.getFaqs({
@@ -37,12 +38,17 @@ const Faq: FC = async () => {
                   >
                     Contact Us
                   </Button>
-                  <Button
-                    variant="success"
-                    className="mt-2 waves-effect waves-light"
-                  >
-                    Send us a tweet
-                  </Button>
+                  {social?.X && (
+                    <Button
+                      as={Link}
+                      target="_blank"
+                      pathname={social.X}
+                      variant="success"
+                      className="mt-2 waves-effect waves-light"
+                    >
+                      Send us a tweet
+                    </Button>
+                  )}
                 </div>
               </div>
             </Row.Col>

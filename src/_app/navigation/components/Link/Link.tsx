@@ -2,7 +2,7 @@
 
 import { ParsedUrlQueryInput } from 'querystring';
 
-import { FC, PropsWithChildren } from 'react';
+import { FC, HTMLAttributeAnchorTarget, PropsWithChildren } from 'react';
 import NextLink from 'next/link';
 import { generatePath } from 'react-router';
 
@@ -11,6 +11,7 @@ export type LinkProps = PropsWithChildren<{
   params?: Record<string, unknown>;
   query?: ParsedUrlQueryInput;
   className?: string;
+  target?: HTMLAttributeAnchorTarget;
 }>;
 
 export const Link: FC<LinkProps> = ({
@@ -19,9 +20,11 @@ export const Link: FC<LinkProps> = ({
   params = {},
   query,
   className,
+  target,
 }) => {
   return (
     <NextLink
+      target={target}
       href={{
         query,
         pathname: generatePath(pathname, params),
