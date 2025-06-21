@@ -1,48 +1,30 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
-import { faker } from '@faker-js/faker';
+import { strapi } from '@network/strapi';
 
 import { Heading, Row } from '@core/uikit';
 
-const getFaqs = async (): Promise<
-  {
-    id: string;
-    title: string;
-    description: string;
-  }[]
-> => {
-  return new Promise((resolve) => {
-    resolve(
-      Array.from({
-        length: 9,
-      }).map(() => ({
-        id: faker.string.uuid(),
-        title: faker.lorem.words(3),
-        description: faker.lorem.sentences(3),
-      })),
-    );
-  });
-};
-
 const Faq: FC = async () => {
-  const data = await getFaqs();
+  const {
+    data: { faqs, pages },
+  } = await strapi.page.getFaqs({
+    slug: 'faqs',
+  });
+
+  const page = pages[0];
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>FAQs</Heading.Title>
+        <Heading.Title>{page?.Title}</Heading.Title>
       </Heading>
       <Row>
         <Row.Col lg={12}>
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <h5>Can't find what you are looking for?</h5>
-                <p className="text-muted">
-                  If several languages coalesce, the grammar of the resulting
-                  language is more simple and regular than that of the
-                  individual
-                </p>
+                <h5>{page?.Subtitle}</h5>
+                <p className="text-muted">{page?.Description}</p>
                 <div>
                   <button
                     type="button"
@@ -65,23 +47,27 @@ const Faq: FC = async () => {
       <div className="row">
         <div className="col-lg-12">
           <div className="row mt-5">
-            {data.map(({ id, title, description }, index) => {
-              return (
-                <div className="col-xl-4 col-sm-6" key={id}>
-                  <div className="card">
-                    <div className="card-body overflow-hidden position-relative">
-                      <div>
-                        <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
+            {faqs.map((item, index) => {
+              if (item) {
+                return (
+                  <div className="col-xl-4 col-sm-6" key={item.Title}>
+                    <div className="card">
+                      <div className="card-body overflow-hidden position-relative">
+                        <div>
+                          <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
+                        </div>
+                        <div className="faq-count">
+                          <h5 className="text-primary">{`0${index + 1}.`}</h5>
+                        </div>
+                        <h5 className="mt-3">{item.Title}</h5>
+                        <p className="text-muted mt-3 mb-0">
+                          {item.Description}
+                        </p>
                       </div>
-                      <div className="faq-count">
-                        <h5 className="text-primary">{`0${index + 1}.`}</h5>
-                      </div>
-                      <h5 className="mt-3">{title}</h5>
-                      <p className="text-muted mt-3 mb-0">{description}</p>
                     </div>
                   </div>
-                </div>
-              );
+                );
+              }
             })}
           </div>
         </div>

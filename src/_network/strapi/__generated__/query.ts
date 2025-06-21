@@ -1,32 +1,20 @@
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTime: { input: any; output: any };
-  JSON: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
 };
 
 export type BooleanFilterInput = {
@@ -149,16 +137,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph =
-  | Faq
-  | I18NLocale
-  | Page
-  | ReviewWorkflowsWorkflow
-  | ReviewWorkflowsWorkflowStage
-  | UploadFile
-  | UsersPermissionsPermission
-  | UsersPermissionsRole
-  | UsersPermissionsUser;
+export type GenericMorph = Faq | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -304,83 +283,102 @@ export type Mutation = {
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
 };
 
+
 export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
 };
 
+
 export type MutationCreateFaqArgs = {
   data: FaqInput;
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type MutationCreatePageArgs = {
   data: PageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type MutationCreateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type MutationCreateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
+
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
 };
 
+
 export type MutationDeleteFaqArgs = {
   documentId: Scalars['ID']['input'];
 };
+
 
 export type MutationDeletePageArgs = {
   documentId: Scalars['ID']['input'];
 };
 
+
 export type MutationDeleteReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
 };
+
 
 export type MutationDeleteReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
 };
 
+
 export type MutationDeleteUploadFileArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type MutationDeleteUsersPermissionsRoleArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationDeleteUsersPermissionsUserArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String']['input'];
 };
 
+
 export type MutationForgotPasswordArgs = {
   email: Scalars['String']['input'];
 };
+
 
 export type MutationLoginArgs = {
   input: UsersPermissionsLoginInput;
 };
 
+
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
 };
+
 
 export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
@@ -388,11 +386,13 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
+
 export type MutationUpdateFaqArgs = {
   data: FaqInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type MutationUpdatePageArgs = {
   data: PageInput;
@@ -400,11 +400,13 @@ export type MutationUpdatePageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type MutationUpdateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
@@ -412,15 +414,18 @@ export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type MutationUpdateUploadFileArgs = {
   id: Scalars['ID']['input'];
   info?: InputMaybe<FileInfoInput>;
 };
 
+
 export type MutationUpdateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
   id: Scalars['ID']['input'];
 };
+
 
 export type MutationUpdateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
@@ -484,7 +489,7 @@ export type PaginationArg = {
 
 export enum PublicationStatus {
   Draft = 'DRAFT',
-  Published = 'PUBLISHED',
+  Published = 'PUBLISHED'
 }
 
 export type Query = {
@@ -516,10 +521,12 @@ export type Query = {
   usersPermissionsUsers_connection?: Maybe<UsersPermissionsUserEntityResponseCollection>;
 };
 
+
 export type QueryFaqArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryFaqsArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
@@ -528,6 +535,7 @@ export type QueryFaqsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryFaqs_ConnectionArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -535,10 +543,12 @@ export type QueryFaqs_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryI18NLocaleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
@@ -547,6 +557,7 @@ export type QueryI18NLocalesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryI18NLocales_ConnectionArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -554,10 +565,12 @@ export type QueryI18NLocales_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryPageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryPagesArgs = {
   filters?: InputMaybe<PageFiltersInput>;
@@ -566,6 +579,7 @@ export type QueryPagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryPages_ConnectionArgs = {
   filters?: InputMaybe<PageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -573,15 +587,18 @@ export type QueryPages_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -590,12 +607,14 @@ export type QueryReviewWorkflowsWorkflowStagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryReviewWorkflowsWorkflowsArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
@@ -604,6 +623,7 @@ export type QueryReviewWorkflowsWorkflowsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -611,10 +631,12 @@ export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryUploadFileArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
@@ -623,6 +645,7 @@ export type QueryUploadFilesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryUploadFiles_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -630,10 +653,12 @@ export type QueryUploadFiles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryUsersPermissionsRoleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryUsersPermissionsRolesArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -642,6 +667,7 @@ export type QueryUsersPermissionsRolesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryUsersPermissionsRoles_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -649,10 +675,12 @@ export type QueryUsersPermissionsRoles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
+
 export type QueryUsersPermissionsUserArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -660,6 +688,7 @@ export type QueryUsersPermissionsUsersArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
+
 
 export type QueryUsersPermissionsUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -681,11 +710,13 @@ export type ReviewWorkflowsWorkflow = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
+
 export type ReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
 
 export type ReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -935,11 +966,13 @@ export type UsersPermissionsRole = {
   users_connection?: Maybe<UsersPermissionsUserRelationResponseCollection>;
 };
 
+
 export type UsersPermissionsRolePermissionsArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
 
 export type UsersPermissionsRolePermissions_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
@@ -947,11 +980,13 @@ export type UsersPermissionsRolePermissions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
 export type UsersPermissionsRoleUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
 
 export type UsersPermissionsRoleUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -1055,17 +1090,20 @@ export type GetFaqsPageQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
-export type GetFaqsPageQuery = {
-  __typename?: 'Query';
-  pages: Array<{
-    __typename?: 'Page';
-    Title: string;
-    Subtitle?: string | null;
-    Description?: string | null;
-  } | null>;
-  faqs: Array<{
-    __typename?: 'Faq';
-    Title: string;
-    Description: string;
-  } | null>;
-};
+
+export type GetFaqsPageQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null> };
+
+
+export const GetFaqsPage = gql`
+    query getFaqsPage($slug: String!) {
+  pages(filters: {Slug: {eq: $slug}}) {
+    Title
+    Subtitle
+    Description
+  }
+  faqs {
+    Title
+    Description
+  }
+}
+    `;

@@ -765,6 +765,16 @@
     change-case-all "1.0.15"
     tslib "~2.6.0"
 
+"@graphql-codegen/typescript-document-nodes@^4.0.16":
+  version "4.0.16"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-4.0.16.tgz#b9e2fae8e3f3104d37f4aaea47825e1da7f8c357"
+  integrity sha512-mcWzJ7Na/GeePN9Aw+zBNTSEoXZ1iJ7b6jVEiAf99wD9Hah13eIbYoORZ31XqoGoGB/i86+H7bGbHGfY+aP+qQ==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^5.1.0"
+    "@graphql-codegen/visitor-plugin-common" "5.8.0"
+    auto-bind "~4.0.0"
+    tslib "~2.6.0"
+
 "@graphql-codegen/typescript-operations@^4.6.1":
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-4.6.1.tgz#763eda28c77fddee2b9ae9bd7baad050cffff0a5"
