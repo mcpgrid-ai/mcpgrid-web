@@ -1,32 +1,32 @@
+'use client';
+
 import { FC, PropsWithChildren } from 'react';
 
 import { Header } from './_partitions/Header';
 
-import { ThemeProvider } from '@core/uikit';
+import { useTheme } from '@core/uikit';
 
 type DashboardLayoutProps = PropsWithChildren;
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
+  const { mode } = useTheme();
+
   return (
-    <ThemeProvider>
-      <html lang="en">
-        <body
-          data-layout-size="boxed"
-          data-layout="horizontal"
-          data-topbar="light"
-          data-bs-theme="light"
-        >
-          <div id="layout-wrapper">
-            <Header />
-            <div className="main-content">
-              <div className="page-content">
-                <div className="container-fluid">{children}</div>
-              </div>
-            </div>
+    <body
+      data-layout-size="boxed"
+      data-layout="horizontal"
+      data-topbar={mode}
+      data-bs-theme={mode}
+    >
+      <div id="layout-wrapper">
+        <Header />
+        <div className="main-content">
+          <div className="page-content">
+            <div className="container-fluid">{children}</div>
           </div>
-        </body>
-      </html>
-    </ThemeProvider>
+        </div>
+      </div>
+    </body>
   );
 };
 
