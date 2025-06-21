@@ -1,0 +1,11 @@
+query getFaqsPage($slug: String!) {
+  pages(filters: { Slug: { eq: $slug } }) {
+    Title
+    Subtitle
+    Description
+  }
+  faqs {
+    Title
+    Description
+  }
+}
