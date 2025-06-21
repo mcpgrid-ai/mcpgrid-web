@@ -1,18 +1,18 @@
 import { client } from '../client';
 import {
-  GetFaqsPage,
-  GetFaqsPageQuery,
-  GetFaqsPageQueryVariables,
+  GetPageFaqs,
+  GetPageFaqsQuery,
+  GetPageFaqsQueryVariables,
 } from '../__generated__/query';
 
-export const getFaqs = async (variables: GetFaqsPageQueryVariables) => {
+export const getFaqs = async (variables: GetPageFaqsQueryVariables) => {
   try {
     const { data, error } = await client.query<
-      GetFaqsPageQuery,
-      GetFaqsPageQueryVariables
+      GetPageFaqsQuery,
+      GetPageFaqsQueryVariables
     >({
       variables,
-      query: GetFaqsPage,
+      query: GetPageFaqs,
     });
 
     if (error) throw new Error(error.message);

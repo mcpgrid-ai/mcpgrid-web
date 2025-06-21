@@ -2,16 +2,17 @@ import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { strapi } from '@network/strapi';
 
-import { Heading, Row } from '@core/uikit';
+import { Button, Heading, Row } from '@core/uikit';
 
 const Faq: FC = async () => {
   const {
-    data: { faqs, pages },
+    data: {
+      faqs,
+      pages: [page],
+    },
   } = await strapi.page.getFaqs({
     slug: 'faqs',
   });
-
-  const page = pages[0];
 
   return (
     <Fragment>
@@ -26,31 +27,31 @@ const Faq: FC = async () => {
                 <h5>{page?.Subtitle}</h5>
                 <p className="text-muted">{page?.Description}</p>
                 <div>
-                  <button
-                    type="button"
-                    className="btn btn-primary mt-2 me-2 waves-effect waves-light"
+                  <Button
+                    variant="primary"
+                    className="mt-2 me-2 waves-effect waves-light"
                   >
                     Contact Us
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-success mt-2 waves-effect waves-light"
+                  </Button>
+                  <Button
+                    variant="success"
+                    className="mt-2 waves-effect waves-light"
                   >
                     Send us a tweet
-                  </button>
+                  </Button>
                 </div>
               </div>
             </Row.Col>
           </Row>
         </Row.Col>
       </Row>
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="row mt-5">
+      <Row>
+        <Row.Col lg={12}>
+          <Row className="mt-5">
             {faqs.map((item, index) => {
               if (item) {
                 return (
-                  <div className="col-xl-4 col-sm-6" key={item.Title}>
+                  <Row.Col key={item.Title} xl={4} sm={6}>
                     <div className="card">
                       <div className="card-body overflow-hidden position-relative">
                         <div>
@@ -65,13 +66,13 @@ const Faq: FC = async () => {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </Row.Col>
                 );
               }
             })}
-          </div>
-        </div>
-      </div>
+          </Row>
+        </Row.Col>
+      </Row>
     </Fragment>
   );
 };

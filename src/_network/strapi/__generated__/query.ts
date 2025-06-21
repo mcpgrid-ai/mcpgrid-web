@@ -72,6 +72,12 @@ export type DeleteMutationResponse = {
   documentId: Scalars['ID']['output'];
 };
 
+export enum Enum_Page_Icon {
+  HelpCircle = 'help_circle',
+  Home = 'home',
+  MessageSquare = 'message_square'
+}
+
 export type Faq = {
   __typename?: 'Faq';
   Description: Scalars['String']['output'];
@@ -435,6 +441,8 @@ export type MutationUpdateUsersPermissionsUserArgs = {
 export type Page = {
   __typename?: 'Page';
   Description?: Maybe<Scalars['String']['output']>;
+  Icon?: Maybe<Enum_Page_Icon>;
+  Navigation?: Maybe<Scalars['Boolean']['output']>;
   Slug: Scalars['String']['output'];
   Subtitle?: Maybe<Scalars['String']['output']>;
   Title: Scalars['String']['output'];
@@ -452,6 +460,8 @@ export type PageEntityResponseCollection = {
 
 export type PageFiltersInput = {
   Description?: InputMaybe<StringFilterInput>;
+  Icon?: InputMaybe<StringFilterInput>;
+  Navigation?: InputMaybe<BooleanFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Subtitle?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
@@ -466,6 +476,8 @@ export type PageFiltersInput = {
 
 export type PageInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
+  Icon?: InputMaybe<Enum_Page_Icon>;
+  Navigation?: InputMaybe<Scalars['Boolean']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Subtitle?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
@@ -1086,16 +1098,16 @@ export type UsersPermissionsUserRelationResponseCollection = {
   nodes: Array<UsersPermissionsUser>;
 };
 
-export type GetFaqsPageQueryVariables = Exact<{
+export type GetPageFaqsQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetFaqsPageQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null> };
+export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null> };
 
 
-export const GetFaqsPage = gql`
-    query getFaqsPage($slug: String!) {
+export const GetPageFaqs = gql`
+    query getPageFaqs($slug: String!) {
   pages(filters: {Slug: {eq: $slug}}) {
     Title
     Subtitle

@@ -1,4 +1,4 @@
-query getFaqsPage($slug: String!) {
+query getPageFaqs($slug: String!) {
   pages(filters: { Slug: { eq: $slug } }) {
     Title
     Subtitle
