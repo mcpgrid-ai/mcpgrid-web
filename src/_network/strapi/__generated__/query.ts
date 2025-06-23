@@ -1115,19 +1115,20 @@ export type UsersPermissionsUserRelationResponseCollection = {
 };
 
 export type GetPageFaqsQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
+export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
 
 
 export const GetPageFaqs = gql`
-    query getPageFaqs($slug: String!) {
-  pages(filters: {Slug: {eq: $slug}}) {
+    query getPageFaqs($slug: [String]!) {
+  pages(filters: {Slug: {in: $slug}}) {
     Title
     Subtitle
     Description
+    Slug
   }
   faqs {
     Title

@@ -9,25 +9,25 @@ import { AppRoutePath } from '@app/common';
 
 const Faq: FC = async () => {
   const {
-    data: {
-      faqs,
-      social,
-      pages: [page],
-    },
+    data: { faqs: list, social, pages },
   } = await strapi.page.getFaqs({
-    slug: 'faqs',
+    slug: ['faqs', 'home'],
   });
+
+  const faqs = pages.find((item) => item && item.Slug === 'faqs');
+
+  const home = pages.find((item) => item && item.Slug === 'home');
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{page?.Title}</Heading.Title>
+        <Heading.Title>{faqs?.Title}</Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={AppRoutePath.Index}>
-            Home
+            {home?.Title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {page?.Title}
+            {faqs?.Title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
@@ -36,9 +36,9 @@ const Faq: FC = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <Typography as="h5">{page?.Subtitle}</Typography>
+                <Typography as="h5">{faqs?.Subtitle}</Typography>
                 <Typography className="text-muted">
-                  {page?.Description}
+                  {faqs?.Description}
                 </Typography>
                 <div>
                   <Button
@@ -69,7 +69,7 @@ const Faq: FC = async () => {
       <Row>
         <Row.Col lg={12}>
           <Row className="mt-5 gy-4">
-            {faqs.map((item, index) => {
+            {list.map((item, index) => {
               if (item) {
                 return (
                   <Row.Col key={item.Title} xl={4} sm={6}>
