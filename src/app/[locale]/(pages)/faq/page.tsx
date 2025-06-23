@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { padStart } from 'lodash';
+import { getTranslations } from 'next-intl/server';
 
 import { strapi } from '@network/strapi';
 import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
@@ -13,6 +14,8 @@ const Faq: FC = async () => {
   } = await strapi.page.getFaqs({
     slug: ['faqs', 'home'],
   });
+
+  const t = await getTranslations();
 
   const faqs = pages.find((item) => item && item.Slug === 'faqs');
 
@@ -47,7 +50,7 @@ const Faq: FC = async () => {
                     variant="primary"
                     className="mt-2 me-2 waves-effect waves-light"
                   >
-                    Contact Us
+                    {t('actions.contactUs')}
                   </Button>
                   {social?.X && (
                     <Button
@@ -57,7 +60,7 @@ const Faq: FC = async () => {
                       variant="success"
                       className="mt-2 waves-effect waves-light"
                     >
-                      Send us a tweet
+                      {t('actions.sendUsTweet')}
                     </Button>
                   )}
                 </div>
