@@ -6,7 +6,6 @@ import { HeadingTitle } from './HeadingTitle';
 import { HeadingBreadcrumb } from './HeadingBreadcrumb';
 
 const chevron = icon(faChevronRight).html[0];
-console.log(chevron);
 const chevronBase64 = Buffer.from(chevron).toString('base64');
 
 export type HeadingProps = PropsWithChildren;
