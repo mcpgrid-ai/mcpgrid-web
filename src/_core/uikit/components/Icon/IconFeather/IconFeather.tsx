@@ -5,8 +5,14 @@ import { IconFeatherName } from './IconFeather.types';
 
 export interface IconFeatherProps {
   name: IconFeatherName;
+  className?: string;
+  size?: number;
 }
 
-export const IconFeather: FC<IconFeatherProps> = ({ name }) => {
-  return createElement(ICON_FEATHER[name]);
+export const IconFeather: FC<IconFeatherProps> = ({
+  name,
+  className,
+  size,
+}) => {
+  return createElement(ICON_FEATHER[name], { className, size });
 };

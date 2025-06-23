@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react';
 import { padStart } from 'lodash';
 
 import { strapi } from '@network/strapi';
-import { Button, Card, Heading, Row, Typography } from '@core/uikit';
+import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
 import { AppRoutePath } from '@app/common';
 
@@ -68,15 +68,19 @@ const Faq: FC = async () => {
       </Row>
       <Row>
         <Row.Col lg={12}>
-          <Row className="mt-5">
+          <Row className="mt-5 gy-4">
             {faqs.map((item, index) => {
               if (item) {
                 return (
                   <Row.Col key={item.Title} xl={4} sm={6}>
-                    <Card>
+                    <Card classNames="m-0 h-100">
                       <Card.Body className="overflow-hidden position-relative">
                         <div>
-                          <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
+                          <Icon.Feather
+                            size={80}
+                            name="help-circle"
+                            className="widget-box-1-icon text-primary"
+                          />
                         </div>
                         <div className="faq-count">
                           <Typography className="text-primary" as="h5">
