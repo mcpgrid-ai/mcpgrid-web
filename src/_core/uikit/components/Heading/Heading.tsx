@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactElement } from 'react';
 
-import { HeadingTitle } from './HeadingTitle/HeadingTitle';
+import { HeadingTitle } from './HeadingTitle';
 
 export type HeadingProps = PropsWithChildren;
 

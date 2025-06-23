@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
-import { strapi } from '@network/strapi';
 
-import { Button, Card, Heading, Row } from '@core/uikit';
+import { strapi } from '@network/strapi';
+import { Button, Card, Heading, Row, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
 import { AppRoutePath } from '@app/common';
 
@@ -27,8 +27,10 @@ const Faq: FC = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <h5>{page?.Subtitle}</h5>
-                <p className="text-muted">{page?.Description}</p>
+                <Typography as="h5">{page?.Subtitle}</Typography>
+                <Typography className="text-muted">
+                  {page?.Description}
+                </Typography>
                 <div>
                   <Button
                     as={Link}
@@ -68,12 +70,17 @@ const Faq: FC = async () => {
                           <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
                         </div>
                         <div className="faq-count">
-                          <h5 className="text-primary">{`0${index + 1}.`}</h5>
+                          <Typography
+                            className="text-primary"
+                            as="h5"
+                          >{`0${index + 1}.`}</Typography>
                         </div>
-                        <h5 className="mt-3">{item.Title}</h5>
-                        <p className="text-muted mt-3 mb-0">
+                        <Typography className="mt-3" as="h5">
+                          {item.Title}
+                        </Typography>
+                        <Typography className="text-muted mt-3 mb-0">
                           {item.Description}
-                        </p>
+                        </Typography>
                       </Card.Body>
                     </Card>
                   </Row.Col>

@@ -23,7 +23,7 @@ export const Header: FC = () => {
           </div>
 
           <div className="d-flex">
-            <div className="dropdown d-inline-block d-lg-none ms-2">
+            {/* <div className="dropdown d-inline-block d-lg-none ms-2">
               <button
                 type="button"
                 className="btn header-item"
@@ -314,7 +314,7 @@ export const Header: FC = () => {
                   Logout
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
