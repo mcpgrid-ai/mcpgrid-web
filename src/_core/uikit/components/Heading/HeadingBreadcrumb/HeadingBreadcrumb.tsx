@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { PropsWithChildren, ReactElement } from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
+import styles from '../Heading.module.scss';
+
 import { HeadingBreadcrumbItem } from './HeadingBreadcrumbItem';
 
 type HeadingBreadcrumbProps = PropsWithChildren<{
@@ -19,7 +21,7 @@ export const HeadingBreadcrumb: HeadingBreadcrumbComponent = ({
 }) => {
   return (
     <div className="page-title-right">
-      <Breadcrumb className={classNames('m-0', className)}>
+      <Breadcrumb className={classNames('m-0', styles.breadcrumb, className)}>
         {children}
       </Breadcrumb>
     </div>

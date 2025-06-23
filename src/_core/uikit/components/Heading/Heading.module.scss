@@ -1,0 +1,9 @@
+.breadcrumb {
+  .item {
+    + .item {
+      &:before {
+        --bs-breadcrumb-divider: '/';
+      }
+    }
+  }
+}

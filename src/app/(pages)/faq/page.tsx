@@ -23,7 +23,9 @@ const Faq: FC = async () => {
       <Heading>
         <Heading.Title>{page?.Title}</Heading.Title>
         <Heading.Breadcrumb>
-          <Heading.Breadcrumb.Item>Home</Heading.Breadcrumb.Item>
+          <Heading.Breadcrumb.Item as={Link} pathname={AppRoutePath.Index}>
+            Home
+          </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
             {page?.Title}
           </Heading.Breadcrumb.Item>
