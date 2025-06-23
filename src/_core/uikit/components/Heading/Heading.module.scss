@@ -2,7 +2,8 @@
   .item {
     + .item {
       &:before {
-        --bs-breadcrumb-divider: '/';
+        width: 14px;
+        fill: currentColor;
       }
     }
   }
