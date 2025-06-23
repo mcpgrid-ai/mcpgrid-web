@@ -6,20 +6,50 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen:strapi": "graphql-codegen --config ./strapi.config.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.10.0",
+    "bootstrap": "^5.3.7",
+    "classnames": "^2.5.1",
+    "graphql": "^16.11.0",
+    "lodash": "^4.17.21",
+    "next": "15.3.4",
+    "next-intl": "^4.3.0",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.10",
+    "react-bootstrap-icons": "^1.11.6",
     "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "react-feather": "^2.0.10",
+    "react-router": "^7.6.2",
+    "scheduler": "^0.26.0",
+    "use-context-selector": "^2.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@faker-js/faker": "^9.8.0",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/client-preset": "^4.8.2",
+    "@graphql-codegen/typescript-document-nodes": "^4.0.16",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-react-query": "^6.1.1",
+    "@types/lodash": "^4.17.18",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.5.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "@eslint/eslintrc": "^3"
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.5.0",
+    "prettier": "^3.5.3",
+    "sass": "^1.89.2",
+    "typescript": "^5"
   }
 }

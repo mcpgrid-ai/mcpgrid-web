@@ -1,0 +1,10 @@
+.breadcrumb {
+  .item {
+    + .item {
+      &:before {
+        width: 14px;
+        fill: currentColor;
+      }
+    }
+  }
+}
