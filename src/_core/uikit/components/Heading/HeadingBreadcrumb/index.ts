@@ -1,0 +1,1 @@
+export { HeadingBreadcrumb } from './HeadingBreadcrumb';

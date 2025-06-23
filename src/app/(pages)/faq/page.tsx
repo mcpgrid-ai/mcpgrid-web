@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
+import { padStart } from 'lodash';
 
 import { strapi } from '@network/strapi';
 import { Button, Card, Heading, Row, Typography } from '@core/uikit';
@@ -21,6 +22,12 @@ const Faq: FC = async () => {
     <Fragment>
       <Heading>
         <Heading.Title>{page?.Title}</Heading.Title>
+        <Heading.Breadcrumb>
+          <Heading.Breadcrumb.Item>Home</Heading.Breadcrumb.Item>
+          <Heading.Breadcrumb.Item active>
+            {page?.Title}
+          </Heading.Breadcrumb.Item>
+        </Heading.Breadcrumb>
       </Heading>
       <Row>
         <Row.Col lg={12}>
@@ -70,10 +77,9 @@ const Faq: FC = async () => {
                           <i className="bx bx-help-circle widget-box-1-icon text-primary"></i>
                         </div>
                         <div className="faq-count">
-                          <Typography
-                            className="text-primary"
-                            as="h5"
-                          >{`0${index + 1}.`}</Typography>
+                          <Typography className="text-primary" as="h5">
+                            {padStart(String(index + 1), 2, '0')}.
+                          </Typography>
                         </div>
                         <Typography className="mt-3" as="h5">
                           {item.Title}
