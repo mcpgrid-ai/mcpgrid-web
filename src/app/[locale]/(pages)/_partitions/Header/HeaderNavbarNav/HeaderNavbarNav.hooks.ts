@@ -1,21 +1,21 @@
 import { NavbarNavItem } from './HeaderNavbarNav.types';
 
-import { AppRoutePath } from '@app/common';
+import { RoutePath } from '@app/common';
 
 export const useNavbarNav = () => {
   const nav: NavbarNavItem[] = [
     {
-      href: AppRoutePath.Index,
+      href: RoutePath.Index,
       label: 'Home',
       icon: 'home',
     },
     {
-      href: AppRoutePath.Blog,
+      href: RoutePath.Blog,
       label: 'Blog',
       icon: 'message-square',
     },
     {
-      href: AppRoutePath.Faq,
+      href: RoutePath.Faqs,
       label: 'FAQ',
       icon: 'help-circle',
     },

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 const Home = () => {
-  return <Fragment>Footer</Fragment>;
+  return <Fragment>Home</Fragment>;
 };
 
 export default Home;

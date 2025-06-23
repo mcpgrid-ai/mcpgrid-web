@@ -1,6 +1,6 @@
-export enum AppRoutePath {
+export enum RoutePath {
   Index = '/',
-  Faq = '/faq',
+  Faqs = '/faqs',
   Blog = '/blog',
   BlogPost = '/blog/:slug',
   ContactUs = '/contact-us',
