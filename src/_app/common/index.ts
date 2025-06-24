@@ -1,4 +1,4 @@
 // Components
 
 // Constants
-export { AppRoutePath } from './constants/appRoutePath.const';
+export { RoutePath } from './constants/routePath.const';

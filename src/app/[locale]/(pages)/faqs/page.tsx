@@ -6,7 +6,7 @@ import { getTranslations } from 'next-intl/server';
 import { strapi } from '@network/strapi';
 import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
-import { AppRoutePath } from '@app/common';
+import { RoutePath } from '@app/common';
 
 const Faq: FC = async () => {
   const {
@@ -26,7 +26,7 @@ const Faq: FC = async () => {
       <Heading>
         <Heading.Title>{faqs?.Title}</Heading.Title>
         <Heading.Breadcrumb>
-          <Heading.Breadcrumb.Item as={Link} pathname={AppRoutePath.Index}>
+          <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
             {home?.Title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
@@ -46,7 +46,7 @@ const Faq: FC = async () => {
                 <div>
                   <Button
                     as={Link}
-                    pathname={AppRoutePath.ContactUs}
+                    pathname={RoutePath.ContactUs}
                     variant="primary"
                     className="mt-2 me-2 waves-effect waves-light"
                   >

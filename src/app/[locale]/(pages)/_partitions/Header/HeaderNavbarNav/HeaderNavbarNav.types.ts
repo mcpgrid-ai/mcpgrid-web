@@ -1,8 +1,8 @@
-import { AppRoutePath } from '@app/common';
+import { RoutePath } from '@app/common';
 import { IconFeatherName } from '@core/uikit';
 
 export interface NavbarNavItem {
-  href: AppRoutePath;
+  href: RoutePath;
   label: string;
   icon: IconFeatherName;
 }
