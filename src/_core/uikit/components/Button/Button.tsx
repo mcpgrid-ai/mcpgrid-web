@@ -4,7 +4,7 @@ import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
 import { ButtonVariant } from 'react-bootstrap/esm/types';
 
 export type ButtonProps = PropsWithChildren<{
-  variant: ButtonVariant;
+  variant?: ButtonVariant;
   className?: string;
 }>;
 
