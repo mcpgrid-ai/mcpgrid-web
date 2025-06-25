@@ -38,9 +38,9 @@ jobs:
         uses: google-github-actions/deploy-appengine@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          # env_vars: |-
-          #   DATABASE_URL=${{ secrets.DATABASE_URL }}
-          #   SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+          env_vars: |-
+            STRAPI_SCHEMA_URL=${{ secrets.STRAPI_SCHEMA_URL }}
+            STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}
 
       - name: Remove Cloud App Engine versions
         uses: Reviewable/appengine-remove-action@v2.1.2
