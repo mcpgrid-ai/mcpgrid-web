@@ -6,4 +6,5 @@ export enum RoutePath {
   Index = '/',
   SignIn = '/sign-in',
   SignUp = '/sign-up',
+  Dashboard = '/dashboard',
 }
