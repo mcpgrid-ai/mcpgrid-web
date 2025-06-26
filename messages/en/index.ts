@@ -1,5 +1,6 @@
 import { actions } from './actions';
+import { placeholders } from './placeholders';
 
-const messages = { actions };
+const messages = { actions, placeholders };
 
 export default messages;

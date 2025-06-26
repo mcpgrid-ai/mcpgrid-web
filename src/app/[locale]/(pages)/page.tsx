@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
+import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
@@ -45,9 +45,22 @@ const Home = async () => {
                     className="mt-2 me-2 waves-effect waves-light"
                   >
                     {t('actions.getStarted')}
-                    <Icon.Fa name="arrow-right" className="ms-2" />
+                    <Icon.Fa
+                      name="arrow-right"
+                      className="ms-2"
+                      height={13}
+                      width={13}
+                      fixedWidth
+                    />
                   </Button>
                 </div>
+                <Row className="justify-content-center">
+                  <Row.Col xl={10}>
+                    <form className="app-search d-none d-lg-block mt-4">
+                      <Searchbar placeholder={t('placeholders.search')} />
+                    </form>
+                  </Row.Col>
+                </Row>
               </div>
             </Row.Col>
           </Row>
