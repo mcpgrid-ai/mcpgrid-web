@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { padStart } from 'lodash';
-import { getTranslations } from 'next-intl/server';
 
+import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
 import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
