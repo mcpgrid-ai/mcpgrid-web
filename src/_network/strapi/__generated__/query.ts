@@ -106,6 +106,20 @@ export type FaqInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type Feature = {
+  __typename?: 'Feature';
+  Dashboard?: Maybe<Scalars['Boolean']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type FeatureInput = {
+  Dashboard?: InputMaybe<Scalars['Boolean']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']['input']>;
   caption?: InputMaybe<Scalars['String']['input']>;
@@ -137,7 +151,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Faq | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Faq | Feature | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -255,6 +269,7 @@ export type Mutation = {
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   deleteFaq?: Maybe<DeleteMutationResponse>;
+  deleteFeature?: Maybe<DeleteMutationResponse>;
   deletePage?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflow?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflowStage?: Maybe<DeleteMutationResponse>;
@@ -274,6 +289,7 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateFaq?: Maybe<Faq>;
+  updateFeature?: Maybe<Feature>;
   updatePage?: Maybe<Page>;
   updateReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
   updateReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
@@ -396,6 +412,12 @@ export type MutationUpdateFaqArgs = {
 };
 
 
+export type MutationUpdateFeatureArgs = {
+  data: FeatureInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type MutationUpdatePageArgs = {
   data: PageInput;
   documentId: Scalars['ID']['input'];
@@ -505,6 +527,7 @@ export type Query = {
   faq?: Maybe<Faq>;
   faqs: Array<Maybe<Faq>>;
   faqs_connection?: Maybe<FaqEntityResponseCollection>;
+  feature?: Maybe<Feature>;
   i18NLocale?: Maybe<I18NLocale>;
   i18NLocales: Array<Maybe<I18NLocale>>;
   i18NLocales_connection?: Maybe<I18NLocaleEntityResponseCollection>;
@@ -549,6 +572,11 @@ export type QueryFaqs_ConnectionArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryFeatureArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -1115,23 +1143,28 @@ export type UsersPermissionsUserRelationResponseCollection = {
 };
 
 export type GetPageFaqsQueryVariables = Exact<{
-  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+  slug: Scalars['String']['input'];
 }>;
 
 
 export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
 
 export type GetPageHomeQueryVariables = Exact<{
-  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+  slug: Scalars['String']['input'];
 }>;
 
 
 export type GetPageHomeQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Subtitle?: string | null, Description?: string | null, Slug: string } | null> };
 
+export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPageSignUpQuery = { __typename?: 'Query', feature?: { __typename?: 'Feature', Dashboard?: boolean | null } | null };
+
 
 export const GetPageFaqs = gql`
-    query getPageFaqs($slug: [String]!) {
-  pages(filters: {Slug: {in: $slug}}) {
+    query getPageFaqs($slug: String!) {
+  pages(filters: {Slug: {eq: $slug}}) {
     Title
     Subtitle
     Description
@@ -1147,11 +1180,18 @@ export const GetPageFaqs = gql`
 }
     `;
 export const GetPageHome = gql`
-    query getPageHome($slug: [String]!) {
-  pages(filters: {Slug: {in: $slug}}) {
+    query getPageHome($slug: String!) {
+  pages(filters: {Slug: {eq: $slug}}) {
     Subtitle
     Description
     Slug
+  }
+}
+    `;
+export const GetPageSignUp = gql`
+    query getPageSignUp {
+  feature {
+    Dashboard
   }
 }
     `;
