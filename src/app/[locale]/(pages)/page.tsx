@@ -56,8 +56,15 @@ const Home = async () => {
                 </div>
                 <Row className="justify-content-center">
                   <Row.Col xl={10}>
-                    <form className="app-search d-none d-lg-block mt-4">
-                      <Searchbar placeholder={t('placeholders.search')} />
+                    <form
+                      className="app-search d-none d-lg-block mt-4"
+                      method="get"
+                      action={RoutePath.Servers}
+                    >
+                      <Searchbar
+                        name="search"
+                        placeholder={t('placeholders.search')}
+                      />
                     </form>
                   </Row.Col>
                 </Row>
