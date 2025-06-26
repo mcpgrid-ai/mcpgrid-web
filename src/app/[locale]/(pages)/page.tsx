@@ -9,11 +9,7 @@ import { RoutePath } from '@app/common';
 const Home = async () => {
   const t = await getTranslations();
 
-  const {
-    data: {
-      pages: [home],
-    },
-  } = await strapi.page.getHome({
+  const { page, categories } = await strapi.page.getHome({
     slug: 'home',
   });
 
@@ -25,9 +21,9 @@ const Home = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <Typography as="h1">{home?.Subtitle}</Typography>
+                <Typography as="h1">{page?.Subtitle}</Typography>
                 <Typography className="text-muted font-size-16">
-                  {home?.Description}
+                  {page?.Description}
                 </Typography>
                 <div>
                   {/* <Button
@@ -71,6 +67,39 @@ const Home = async () => {
               </div>
             </Row.Col>
           </Row>
+        </Row.Col>
+      </Row>
+      <Row className="mt-5">
+        <Row.Col lg={12}>
+          {categories.map(({ serverCategory, servers_connection }) => {
+            return (
+              <Row
+                key={serverCategory?.Slug}
+                className="row align-items-center"
+              >
+                <Row.Col md={6}>
+                  <div className="mb-3">
+                    <Typography className="card-title" as="h5">
+                      {serverCategory?.Title}
+                      <span className="text-muted fw-normal ms-2">
+                        ({servers_connection?.pageInfo.total})
+                      </span>
+                    </Typography>
+                  </div>
+                </Row.Col>
+                <Row.Col md={6}>
+                  <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                    <Link
+                      pathname={RoutePath.Servers}
+                      query={{ category: serverCategory?.Slug }}
+                    >
+                      View all
+                    </Link>
+                  </div>
+                </Row.Col>
+              </Row>
+            );
+          })}
         </Row.Col>
       </Row>
     </Fragment>

@@ -108,7 +108,7 @@ export type FaqInput = {
 
 export type Feature = {
   __typename?: 'Feature';
-  Dashboard?: Maybe<Scalars['Boolean']['output']>;
+  Dashboard: Scalars['Boolean']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -151,7 +151,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Faq | Feature | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Faq | Feature | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Server | ServerCategory | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -264,6 +264,8 @@ export type Mutation = {
   createPage?: Maybe<Page>;
   createReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
   createReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
+  createServer?: Maybe<Server>;
+  createServerCategory?: Maybe<ServerCategory>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
@@ -273,6 +275,8 @@ export type Mutation = {
   deletePage?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflow?: Maybe<DeleteMutationResponse>;
   deleteReviewWorkflowsWorkflowStage?: Maybe<DeleteMutationResponse>;
+  deleteServer?: Maybe<DeleteMutationResponse>;
+  deleteServerCategory?: Maybe<DeleteMutationResponse>;
   deleteSocial?: Maybe<DeleteMutationResponse>;
   deleteUploadFile?: Maybe<UploadFile>;
   /** Delete an existing role */
@@ -293,6 +297,8 @@ export type Mutation = {
   updatePage?: Maybe<Page>;
   updateReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
   updateReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
+  updateServer?: Maybe<Server>;
+  updateServerCategory?: Maybe<ServerCategory>;
   updateSocial?: Maybe<Social>;
   updateUploadFile: UploadFile;
   /** Update an existing role */
@@ -333,6 +339,18 @@ export type MutationCreateReviewWorkflowsWorkflowStageArgs = {
 };
 
 
+export type MutationCreateServerArgs = {
+  data: ServerInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationCreateServerCategoryArgs = {
+  data: ServerCategoryInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
@@ -359,6 +377,16 @@ export type MutationDeleteReviewWorkflowsWorkflowArgs = {
 
 
 export type MutationDeleteReviewWorkflowsWorkflowStageArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteServerArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteServerCategoryArgs = {
   documentId: Scalars['ID']['input'];
 };
 
@@ -434,6 +462,20 @@ export type MutationUpdateReviewWorkflowsWorkflowArgs = {
 
 export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateServerArgs = {
+  data: ServerInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateServerCategoryArgs = {
+  data: ServerCategoryInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
@@ -541,6 +583,12 @@ export type Query = {
   reviewWorkflowsWorkflowStages_connection?: Maybe<ReviewWorkflowsWorkflowStageEntityResponseCollection>;
   reviewWorkflowsWorkflows: Array<Maybe<ReviewWorkflowsWorkflow>>;
   reviewWorkflowsWorkflows_connection?: Maybe<ReviewWorkflowsWorkflowEntityResponseCollection>;
+  server?: Maybe<Server>;
+  serverCategories: Array<Maybe<ServerCategory>>;
+  serverCategories_connection?: Maybe<ServerCategoryEntityResponseCollection>;
+  serverCategory?: Maybe<ServerCategory>;
+  servers: Array<Maybe<Server>>;
+  servers_connection?: Maybe<ServerEntityResponseCollection>;
   social?: Maybe<Social>;
   uploadFile?: Maybe<UploadFile>;
   uploadFiles: Array<Maybe<UploadFile>>;
@@ -663,6 +711,50 @@ export type QueryReviewWorkflowsWorkflowsArgs = {
 
 export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServerArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServerCategoriesArgs = {
+  filters?: InputMaybe<ServerCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServerCategories_ConnectionArgs = {
+  filters?: InputMaybe<ServerCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServerCategoryArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServersArgs = {
+  filters?: InputMaybe<ServerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryServers_ConnectionArgs = {
+  filters?: InputMaybe<ServerFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
@@ -834,6 +926,77 @@ export type ReviewWorkflowsWorkflowStageInput = {
 export type ReviewWorkflowsWorkflowStageRelationResponseCollection = {
   __typename?: 'ReviewWorkflowsWorkflowStageRelationResponseCollection';
   nodes: Array<ReviewWorkflowsWorkflowStage>;
+};
+
+export type Server = {
+  __typename?: 'Server';
+  Category?: Maybe<ServerCategory>;
+  Slug: Scalars['String']['output'];
+  Title: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ServerCategory = {
+  __typename?: 'ServerCategory';
+  Slug: Scalars['String']['output'];
+  Title: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ServerCategoryEntityResponseCollection = {
+  __typename?: 'ServerCategoryEntityResponseCollection';
+  nodes: Array<ServerCategory>;
+  pageInfo: Pagination;
+};
+
+export type ServerCategoryFiltersInput = {
+  Slug?: InputMaybe<StringFilterInput>;
+  Title?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ServerCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ServerCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ServerCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ServerCategoryInput = {
+  Slug?: InputMaybe<Scalars['String']['input']>;
+  Title?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ServerEntityResponseCollection = {
+  __typename?: 'ServerEntityResponseCollection';
+  nodes: Array<Server>;
+  pageInfo: Pagination;
+};
+
+export type ServerFiltersInput = {
+  Category?: InputMaybe<ServerCategoryFiltersInput>;
+  Slug?: InputMaybe<StringFilterInput>;
+  Title?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ServerFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ServerInput = {
+  Category?: InputMaybe<Scalars['ID']['input']>;
+  Slug?: InputMaybe<Scalars['String']['input']>;
+  Title?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type Social = {
@@ -1143,7 +1306,7 @@ export type UsersPermissionsUserRelationResponseCollection = {
 };
 
 export type GetPageFaqsQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1156,15 +1319,27 @@ export type GetPageHomeQueryVariables = Exact<{
 
 export type GetPageHomeQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Subtitle?: string | null, Description?: string | null, Slug: string } | null> };
 
+export type GetPageHomeServerCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPageHomeServerCategoriesQuery = { __typename?: 'Query', serverCategories: Array<{ __typename?: 'ServerCategory', documentId: string, Title: string, Slug: string } | null> };
+
+export type GetPageHomeServersQueryVariables = Exact<{
+  documentId: Scalars['ID']['input'];
+}>;
+
+
+export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
+
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPageSignUpQuery = { __typename?: 'Query', feature?: { __typename?: 'Feature', Dashboard?: boolean | null } | null };
+export type GetPageSignUpQuery = { __typename?: 'Query', feature?: { __typename?: 'Feature', Dashboard: boolean } | null };
 
 
 export const GetPageFaqs = gql`
-    query getPageFaqs($slug: String!) {
-  pages(filters: {Slug: {eq: $slug}}) {
+    query getPageFaqs($slug: [String]!) {
+  pages(filters: {Slug: {in: $slug}}) {
     Title
     Subtitle
     Description
@@ -1185,6 +1360,35 @@ export const GetPageHome = gql`
     Subtitle
     Description
     Slug
+  }
+}
+    `;
+export const GetPageHomeServerCategories = gql`
+    query getPageHomeServerCategories {
+  serverCategories {
+    documentId
+    Title
+    Slug
+  }
+}
+    `;
+export const GetPageHomeServers = gql`
+    query getPageHomeServers($documentId: ID!) {
+  serverCategory(documentId: $documentId) {
+    Title
+    Slug
+  }
+  servers(
+    filters: {Category: {documentId: {eq: $documentId}}}
+    pagination: {limit: 4}
+  ) {
+    Title
+    Slug
+  }
+  servers_connection(filters: {Category: {documentId: {eq: $documentId}}}) {
+    pageInfo {
+      total
+    }
   }
 }
     `;

@@ -1,5 +1,5 @@
 import { client } from '../client';
 
-import * as page from './pages.service';
+import * as page from './pages';
 
 export { page, client };
