@@ -74,7 +74,7 @@ export type DeleteMutationResponse = {
 
 export type Faq = {
   __typename?: 'Faq';
-  Description: Scalars['String']['output'];
+  Description?: Maybe<Scalars['String']['output']>;
   Title: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
@@ -931,6 +931,7 @@ export type ReviewWorkflowsWorkflowStageRelationResponseCollection = {
 export type Server = {
   __typename?: 'Server';
   Category?: Maybe<ServerCategory>;
+  Description?: Maybe<Scalars['String']['output']>;
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -981,6 +982,7 @@ export type ServerEntityResponseCollection = {
 
 export type ServerFiltersInput = {
   Category?: InputMaybe<ServerCategoryFiltersInput>;
+  Description?: InputMaybe<StringFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
@@ -994,6 +996,7 @@ export type ServerFiltersInput = {
 
 export type ServerInput = {
   Category?: InputMaybe<Scalars['ID']['input']>;
+  Description?: InputMaybe<Scalars['String']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1310,33 +1313,28 @@ export type GetPageFaqsQueryVariables = Exact<{
 }>;
 
 
-export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
+export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description?: string | null } | null>, social?: { __typename?: 'Social', X: string } | null };
 
 export type GetPageHomeQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetPageHomeQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Subtitle?: string | null, Description?: string | null, Slug: string } | null> };
-
-export type GetPageHomeServerCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPageHomeServerCategoriesQuery = { __typename?: 'Query', serverCategories: Array<{ __typename?: 'ServerCategory', documentId: string, Title: string, Slug: string } | null> };
+export type GetPageHomeQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Subtitle?: string | null, Description?: string | null, Slug: string } | null>, serverCategories: Array<{ __typename?: 'ServerCategory', documentId: string, Title: string, Slug: string } | null> };
 
 export type GetPageHomeServersQueryVariables = Exact<{
   documentId: Scalars['ID']['input'];
 }>;
 
 
-export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
+export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
 
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description: string } | null>, social?: { __typename?: 'Social', X: string } | null };
+export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description?: string | null } | null>, social?: { __typename?: 'Social', X: string } | null };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1368,10 +1366,6 @@ export const GetPageHome = gql`
     Description
     Slug
   }
-}
-    `;
-export const GetPageHomeServerCategories = gql`
-    query getPageHomeServerCategories {
   serverCategories {
     documentId
     Title
@@ -1391,6 +1385,7 @@ export const GetPageHomeServers = gql`
   ) {
     Title
     Slug
+    Description
   }
   servers_connection(filters: {Category: {documentId: {eq: $documentId}}}) {
     pageInfo {

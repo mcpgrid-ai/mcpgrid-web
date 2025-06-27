@@ -4,9 +4,6 @@ query getPageHome($slug: String!) {
     Description
     Slug
   }
-}
-
-query getPageHomeServerCategories {
   serverCategories {
     documentId
     Title
@@ -25,6 +22,7 @@ query getPageHomeServers($documentId: ID!) {
   ) {
     Title
     Slug
+    Description
   }
   servers_connection(
     filters: { Category: { documentId: { eq: $documentId } } }

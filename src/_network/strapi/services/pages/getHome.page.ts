@@ -3,9 +3,6 @@ import {
   GetPageHome,
   GetPageHomeQuery,
   GetPageHomeQueryVariables,
-  GetPageHomeServerCategories,
-  GetPageHomeServerCategoriesQuery,
-  GetPageHomeServerCategoriesQueryVariables,
   GetPageHomeServers,
   GetPageHomeServersQuery,
   GetPageHomeServersQueryVariables,
@@ -16,25 +13,12 @@ export const getHome = async (variables: GetPageHomeQueryVariables) => {
     const {
       data: {
         pages: [page],
+        serverCategories,
       },
     } = await client.query<GetPageHomeQuery, GetPageHomeQueryVariables>({
       variables,
       query: GetPageHome,
     });
-
-    const categoriesRequest = client.query<
-      GetPageHomeServerCategoriesQuery,
-      GetPageHomeServerCategoriesQueryVariables
-    >({
-      variables: {},
-      query: GetPageHomeServerCategories,
-    });
-
-    const [
-      {
-        data: { serverCategories },
-      },
-    ] = await Promise.all([categoriesRequest]);
 
     const serversRequests = serverCategories.map((item) => {
       if (item) {
@@ -58,8 +42,6 @@ export const getHome = async (variables: GetPageHomeQueryVariables) => {
       }
       return res;
     }, [] as GetPageHomeServersQuery[]);
-
-    console.log(categories);
 
     return { page, categories };
   } catch (error) {
