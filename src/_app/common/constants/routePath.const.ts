@@ -8,4 +8,5 @@ export enum RoutePath {
   SignUp = '/sign-up',
   Dashboard = '/dashboard',
   Servers = '/servers',
+  ServerDetails = '/servers/:slug',
 }

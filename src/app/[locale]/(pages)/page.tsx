@@ -1,8 +1,17 @@
 import { Fragment } from 'react';
+import { ServerCard } from '@common/components';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
 
-import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
+import {
+  Button,
+  Card,
+  Heading,
+  Icon,
+  Row,
+  Searchbar,
+  Typography,
+} from '@core/uikit';
 import { Link } from '@app/navigation';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
@@ -73,7 +82,7 @@ const Home = async () => {
       </Row>
       <Row className="mt-5">
         <Row.Col lg={12}>
-          {categories.map(({ serverCategory, servers_connection }) => {
+          {categories.map(({ serverCategory, servers_connection, servers }) => {
             return (
               <ServerCategorySection
                 key={serverCategory?.Slug}
@@ -81,35 +90,23 @@ const Home = async () => {
                 title={serverCategory?.Title}
                 count={servers_connection?.pageInfo.total}
               >
-                123
+                <Row>
+                  {servers.map((item) => {
+                    return (
+                      <Row.Col
+                        sm={6}
+                        xs={12}
+                        md={6}
+                        lg={4}
+                        xl={3}
+                        key={item?.Slug}
+                      >
+                        <ServerCard title={item?.Title} slug={item?.Slug} />
+                      </Row.Col>
+                    );
+                  })}
+                </Row>
               </ServerCategorySection>
-            );
-            return (
-              <Row
-                key={serverCategory?.Slug}
-                className="row align-items-center"
-              >
-                <Row.Col md={6}>
-                  <div className="mb-3">
-                    <Typography className="card-title" as="h5">
-                      {serverCategory?.Title}
-                      <span className="text-muted fw-normal ms-2">
-                        ({servers_connection?.pageInfo.total})
-                      </span>
-                    </Typography>
-                  </div>
-                </Row.Col>
-                <Row.Col md={6}>
-                  <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-                    <Link
-                      pathname={RoutePath.Servers}
-                      query={{ category: serverCategory?.Slug }}
-                    >
-                      View all
-                    </Link>
-                  </div>
-                </Row.Col>
-              </Row>
             );
           })}
         </Row.Col>
