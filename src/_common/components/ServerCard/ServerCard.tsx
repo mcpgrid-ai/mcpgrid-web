@@ -7,18 +7,30 @@ import styles from './ServerCard.module.scss';
 import { Link } from '@core/navigation';
 import { Card, Row } from '@core/uikit';
 import { Avatar } from '@core/uikit/components/Avatar';
+import { Iconify } from '@core/uikit/components/Iconify';
+import { Image } from '@network/strapi';
 
 interface ServerCardProps {
   description?: string | null;
   title?: string;
   slug?: string;
+  icon?: string;
+  logo?: string;
 }
 
 export const ServerCard: FC<ServerCardProps> = ({
   slug,
   title,
   description,
+  icon,
+  logo,
 }) => {
+  const avatar = (() => {
+    if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
+    if (icon) return <Iconify name={icon} size={20} />;
+    return null;
+  })();
+
   return (
     <Card
       as={Link}
@@ -28,8 +40,8 @@ export const ServerCard: FC<ServerCardProps> = ({
     >
       <Card.Body className="px-3 py-3">
         <Row className="gx-3 flex-nowrap">
-          <Row.Col lg="auto" className="flex-grow-0">
-            <Avatar>1</Avatar>
+          <Row.Col xs="auto" className="flex-grow-0">
+            <Avatar>{avatar}</Avatar>
           </Row.Col>
           <Row.Col className="flex-grow-1">
             <Card.Title>{title}</Card.Title>

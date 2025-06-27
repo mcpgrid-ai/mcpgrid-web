@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
-import { RoutePath } from '@common/constants';
 
+import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { Button, Icon, Row, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';

@@ -1,9 +1,10 @@
 import { Fragment } from 'react';
-import { ServerCard } from '@common/components';
-import { RoutePath } from '@common/constants';
+import classNames from 'classnames';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
 
+import { ServerCard } from '@common/components';
+import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
@@ -83,7 +84,7 @@ const Home = async () => {
                 count={servers_connection?.pageInfo.total}
               >
                 <Row>
-                  {servers.map((item) => {
+                  {servers.map((item, index, arr) => {
                     return (
                       <Row.Col
                         sm={6}
@@ -92,11 +93,19 @@ const Home = async () => {
                         lg={4}
                         xl={3}
                         key={item?.Slug}
+                        className={classNames({
+                          'd-xl-block':
+                            arr.length === 4 && index === arr.length - 1,
+                          'd-lg-none':
+                            arr.length === 4 && index === arr.length - 1,
+                        })}
                       >
                         <ServerCard
+                          icon={serverCategory?.Icon?.iconName}
                           title={item?.Title}
                           slug={item?.Slug}
                           description={item?.Description}
+                          logo={item?.Logo?.url}
                         />
                       </Row.Col>
                     );

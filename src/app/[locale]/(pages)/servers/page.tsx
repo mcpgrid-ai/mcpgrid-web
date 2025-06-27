@@ -1,6 +1,6 @@
 import { FC, Fragment } from 'react';
-import { RoutePath } from '@common/constants';
 
+import { RoutePath } from '@common/constants';
 import { Heading } from '@core/uikit';
 import { Link } from '@core/navigation';
 import { strapi } from '@network/strapi';

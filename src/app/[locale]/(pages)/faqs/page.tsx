@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { padStart } from 'lodash';
-import { RoutePath } from '@common/constants';
 
+import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
