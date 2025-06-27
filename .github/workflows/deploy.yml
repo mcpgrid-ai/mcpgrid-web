@@ -3,6 +3,10 @@ name: Deploy
 on:
   push:
     branches: main
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
 
 jobs:
   deploy:
