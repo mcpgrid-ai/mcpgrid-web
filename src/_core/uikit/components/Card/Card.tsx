@@ -1,5 +1,6 @@
-import { PropsWithChildren, ReactElement } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 import BsCard from 'react-bootstrap/Card';
+import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
 
 import { CardBody } from './CardBody';
 import { CardTitle } from './CardTitle';
@@ -8,15 +9,24 @@ export type CardProps = PropsWithChildren<{
   classNames?: string;
 }>;
 
-interface CardComponent {
-  (props: CardProps): ReactElement;
+type CardComponent = BsPrefixRefForwardingComponent<'div', CardProps> & {
   Body: typeof CardBody;
   Title: typeof CardTitle;
-}
-
-export const Card: CardComponent = ({ children, classNames }) => {
-  return <BsCard className={classNames}>{children}</BsCard>;
 };
+
+// @ts-expect-error x3 error
+export const Card: CardComponent = forwardRef(function Card(
+  // @ts-expect-error x3 error
+  { className, children, ...props },
+  ref,
+) {
+  return (
+    // @ts-expect-error x3 error
+    <BsCard ref={ref} className={className} {...props}>
+      {children}
+    </BsCard>
+  );
+});
 
 Card.Body = CardBody;
 Card.Title = CardTitle;
