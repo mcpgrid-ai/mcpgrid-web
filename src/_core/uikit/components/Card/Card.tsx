@@ -1,6 +1,7 @@
 import { forwardRef, PropsWithChildren } from 'react';
 import BsCard from 'react-bootstrap/Card';
 import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
+import classNames from 'classnames';
 
 import { CardBody } from './CardBody';
 import { CardTitle } from './CardTitle';
@@ -24,7 +25,7 @@ export const Card: CardComponent = forwardRef(function Card(
 ) {
   return (
     // @ts-expect-error x3 error
-    <BsCard ref={ref} className={className} {...props}>
+    <BsCard ref={ref} className={classNames('mb-0', className)} {...props}>
       {children}
     </BsCard>
   );

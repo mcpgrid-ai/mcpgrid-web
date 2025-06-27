@@ -76,7 +76,7 @@ const Faq: FC = async () => {
               if (item) {
                 return (
                   <Row.Col key={item.Title} xl={4} sm={6}>
-                    <Card classNames="m-0 h-100">
+                    <Card className="h-100">
                       <Card.Body className="overflow-hidden position-relative">
                         <div>
                           <Icon.Feather

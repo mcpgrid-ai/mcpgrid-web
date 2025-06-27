@@ -20,7 +20,7 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
   const t = await getTranslations();
 
   return (
-    <Row className="mb-4">
+    <Row className="mb-5">
       <Row.Col lg={12}>
         <Row className="row align-items-center mb-2">
           <Row.Col md={6}>

@@ -4,7 +4,7 @@ query getPageHome($slug: String!) {
     Description
     Slug
   }
-  serverCategories {
+  serverCategories(pagination: { limit: 100 }) {
     documentId
     Title
     Slug

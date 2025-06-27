@@ -1390,7 +1390,7 @@ export const GetPageHome = gql`
       Description
       Slug
     }
-    serverCategories {
+    serverCategories(pagination: { limit: 100 }) {
       documentId
       Title
       Slug

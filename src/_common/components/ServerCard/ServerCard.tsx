@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import classNames from 'classnames';
 
 import { RoutePath } from '../../constants';
 
@@ -16,6 +17,7 @@ interface ServerCardProps {
   slug?: string;
   icon?: string;
   logo?: string;
+  className?: string;
 }
 
 export const ServerCard: FC<ServerCardProps> = async ({
@@ -24,6 +26,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
   description,
   icon,
   logo,
+  className,
 }) => {
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
@@ -36,7 +39,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
       as={Link}
       pathname={RoutePath.ServerDetails}
       params={{ slug }}
-      className={styles.root}
+      className={classNames(styles.root, className)}
     >
       <Card.Body className="px-3 py-3">
         <Row className="gx-3 flex-nowrap">
