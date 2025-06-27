@@ -4,6 +4,7 @@ import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
 
 import { CardBody } from './CardBody';
 import { CardTitle } from './CardTitle';
+import { CardText } from './CardText';
 
 export type CardProps = PropsWithChildren<{
   classNames?: string;
@@ -12,6 +13,7 @@ export type CardProps = PropsWithChildren<{
 type CardComponent = BsPrefixRefForwardingComponent<'div', CardProps> & {
   Body: typeof CardBody;
   Title: typeof CardTitle;
+  Text: typeof CardText;
 };
 
 // @ts-expect-error x3 error
@@ -30,3 +32,4 @@ export const Card: CardComponent = forwardRef(function Card(
 
 Card.Body = CardBody;
 Card.Title = CardTitle;
+Card.Text = CardText;

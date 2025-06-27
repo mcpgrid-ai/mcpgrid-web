@@ -93,7 +93,11 @@ const Home = async () => {
                         xl={3}
                         key={item?.Slug}
                       >
-                        <ServerCard title={item?.Title} slug={item?.Slug} />
+                        <ServerCard
+                          title={item?.Title}
+                          slug={item?.Slug}
+                          description={item?.Description}
+                        />
                       </Row.Col>
                     );
                   })}
