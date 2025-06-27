@@ -1,20 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  DateTime: { input: any; output: any; }
-  JSON: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  DateTime: { input: any; output: any };
+  JSON: { input: any; output: any };
 };
 
 export type BooleanFilterInput = {
@@ -151,7 +165,20 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Faq | Feature | I18NLocale | Page | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Server | ServerCategory | Social | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph =
+  | Faq
+  | Feature
+  | I18NLocale
+  | Page
+  | ReviewWorkflowsWorkflow
+  | ReviewWorkflowsWorkflowStage
+  | Server
+  | ServerCategory
+  | Social
+  | UploadFile
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -307,124 +334,101 @@ export type Mutation = {
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
 };
 
-
 export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
 };
 
-
 export type MutationCreateFaqArgs = {
   data: FaqInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreatePageArgs = {
   data: PageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateServerArgs = {
   data: ServerInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateServerCategoryArgs = {
   data: ServerCategoryInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
-
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
 };
 
-
 export type MutationDeleteFaqArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeletePageArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteServerArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteServerCategoryArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteUploadFileArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteUsersPermissionsRoleArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteUsersPermissionsUserArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String']['input'];
 };
 
-
 export type MutationForgotPasswordArgs = {
   email: Scalars['String']['input'];
 };
-
 
 export type MutationLoginArgs = {
   input: UsersPermissionsLoginInput;
 };
 
-
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
 };
-
 
 export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
@@ -432,19 +436,16 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
-
 export type MutationUpdateFaqArgs = {
   data: FaqInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateFeatureArgs = {
   data: FeatureInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdatePageArgs = {
   data: PageInput;
@@ -452,13 +453,11 @@ export type MutationUpdatePageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
@@ -466,13 +465,11 @@ export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateServerArgs = {
   data: ServerInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateServerCategoryArgs = {
   data: ServerCategoryInput;
@@ -480,24 +477,20 @@ export type MutationUpdateServerCategoryArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateSocialArgs = {
   data: SocialInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateUploadFileArgs = {
   id: Scalars['ID']['input'];
   info?: InputMaybe<FileInfoInput>;
 };
 
-
 export type MutationUpdateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationUpdateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
@@ -561,7 +554,7 @@ export type PaginationArg = {
 
 export enum PublicationStatus {
   Draft = 'DRAFT',
-  Published = 'PUBLISHED'
+  Published = 'PUBLISHED',
 }
 
 export type Query = {
@@ -601,12 +594,10 @@ export type Query = {
   usersPermissionsUsers_connection?: Maybe<UsersPermissionsUserEntityResponseCollection>;
 };
 
-
 export type QueryFaqArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryFaqsArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
@@ -615,7 +606,6 @@ export type QueryFaqsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryFaqs_ConnectionArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -623,17 +613,14 @@ export type QueryFaqs_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryFeatureArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryI18NLocaleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
@@ -642,7 +629,6 @@ export type QueryI18NLocalesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryI18NLocales_ConnectionArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -650,12 +636,10 @@ export type QueryI18NLocales_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryPageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryPagesArgs = {
   filters?: InputMaybe<PageFiltersInput>;
@@ -664,7 +648,6 @@ export type QueryPagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryPages_ConnectionArgs = {
   filters?: InputMaybe<PageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -672,18 +655,15 @@ export type QueryPages_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -692,14 +672,12 @@ export type QueryReviewWorkflowsWorkflowStagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryReviewWorkflowsWorkflowsArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
@@ -708,7 +686,6 @@ export type QueryReviewWorkflowsWorkflowsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -716,12 +693,10 @@ export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryServerArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryServerCategoriesArgs = {
   filters?: InputMaybe<ServerCategoryFiltersInput>;
@@ -730,7 +705,6 @@ export type QueryServerCategoriesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryServerCategories_ConnectionArgs = {
   filters?: InputMaybe<ServerCategoryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -738,12 +712,10 @@ export type QueryServerCategories_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryServerCategoryArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryServersArgs = {
   filters?: InputMaybe<ServerFiltersInput>;
@@ -752,7 +724,6 @@ export type QueryServersArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryServers_ConnectionArgs = {
   filters?: InputMaybe<ServerFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -760,17 +731,14 @@ export type QueryServers_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QuerySocialArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUploadFileArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
@@ -779,7 +747,6 @@ export type QueryUploadFilesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUploadFiles_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -787,12 +754,10 @@ export type QueryUploadFiles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsRoleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUsersPermissionsRolesArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -801,7 +766,6 @@ export type QueryUsersPermissionsRolesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsRoles_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -809,12 +773,10 @@ export type QueryUsersPermissionsRoles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsUserArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -822,7 +784,6 @@ export type QueryUsersPermissionsUsersArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUsersPermissionsUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -844,13 +805,11 @@ export type ReviewWorkflowsWorkflow = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type ReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -1193,13 +1152,11 @@ export type UsersPermissionsRole = {
   users_connection?: Maybe<UsersPermissionsUserRelationResponseCollection>;
 };
 
-
 export type UsersPermissionsRolePermissionsArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsRolePermissions_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
@@ -1207,13 +1164,11 @@ export type UsersPermissionsRolePermissions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type UsersPermissionsRoleUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsRoleUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -1314,116 +1269,182 @@ export type UsersPermissionsUserRelationResponseCollection = {
 };
 
 export type GetPageFaqsQueryVariables = Exact<{
-  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+  slug:
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type GetPageFaqsQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description?: string | null } | null>, social?: { __typename?: 'Social', X: string } | null };
+export type GetPageFaqsQuery = {
+  __typename?: 'Query';
+  pages: Array<{
+    __typename?: 'Page';
+    Title: string;
+    Subtitle?: string | null;
+    Description?: string | null;
+    Slug: string;
+  } | null>;
+  faqs: Array<{
+    __typename?: 'Faq';
+    Title: string;
+    Description?: string | null;
+  } | null>;
+  social?: { __typename?: 'Social'; X: string } | null;
+};
 
 export type GetPageHomeQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
-
-export type GetPageHomeQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Subtitle?: string | null, Description?: string | null, Slug: string } | null>, serverCategories: Array<{ __typename?: 'ServerCategory', documentId: string, Title: string, Slug: string } | null> };
+export type GetPageHomeQuery = {
+  __typename?: 'Query';
+  pages: Array<{
+    __typename?: 'Page';
+    Subtitle?: string | null;
+    Description?: string | null;
+    Slug: string;
+  } | null>;
+  serverCategories: Array<{
+    __typename?: 'ServerCategory';
+    documentId: string;
+    Title: string;
+    Slug: string;
+  } | null>;
+};
 
 export type GetPageHomeServersQueryVariables = Exact<{
   documentId: Scalars['ID']['input'];
 }>;
 
-
-export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string, Icon: any } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
+export type GetPageHomeServersQuery = {
+  __typename?: 'Query';
+  serverCategory?: {
+    __typename?: 'ServerCategory';
+    Title: string;
+    Slug: string;
+    Icon: any;
+  } | null;
+  servers: Array<{
+    __typename?: 'Server';
+    Title: string;
+    Slug: string;
+    Description?: string | null;
+    Logo?: { __typename?: 'UploadFile'; url: string } | null;
+  } | null>;
+  servers_connection?: {
+    __typename?: 'ServerEntityResponseCollection';
+    pageInfo: { __typename?: 'Pagination'; total: number };
+  } | null;
+};
 
 export type GetPageServersQueryVariables = Exact<{
-  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+  slug:
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>;
 }>;
 
+export type GetPageServersQuery = {
+  __typename?: 'Query';
+  pages: Array<{
+    __typename?: 'Page';
+    Title: string;
+    Subtitle?: string | null;
+    Description?: string | null;
+    Slug: string;
+  } | null>;
+  faqs: Array<{
+    __typename?: 'Faq';
+    Title: string;
+    Description?: string | null;
+  } | null>;
+  social?: { __typename?: 'Social'; X: string } | null;
+};
 
-export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, faqs: Array<{ __typename?: 'Faq', Title: string, Description?: string | null } | null>, social?: { __typename?: 'Social', X: string } | null };
+export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPageSignUpQuery = { __typename?: 'Query', feature?: { __typename?: 'Feature', Dashboard: boolean } | null };
-
+export type GetPageSignUpQuery = {
+  __typename?: 'Query';
+  feature?: { __typename?: 'Feature'; Dashboard: boolean } | null;
+};
 
 export const GetPageFaqs = gql`
-    query getPageFaqs($slug: [String]!) {
-  pages(filters: {Slug: {in: $slug}}) {
-    Title
-    Subtitle
-    Description
-    Slug
+  query getPageFaqs($slug: [String]!) {
+    pages(filters: { Slug: { in: $slug } }) {
+      Title
+      Subtitle
+      Description
+      Slug
+    }
+    faqs {
+      Title
+      Description
+    }
+    social {
+      X
+    }
   }
-  faqs {
-    Title
-    Description
-  }
-  social {
-    X
-  }
-}
-    `;
+`;
 export const GetPageHome = gql`
-    query getPageHome($slug: String!) {
-  pages(filters: {Slug: {eq: $slug}}) {
-    Subtitle
-    Description
-    Slug
+  query getPageHome($slug: String!) {
+    pages(filters: { Slug: { eq: $slug } }) {
+      Subtitle
+      Description
+      Slug
+    }
+    serverCategories(pagination: { limit: 100 }) {
+      documentId
+      Title
+      Slug
+    }
   }
-  serverCategories(pagination: {limit: 100}) {
-    documentId
-    Title
-    Slug
-  }
-}
-    `;
+`;
 export const GetPageHomeServers = gql`
-    query getPageHomeServers($documentId: ID!) {
-  serverCategory(documentId: $documentId) {
-    Title
-    Slug
-    Icon
-  }
-  servers(
-    filters: {Category: {documentId: {eq: $documentId}}}
-    pagination: {limit: 4}
-  ) {
-    Title
-    Slug
-    Description
-    Logo {
-      url
+  query getPageHomeServers($documentId: ID!) {
+    serverCategory(documentId: $documentId) {
+      Title
+      Slug
+      Icon
+    }
+    servers(
+      filters: { Category: { documentId: { eq: $documentId } } }
+      pagination: { limit: 4 }
+    ) {
+      Title
+      Slug
+      Description
+      Logo {
+        url
+      }
+    }
+    servers_connection(
+      filters: { Category: { documentId: { eq: $documentId } } }
+    ) {
+      pageInfo {
+        total
+      }
     }
   }
-  servers_connection(filters: {Category: {documentId: {eq: $documentId}}}) {
-    pageInfo {
-      total
-    }
-  }
-}
-    `;
+`;
 export const GetPageServers = gql`
-    query getPageServers($slug: [String]!) {
-  pages(filters: {Slug: {in: $slug}}) {
-    Title
-    Subtitle
-    Description
-    Slug
+  query getPageServers($slug: [String]!) {
+    pages(filters: { Slug: { in: $slug } }) {
+      Title
+      Subtitle
+      Description
+      Slug
+    }
+    faqs {
+      Title
+      Description
+    }
+    social {
+      X
+    }
   }
-  faqs {
-    Title
-    Description
-  }
-  social {
-    X
-  }
-}
-    `;
+`;
 export const GetPageSignUp = gql`
-    query getPageSignUp {
-  feature {
-    Dashboard
+  query getPageSignUp {
+    feature {
+      Dashboard
+    }
   }
-}
-    `;
+`;
