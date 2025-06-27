@@ -18,7 +18,7 @@ interface ServerCardProps {
   logo?: string;
 }
 
-export const ServerCard: FC<ServerCardProps> = ({
+export const ServerCard: FC<ServerCardProps> = async ({
   slug,
   title,
   description,

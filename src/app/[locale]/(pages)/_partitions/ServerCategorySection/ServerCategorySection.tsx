@@ -13,8 +13,8 @@ type ServerCategorySectionProps = PropsWithChildren<{
 
 export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
   slug,
-  title,
-  count,
+  title = '',
+  count = 0,
   children,
 }) => {
   const t = await getTranslations();
@@ -25,8 +25,13 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
         <Row className="row align-items-center mb-2">
           <Row.Col md={6}>
             <Typography className="card-title" as="h5">
-              {title}
-              <span className="text-muted fw-normal ms-2">({count})</span>
+              {t.rich('labels.textWithCount', {
+                text: title,
+                count: count,
+                styled: (chunks) => (
+                  <span className="text-muted fw-normal ms-2">{chunks}</span>
+                ),
+              })}
             </Typography>
           </Row.Col>
           <Row.Col md={6}>
