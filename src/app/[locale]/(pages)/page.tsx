@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 
+import { ServerCategorySection } from './_partitions/ServerCategorySection';
+
 import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
 import { Link } from '@app/navigation';
 import { getTranslations } from '@core/i18n';
@@ -72,6 +74,16 @@ const Home = async () => {
       <Row className="mt-5">
         <Row.Col lg={12}>
           {categories.map(({ serverCategory, servers_connection }) => {
+            return (
+              <ServerCategorySection
+                key={serverCategory?.Slug}
+                slug={serverCategory?.Slug}
+                title={serverCategory?.Title}
+                count={servers_connection?.pageInfo.total}
+              >
+                123
+              </ServerCategorySection>
+            );
             return (
               <Row
                 key={serverCategory?.Slug}
