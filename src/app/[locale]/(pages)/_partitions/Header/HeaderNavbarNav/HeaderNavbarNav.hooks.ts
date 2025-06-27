@@ -1,6 +1,6 @@
-import { NavbarNavItem } from './HeaderNavbarNav.types';
+import { RoutePath } from '@common/constants';
 
-import { RoutePath } from '@app/common';
+import { NavbarNavItem } from './HeaderNavbarNav.types';
 
 export const useNavbarNav = () => {
   const nav: NavbarNavItem[] = [

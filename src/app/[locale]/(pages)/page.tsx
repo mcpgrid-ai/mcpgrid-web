@@ -1,21 +1,13 @@
 import { Fragment } from 'react';
 import { ServerCard } from '@common/components';
+import { RoutePath } from '@common/constants';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
 
-import {
-  Button,
-  Card,
-  Heading,
-  Icon,
-  Row,
-  Searchbar,
-  Typography,
-} from '@core/uikit';
-import { Link } from '@app/navigation';
+import { Link } from '@core/navigation';
+import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
-import { RoutePath } from '@app/common';
 
 const Home = async () => {
   const t = await getTranslations();

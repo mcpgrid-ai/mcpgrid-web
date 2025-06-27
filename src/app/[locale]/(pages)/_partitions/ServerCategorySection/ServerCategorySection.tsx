@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren } from 'react';
+import { RoutePath } from '@common/constants';
 
+import { Link } from '@core/navigation';
 import { Button, Icon, Row, Typography } from '@core/uikit';
-import { RoutePath } from '@app/common';
-import { Link } from '@app/navigation';
 import { getTranslations } from '@core/i18n';
 
 type ServerCategorySectionProps = PropsWithChildren<{
@@ -20,9 +20,9 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
   const t = await getTranslations();
 
   return (
-    <Row className="mb-5">
+    <Row className="mb-4">
       <Row.Col lg={12}>
-        <Row className="row align-items-center mb-1">
+        <Row className="row align-items-center mb-2">
           <Row.Col md={6}>
             <Typography className="card-title" as="h5">
               {title}
@@ -30,7 +30,7 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
             </Typography>
           </Row.Col>
           <Row.Col md={6}>
-            <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+            <div className="d-flex flex-wrap align-items-center justify-content-end gap-2">
               <Button
                 as={Link}
                 variant="link"

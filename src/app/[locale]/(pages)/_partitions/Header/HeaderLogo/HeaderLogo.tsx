@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { RoutePath } from '@common/constants';
 
-import { RoutePath } from '@app/common';
 import { IMAGES } from '@core/uikit';
 
 export const HeaderLogo: FC = () => {

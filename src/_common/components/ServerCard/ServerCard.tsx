@@ -1,8 +1,9 @@
 import { FC } from 'react';
 
+import { RoutePath } from '../../constants';
+
+import { Link } from '@core/navigation';
 import { Card, Row } from '@core/uikit';
-import { Link } from '@app/navigation';
-import { RoutePath } from '@app/common';
 
 interface ServerCardProps {
   title?: string;
