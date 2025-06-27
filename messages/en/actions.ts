@@ -3,4 +3,5 @@ export const actions = {
   sendUsTweet: 'Send as a tweet',
   getStarted: 'Get started',
   signIn: 'Sign in',
+  viewAll: 'View all',
 };

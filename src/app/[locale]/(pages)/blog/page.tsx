@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { Link } from '@app/navigation';
-import { RoutePath } from '@app/common';
+import { RoutePath } from '@common/constants';
+import { Link } from '@core/navigation';
 
 const Blog: FC = () => {
   return (

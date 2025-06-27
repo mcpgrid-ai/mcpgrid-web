@@ -7,7 +7,7 @@ import {
 
 export const client = new ApolloClient<NormalizedCacheObject>({
   link: new HttpLink({
-    uri: process.env.STRAPI_SCHEMA_URL,
+    uri: `${process.env.STRAPI_HOST}/graphql`,
     fetch,
     headers: {
       Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,

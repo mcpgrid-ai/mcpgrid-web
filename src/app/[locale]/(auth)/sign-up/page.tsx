@@ -1,7 +1,7 @@
 import { FC, Fragment } from 'react';
 
+import { RoutePath } from '@common/constants';
 import { redirect } from '@core/navigation';
-import { RoutePath } from '@app/common';
 import { strapi } from '@network/strapi';
 
 const SignUp: FC = async () => {
