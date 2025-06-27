@@ -101,6 +101,7 @@ const Home = async () => {
                         })}
                       >
                         <ServerCard
+                          className="h-100"
                           icon={serverCategory?.Icon?.iconName}
                           title={item?.Title}
                           slug={item?.Slug}
