@@ -1,22 +1,22 @@
-'use client';
+// 'use client';
 
 import { FC, PropsWithChildren } from 'react';
 
 import { Header } from './_partitions/Header';
 
-import { useTheme } from '@core/uikit';
+// import { useTheme } from '@core/uikit';
 
-type DashboardLayoutProps = PropsWithChildren;
+type PagesLayoutProps = PropsWithChildren;
 
-const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
-  const { mode } = useTheme();
+const PagesLayout: FC<PagesLayoutProps> = ({ children }) => {
+  // const { mode } = useTheme();
 
   return (
     <body
       data-layout-size="boxed"
       data-layout="horizontal"
-      data-topbar={mode}
-      data-bs-theme={mode}
+      data-topbar="light"
+      data-bs-theme="light"
     >
       <div id="layout-wrapper">
         <Header />
@@ -30,4 +30,4 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default PagesLayout;
