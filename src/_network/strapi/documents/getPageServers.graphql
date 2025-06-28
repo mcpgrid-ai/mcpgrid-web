@@ -1,13 +1,13 @@
 #import "./fragments/ServerCard.graphql"
 
-query getPageServers($slug: [String]!) {
+query getPageServers($slug: [String]!, $page: Int!, $pageSize: Int!) {
   pages(filters: { Slug: { in: $slug } }) {
     Title
     Subtitle
     Description
     Slug
   }
-  servers {
+  servers(pagination: { page: $page, pageSize: $pageSize }) {
     ...ServerCard
   }
 }
