@@ -83,7 +83,7 @@ const Home = async () => {
                 title={serverCategory?.Title}
                 count={servers_connection?.pageInfo.total}
               >
-                <Row>
+                <Row className="g-4">
                   {servers.map((item, index, arr) => {
                     return (
                       <Row.Col
@@ -100,14 +100,7 @@ const Home = async () => {
                             arr.length === 4 && index === arr.length - 1,
                         })}
                       >
-                        <ServerCard
-                          className="h-100"
-                          icon={serverCategory?.Icon?.iconName}
-                          title={item?.Title}
-                          slug={item?.Slug}
-                          description={item?.Description}
-                          logo={item?.Logo?.url}
-                        />
+                        <ServerCard server={item} className="h-100" />
                       </Row.Col>
                     );
                   })}

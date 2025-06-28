@@ -1,3 +1,5 @@
+#import "./fragments/ServerCard.graphql"
+
 query getPageServers($slug: [String]!) {
   pages(filters: { Slug: { in: $slug } }) {
     Title
@@ -5,11 +7,7 @@ query getPageServers($slug: [String]!) {
     Description
     Slug
   }
-  faqs {
-    Title
-    Description
-  }
-  social {
-    X
+  servers {
+    ...ServerCard
   }
 }

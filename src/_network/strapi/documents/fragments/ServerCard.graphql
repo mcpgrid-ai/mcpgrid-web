@@ -1,0 +1,11 @@
+fragment ServerCard on Server {
+  Title
+  Slug
+  Description
+  Logo {
+    url
+  }
+  Category {
+    Icon
+  }
+}
