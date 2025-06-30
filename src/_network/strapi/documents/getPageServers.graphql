@@ -10,4 +10,11 @@ query getPageServers($slug: [String]!, $page: Int!, $pageSize: Int!) {
   servers(pagination: { page: $page, pageSize: $pageSize }) {
     ...ServerCard
   }
+  servers_connection(pagination: { page: $page, pageSize: $pageSize }) {
+    pageInfo {
+      total
+      pageSize
+      page
+    }
+  }
 }

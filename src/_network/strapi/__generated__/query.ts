@@ -1343,7 +1343,7 @@ export type GetPageServersQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null> };
+export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number, pageSize: number, page: number } } | null };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1423,6 +1423,13 @@ export const GetPageServers = gql`
   }
   servers(pagination: {page: $page, pageSize: $pageSize}) {
     ...ServerCard
+  }
+  servers_connection(pagination: {page: $page, pageSize: $pageSize}) {
+    pageInfo {
+      total
+      pageSize
+      page
+    }
   }
 }
     ${ServerCard}`;
