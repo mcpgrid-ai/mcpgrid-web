@@ -52,7 +52,7 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
         </Heading.Breadcrumb>
       </Heading>
       <Row>
-        <Row.Col xs={3} className="d-sm-none d-md-block">
+        <Row.Col xs={3} className="d-none d-md-block">
           <Card>
             <Card.Body>
               <Card.Title>{t('forms.categories')}</Card.Title>
