@@ -1,0 +1,12 @@
+query getPageServer($server: String!, $slug: [String]!) {
+  pages(filters: { Slug: { in: $slug } }) {
+    Title
+    Subtitle
+    Description
+    Slug
+  }
+  servers(filters: { Slug: { eq: $server } }) {
+    Title
+    Description
+  }
+}

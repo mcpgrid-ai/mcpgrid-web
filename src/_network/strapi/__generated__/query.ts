@@ -1336,6 +1336,14 @@ export type GetPageHomeServersQueryVariables = Exact<{
 
 export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
 
+export type GetPageServerQueryVariables = Exact<{
+  server: Scalars['String']['input'];
+  slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null } | null> };
+
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
   page: Scalars['Int']['input'];
@@ -1414,6 +1422,20 @@ export const GetPageHomeServers = gql`
   }
 }
     ${ServerCard}`;
+export const GetPageServer = gql`
+    query getPageServer($server: String!, $slug: [String]!) {
+  pages(filters: {Slug: {in: $slug}}) {
+    Title
+    Subtitle
+    Description
+    Slug
+  }
+  servers(filters: {Slug: {eq: $server}}) {
+    Title
+    Description
+  }
+}
+    `;
 export const GetPageServers = gql`
     query getPageServers($slug: [String]!, $page: Int!, $pageSize: Int!, $category: String) {
   pages(filters: {Slug: {in: $slug}}) {
