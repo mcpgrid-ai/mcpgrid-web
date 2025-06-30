@@ -5,7 +5,7 @@ import { PAGE_SIZE } from './page.const';
 
 import { RoutePath } from '@common/constants';
 import { Card, Heading, ListGroup, Pagination, Row } from '@core/uikit';
-import { Link } from '@core/navigation';
+import { Link, notFound } from '@core/navigation';
 import { strapi } from '@network/strapi';
 import { ServerCard } from '@common/components';
 import { getTranslations } from '@core/i18n';
@@ -36,16 +36,18 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 
   const home = pages.find((item) => item && item.Slug === 'home');
 
+  if (!servers || !home) return notFound();
+
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{servers?.Title}</Heading.Title>
+        <Heading.Title>{servers.Title}</Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
-            {home?.Title}
+            {home.Title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {servers?.Title}
+            {servers.Title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
