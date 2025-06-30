@@ -23,6 +23,7 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
   const {
     data: { pages, servers: list, servers_connection },
   } = await strapi.page.getServers({
+    category,
     slug: ['servers', 'home'],
     page: toNumber(page),
     pageSize: PAGE_SIZE,
@@ -61,6 +62,7 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
             page={servers_connection?.pageInfo.page}
             size={servers_connection?.pageInfo.pageSize}
           >
+            {/* @ts-expect-error x3 error */}
             {({ children, page, className }) => {
               return (
                 <Link

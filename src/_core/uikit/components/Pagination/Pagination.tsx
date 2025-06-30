@@ -26,6 +26,7 @@ export interface PaginationProps {
   children?: typeof PaginationItem;
 }
 
+// @ts-expect-error x3 error
 export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
   forwardRef<HTMLUListElement, PaginationProps>(function Pagination(
     {
@@ -49,13 +50,20 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
 
     return (
       <BsPagination ref={ref} className={className}>
-        <First as={Children} className="mx-1" disabled={page === 1} page={1}>
+        <First
+          as={Children}
+          className="mx-1"
+          disabled={page === 1}
+          // @ts-expect-error x3 error
+          page={1}
+        >
           <FiChevronsLeft />
         </First>
         <Prev
           as={Children}
           className="mx-1"
           disabled={page === 1}
+          // @ts-expect-error x3 error
           page={page - 1}
         >
           <FiChevronLeft />
@@ -66,6 +74,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
         {start > 2 && (
           <Ellipsis
             as={Children}
+            // @ts-expect-error x3 error
             page={Math.max(1, page - step)}
             className="mx-1"
           />
@@ -89,6 +98,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
         {end < count - 1 && (
           <Ellipsis
             as={Children}
+            // @ts-expect-error x3 error
             page={Math.min(count, page + step)}
             className="mx-1"
           />
@@ -103,6 +113,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
         </BsPageItem>
         <Next
           as={Children}
+          // @ts-expect-error x3 error
           page={page + 1}
           className="mx-1"
           disabled={page === count}
@@ -111,6 +122,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
         </Next>
         <Last
           as={Children}
+          // @ts-expect-error x3 error
           page={count}
           className="mx-1"
           disabled={page === count}
