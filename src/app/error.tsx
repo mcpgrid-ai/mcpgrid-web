@@ -1,15 +1,17 @@
+'use client';
+
 import { FC } from 'react';
 import Image from 'next/image';
 
 import IMAGE from './not-found.png';
 
-import { getTranslations } from '@core/i18n';
+import { useTranslations } from '@core/i18n';
 import { Button } from '@core/uikit';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 
-const NotFound: FC = async () => {
-  const t = await getTranslations();
+const Err: FC = () => {
+  const t = useTranslations();
 
   return (
     <div className="my-5 pt-5">
@@ -18,9 +20,9 @@ const NotFound: FC = async () => {
           <div className="col-lg-12">
             <div className="text-center mb-5">
               <h1 className="display-1 fw-semibold">
-                4<span className="text-primary mx-2">0</span>4
+                5<span className="text-primary mx-2">0</span>0
               </h1>
-              <h4 className="text-uppercase">{t('notifications.404.title')}</h4>
+              <h4 className="text-uppercase">{t('notifications.500.title')}</h4>
               <div className="mt-5 text-center">
                 <Button as={Link} pathname={RoutePath.Index}>
                   {t('actions.backToHome')}
@@ -41,4 +43,4 @@ const NotFound: FC = async () => {
   );
 };
 
-export default NotFound;
+export default Err;
