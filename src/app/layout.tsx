@@ -2,14 +2,23 @@ import { FC, PropsWithChildren } from 'react';
 
 import { ThemeProvider } from '@core/uikit';
 
-type RootLayoutProps = PropsWithChildren;
+type CommonLayoutProps = PropsWithChildren;
 
-const RootLayout: FC<RootLayoutProps> = ({ children }) => {
+const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider>
-      <html lang="en">{children}</html>
+      <html lang="en">
+        <body
+          data-layout-size="boxed"
+          data-layout="horizontal"
+          data-topbar="light"
+          data-bs-theme="light"
+        >
+          {children}
+        </body>
+      </html>
     </ThemeProvider>
   );
 };
 
-export default RootLayout;
+export default CommonLayout;

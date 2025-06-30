@@ -4,7 +4,16 @@ import { labels } from './labels';
 import { common } from './common';
 import { forms } from './forms';
 import { options } from './options';
+import { notifications } from './notifications';
 
-const messages = { actions, placeholders, labels, common, forms, options };
+const messages = {
+  actions,
+  placeholders,
+  labels,
+  common,
+  forms,
+  options,
+  notifications,
+};
 
 export default messages;
