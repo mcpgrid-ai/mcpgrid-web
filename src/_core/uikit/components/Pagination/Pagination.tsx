@@ -8,6 +8,12 @@ import BsPageItem, {
   Last,
   Ellipsis,
 } from 'react-bootstrap/PageItem';
+import {
+  FiChevronsRight,
+  FiChevronRight,
+  FiChevronsLeft,
+  FiChevronLeft,
+} from 'react-icons/fi';
 
 import { PaginationItem } from './PaginationItem';
 
@@ -44,7 +50,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
     return (
       <BsPagination ref={ref} className={className}>
         <First as={Children} className="mx-1" disabled={page === 1} page={1}>
-          First
+          <FiChevronsLeft />
         </First>
         <Prev
           as={Children}
@@ -52,7 +58,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
           disabled={page === 1}
           page={page - 1}
         >
-          Prev
+          <FiChevronLeft />
         </Prev>
         <BsPageItem page={1} as={Children} className="mx-1" active={page === 1}>
           1
@@ -101,7 +107,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
           className="mx-1"
           disabled={page === count}
         >
-          Next
+          <FiChevronRight />
         </Next>
         <Last
           as={Children}
@@ -109,7 +115,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
           className="mx-1"
           disabled={page === count}
         >
-          Last
+          <FiChevronsRight />
         </Last>
       </BsPagination>
     );
