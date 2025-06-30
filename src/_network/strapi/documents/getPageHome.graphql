@@ -1,3 +1,5 @@
+#import "./fragments/ServerCard.graphql"
+
 query getPageHome($slug: String!) {
   pages(filters: { Slug: { eq: $slug } }) {
     Subtitle
@@ -15,18 +17,12 @@ query getPageHomeServers($documentId: ID!) {
   serverCategory(documentId: $documentId) {
     Title
     Slug
-    Icon
   }
   servers(
     filters: { Category: { documentId: { eq: $documentId } } }
     pagination: { limit: 4 }
   ) {
-    Title
-    Slug
-    Description
-    Logo {
-      url
-    }
+    ...ServerCard
   }
   servers_connection(
     filters: { Category: { documentId: { eq: $documentId } } }

@@ -14,14 +14,14 @@ export const HeaderLogo: FC = () => {
         <span className="logo-sm">{image}</span>
         <span className="logo-lg">
           {image}
-          <span className="logo-txt">Mcpbox</span>
+          <span className="logo-txt">{process.env.PRODUCT_NAME}</span>
         </span>
       </Link>
       <Link href={RoutePath.Index} className="logo logo-light">
         <span className="logo-sm">{image}</span>
         <span className="logo-lg">
           {image}
-          <span className="logo-txt">Mcpbox</span>
+          <span className="logo-txt">{process.env.PRODUCT_NAME}</span>
         </span>
       </Link>
     </div>

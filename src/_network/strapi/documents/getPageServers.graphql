@@ -1,15 +1,31 @@
-query getPageServers($slug: [String]!) {
+#import "./fragments/ServerCard.graphql"
+
+query getPageServers(
+  $slug: [String]!
+  $page: Int!
+  $pageSize: Int!
+  $category: String
+) {
   pages(filters: { Slug: { in: $slug } }) {
     Title
     Subtitle
     Description
     Slug
   }
-  faqs {
-    Title
-    Description
+  servers(
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { Category: { Slug: { eq: $category } } }
+  ) {
+    ...ServerCard
   }
-  social {
-    X
+  servers_connection(
+    pagination: { page: $page, pageSize: $pageSize }
+    filters: { Category: { Slug: { eq: $category } } }
+  ) {
+    pageInfo {
+      total
+      pageSize
+      page
+    }
   }
 }

@@ -10,24 +10,23 @@ import { Card, Row } from '@core/uikit';
 import { Avatar } from '@core/uikit/components/Avatar';
 import { Iconify } from '@core/uikit/components/Iconify';
 import { Image } from '@network/strapi';
+import { DTO } from '@network/strapi';
 
 interface ServerCardProps {
-  description?: string | null;
-  title?: string;
-  slug?: string;
-  icon?: string;
-  logo?: string;
   className?: string;
+  server: DTO.ServerCardFragment | null;
 }
 
 export const ServerCard: FC<ServerCardProps> = async ({
-  slug,
-  title,
-  description,
-  icon,
-  logo,
   className,
+  server,
 }) => {
+  const slug = server?.Slug;
+  const title = server?.Title;
+  const description = server?.Description;
+  const logo = server?.Logo?.url;
+  const icon = server?.Category?.Icon?.iconName;
+
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
     if (icon) return <Iconify name={icon} size={20} />;

@@ -3,6 +3,7 @@
 import { FC, PropsWithChildren } from 'react';
 
 import { Header } from './_partitions/Header';
+import { Footer } from './_partitions/Footer';
 
 // import { useTheme } from '@core/uikit';
 
@@ -23,6 +24,7 @@ const PagesLayout: FC<PagesLayoutProps> = ({ children }) => {
         <div className="main-content">
           <div className="page-content">
             <div className="container-fluid">{children}</div>
+            <Footer />
           </div>
         </div>
       </div>

@@ -1268,6 +1268,15 @@ export type UsersPermissionsUserRelationResponseCollection = {
   nodes: Array<UsersPermissionsUser>;
 };
 
+export type ServerCardFragment = {
+  __typename?: 'Server';
+  Title: string;
+  Slug: string;
+  Description?: string | null;
+  Logo?: { __typename?: 'UploadFile'; url: string } | null;
+  Category?: { __typename?: 'ServerCategory'; Icon: any } | null;
+};
+
 export type GetPageFaqsQueryVariables = Exact<{
   slug:
     | Array<InputMaybe<Scalars['String']['input']>>
@@ -1321,7 +1330,6 @@ export type GetPageHomeServersQuery = {
     __typename?: 'ServerCategory';
     Title: string;
     Slug: string;
-    Icon: any;
   } | null;
   servers: Array<{
     __typename?: 'Server';
@@ -1329,6 +1337,7 @@ export type GetPageHomeServersQuery = {
     Slug: string;
     Description?: string | null;
     Logo?: { __typename?: 'UploadFile'; url: string } | null;
+    Category?: { __typename?: 'ServerCategory'; Icon: any } | null;
   } | null>;
   servers_connection?: {
     __typename?: 'ServerEntityResponseCollection';
@@ -1340,6 +1349,9 @@ export type GetPageServersQueryVariables = Exact<{
   slug:
     | Array<InputMaybe<Scalars['String']['input']>>
     | InputMaybe<Scalars['String']['input']>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+  category?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type GetPageServersQuery = {
@@ -1351,12 +1363,23 @@ export type GetPageServersQuery = {
     Description?: string | null;
     Slug: string;
   } | null>;
-  faqs: Array<{
-    __typename?: 'Faq';
+  servers: Array<{
+    __typename?: 'Server';
     Title: string;
+    Slug: string;
     Description?: string | null;
+    Logo?: { __typename?: 'UploadFile'; url: string } | null;
+    Category?: { __typename?: 'ServerCategory'; Icon: any } | null;
   } | null>;
-  social?: { __typename?: 'Social'; X: string } | null;
+  servers_connection?: {
+    __typename?: 'ServerEntityResponseCollection';
+    pageInfo: {
+      __typename?: 'Pagination';
+      total: number;
+      pageSize: number;
+      page: number;
+    };
+  } | null;
 };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never }>;
@@ -1366,6 +1389,19 @@ export type GetPageSignUpQuery = {
   feature?: { __typename?: 'Feature'; Dashboard: boolean } | null;
 };
 
+export const ServerCard = gql`
+  fragment ServerCard on Server {
+    Title
+    Slug
+    Description
+    Logo {
+      url
+    }
+    Category {
+      Icon
+    }
+  }
+`;
 export const GetPageFaqs = gql`
   query getPageFaqs($slug: [String]!) {
     pages(filters: { Slug: { in: $slug } }) {
@@ -1402,18 +1438,12 @@ export const GetPageHomeServers = gql`
     serverCategory(documentId: $documentId) {
       Title
       Slug
-      Icon
     }
     servers(
       filters: { Category: { documentId: { eq: $documentId } } }
       pagination: { limit: 4 }
     ) {
-      Title
-      Slug
-      Description
-      Logo {
-        url
-      }
+      ...ServerCard
     }
     servers_connection(
       filters: { Category: { documentId: { eq: $documentId } } }
@@ -1423,23 +1453,39 @@ export const GetPageHomeServers = gql`
       }
     }
   }
+  ${ServerCard}
 `;
 export const GetPageServers = gql`
-  query getPageServers($slug: [String]!) {
+  query getPageServers(
+    $slug: [String]!
+    $page: Int!
+    $pageSize: Int!
+    $category: String
+  ) {
     pages(filters: { Slug: { in: $slug } }) {
       Title
       Subtitle
       Description
       Slug
     }
-    faqs {
-      Title
-      Description
+    servers(
+      pagination: { page: $page, pageSize: $pageSize }
+      filters: { Category: { Slug: { eq: $category } } }
+    ) {
+      ...ServerCard
     }
-    social {
-      X
+    servers_connection(
+      pagination: { page: $page, pageSize: $pageSize }
+      filters: { Category: { Slug: { eq: $category } } }
+    ) {
+      pageInfo {
+        total
+        pageSize
+        page
+      }
     }
   }
+  ${ServerCard}
 `;
 export const GetPageSignUp = gql`
   query getPageSignUp {

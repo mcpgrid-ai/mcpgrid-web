@@ -23,7 +23,7 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
     <Row className="mb-5">
       <Row.Col lg={12}>
         <Row className="row align-items-center mb-2">
-          <Row.Col md={6}>
+          <Row.Col>
             <Typography className="card-title" as="h5">
               {t.rich('labels.textWithCount', {
                 text: title,
@@ -34,7 +34,7 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
               })}
             </Typography>
           </Row.Col>
-          <Row.Col md={6}>
+          <Row.Col>
             <div className="d-flex flex-wrap align-items-center justify-content-end gap-2">
               <Button
                 as={Link}

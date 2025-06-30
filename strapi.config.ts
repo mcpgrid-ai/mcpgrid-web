@@ -6,7 +6,7 @@ dotenv();
 const config: CodegenConfig = {
   schema: [
     {
-      'http://localhost:1337/graphql': {
+      [`${process.env.STRAPI_HOST}/graphql`]: {
         headers: {
           Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
@@ -16,7 +16,7 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
   generates: {
     './src/_network/strapi/__generated__/query.ts': {
-      documents: ['./src/_network/strapi/documents/*.graphql'],
+      documents: ['./src/_network/strapi/documents/**/*.graphql'],
       plugins: [
         'typescript',
         'typescript-operations',
@@ -31,6 +31,9 @@ const config: CodegenConfig = {
         },
       },
     },
+  },
+  config: {
+    dedupeFragments: true,
   },
 };
 
