@@ -4,4 +4,5 @@ export const actions = {
   getStarted: 'Get started',
   signIn: 'Sign in',
   viewAll: 'View all',
+  backToHome: 'Back to home',
 };

@@ -28,4 +28,8 @@ query getPageServers(
       page
     }
   }
+  serverCategories(pagination: { limit: 100 }) {
+    Title
+    Slug
+  }
 }

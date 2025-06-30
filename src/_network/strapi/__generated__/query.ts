@@ -1345,6 +1345,29 @@ export type GetPageHomeServersQuery = {
   } | null;
 };
 
+export type GetPageServerQueryVariables = Exact<{
+  server: Scalars['String']['input'];
+  slug:
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type GetPageServerQuery = {
+  __typename?: 'Query';
+  pages: Array<{
+    __typename?: 'Page';
+    Title: string;
+    Subtitle?: string | null;
+    Description?: string | null;
+    Slug: string;
+  } | null>;
+  servers: Array<{
+    __typename?: 'Server';
+    Title: string;
+    Description?: string | null;
+  } | null>;
+};
+
 export type GetPageServersQueryVariables = Exact<{
   slug:
     | Array<InputMaybe<Scalars['String']['input']>>
@@ -1380,6 +1403,11 @@ export type GetPageServersQuery = {
       page: number;
     };
   } | null;
+  serverCategories: Array<{
+    __typename?: 'ServerCategory';
+    Title: string;
+    Slug: string;
+  } | null>;
 };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never }>;
@@ -1455,6 +1483,20 @@ export const GetPageHomeServers = gql`
   }
   ${ServerCard}
 `;
+export const GetPageServer = gql`
+  query getPageServer($server: String!, $slug: [String]!) {
+    pages(filters: { Slug: { in: $slug } }) {
+      Title
+      Subtitle
+      Description
+      Slug
+    }
+    servers(filters: { Slug: { eq: $server } }) {
+      Title
+      Description
+    }
+  }
+`;
 export const GetPageServers = gql`
   query getPageServers(
     $slug: [String]!
@@ -1483,6 +1525,10 @@ export const GetPageServers = gql`
         pageSize
         page
       }
+    }
+    serverCategories(pagination: { limit: 100 }) {
+      Title
+      Slug
     }
   }
   ${ServerCard}
