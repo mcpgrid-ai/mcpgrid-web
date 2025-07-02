@@ -6,4 +6,5 @@ export const actions = {
   viewAll: 'View all',
   backToHome: 'Back to home',
   startServer: 'Start server',
+  homepage: 'Homepage',
 };

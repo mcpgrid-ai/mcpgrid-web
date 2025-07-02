@@ -1,0 +1,154 @@
+import { FC, Fragment, PropsWithChildren } from 'react';
+
+import { strapi } from '@network/strapi';
+import { Link, notFound } from '@core/navigation';
+import { Button, Card, Heading, Icon, Nav, Row } from '@core/uikit';
+import { RoutePath } from '@common/constants';
+import { getTranslations } from '@core/i18n';
+
+type ServerLayoutProps = PropsWithChildren<{
+  params: Promise<{
+    slug: string;
+  }>;
+}>;
+
+const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
+  const [t, { slug }] = await Promise.all([getTranslations(), params]);
+
+  const {
+    pages,
+    servers: [server],
+  } = await strapi.page.getServer({
+    slug: ['home', 'servers'],
+    server: slug,
+  });
+
+  const servers = pages.find((item) => item && item.Slug === 'servers');
+
+  const home = pages.find((item) => item && item.Slug === 'home');
+
+  if (!server || !servers || !home) return notFound();
+
+  return (
+    <Fragment>
+      <Heading>
+        <Heading.Title>{server.Title}</Heading.Title>
+        <Heading.Breadcrumb>
+          <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
+            {home.Title}
+          </Heading.Breadcrumb.Item>
+          <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Servers}>
+            {servers.Title}
+          </Heading.Breadcrumb.Item>
+          <Heading.Breadcrumb.Item active>
+            {server.Title}
+          </Heading.Breadcrumb.Item>
+        </Heading.Breadcrumb>
+      </Heading>
+      <Row>
+        <Row.Col xl={9} lg={8}>
+          <Card>
+            <Card.Body>
+              <Row>
+                <Row.Col sm className="order-2 order-sm-1">
+                  <div className="d-flex align-items-start mt-3 mt-sm-0">
+                    <div className="flex-shrink-0">
+                      <div className="avatar-xl me-3">
+                        <img
+                          src="assets/images/users/avatar-2.jpg"
+                          alt=""
+                          className="img-fluid rounded-circle d-block"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-grow-1">
+                      <div>
+                        <h5 className="font-size-16 mb-1">Phyllis Gatlin</h5>
+                        <p className="text-muted font-size-13">
+                          Full Stack Developer
+                        </p>
+
+                        <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                          <div>
+                            <i className="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                            Development
+                          </div>
+                          <div>
+                            <i className="mdi mdi-circle-medium me-1 text-success align-middle"></i>
+                            phyllisgatlin@minia.com
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Row.Col>
+                <Row.Col sm="auto" className="order-1 order-sm-2">
+                  <div className="d-flex align-items-start justify-content-end gap-2">
+                    {server.GitHubUrl && (
+                      <Button
+                        as="a"
+                        target="_blank"
+                        variant="soft-light"
+                        href={server.GitHubUrl}
+                      >
+                        <Icon.Bx name="logo-git-hub" size={20} />
+                      </Button>
+                    )}
+                    {server.HomepageUrl && (
+                      <Button
+                        as="a"
+                        target="_blank"
+                        variant="soft-light"
+                        href={server.HomepageUrl}
+                      >
+                        <Icon.Bx name="link" className="me-2" size={20} />
+                        {t('actions.homepage')}
+                      </Button>
+                    )}
+                  </div>
+                </Row.Col>
+              </Row>
+              <Nav
+                variant="tabs"
+                className="mt-4 border-top nav-tabs-custom card-header-tabs"
+              >
+                <Nav.Item>
+                  <Nav.Link
+                    as={Link}
+                    pathname={RoutePath.ServerDetails}
+                    params={{ slug }}
+                  >
+                    {t('nav.overview')}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    as={Link}
+                    pathname={RoutePath.ServerDetailsTools}
+                    params={{ slug }}
+                  >
+                    {t('nav.tools')}
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Body>
+          </Card>
+          {children}
+        </Row.Col>
+        <Row.Col xl={3} lg={4}>
+          <div className="d-grid gap-3">
+            <Button size="lg" as={Link} pathname={RoutePath.Dashboard}>
+              {t('actions.startServer')}
+              <Icon.Bx name="rocket" size={18} className="ms-2" />
+            </Button>
+            <Card>
+              <Card.Body>123</Card.Body>
+            </Card>
+          </div>
+        </Row.Col>
+      </Row>
+    </Fragment>
+  );
+};
+
+export default ServerLayout;

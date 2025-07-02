@@ -6,6 +6,7 @@ import { NavLink } from './NavLink';
 
 export type NavProps = PropsWithChildren<{
   variant?: 'tabs' | 'pills' | 'underline';
+  className?: string;
 }>;
 
 interface NavComponent {
@@ -14,8 +15,12 @@ interface NavComponent {
   Link: typeof NavLink;
 }
 
-export const Nav: NavComponent = ({ children, variant }) => {
-  return <BsNav variant={variant}>{children}</BsNav>;
+export const Nav: NavComponent = ({ children, variant, className }) => {
+  return (
+    <BsNav variant={variant} className={className}>
+      {children}
+    </BsNav>
+  );
 };
 
 Nav.Item = NavItem;

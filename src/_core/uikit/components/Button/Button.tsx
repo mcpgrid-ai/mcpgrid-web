@@ -5,7 +5,7 @@ import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
 import { ButtonVariant } from 'react-bootstrap/esm/types';
 
 export type ButtonProps = PropsWithChildren<{
-  variant?: ButtonVariant;
+  variant?: ButtonVariant | 'soft-light';
   className?: string;
   size?: 'sm' | 'lg';
 }>;
@@ -21,7 +21,12 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
         variant={variant}
         size={size}
         ref={ref}
-        className={classNames(className)}
+        className={classNames(
+          {
+            'btn-soft-light': variant === 'soft-light',
+          },
+          className,
+        )}
         {...rest}
       >
         {children}

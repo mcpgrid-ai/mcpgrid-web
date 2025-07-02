@@ -5,6 +5,7 @@ import { common } from './common';
 import { forms } from './forms';
 import { options } from './options';
 import { notifications } from './notifications';
+import { nav } from './nav';
 
 const messages = {
   actions,
@@ -14,6 +15,7 @@ const messages = {
   forms,
   options,
   notifications,
+  nav,
 };
 
 export default messages;

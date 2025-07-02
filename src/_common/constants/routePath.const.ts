@@ -9,4 +9,5 @@ export enum RoutePath {
   Dashboard = '/dashboard',
   Servers = '/servers',
   ServerDetails = '/servers/:slug',
+  ServerDetailsTools = '/servers/:slug/tools',
 }

@@ -8,5 +8,7 @@ query getPageServer($server: String!, $slug: [String]!) {
   servers(filters: { Slug: { eq: $server } }) {
     Title
     Description
+    GitHubUrl
+    HomepageUrl
   }
 }
