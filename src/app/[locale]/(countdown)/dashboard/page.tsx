@@ -1,14 +1,18 @@
 import { FC, Fragment } from 'react';
+import Image from 'next/image';
 
-const DashboardSoon: FC = () => {
+import { IMAGES } from '@core/uikit';
+
+const DashboardSoon: FC = async () => {
   return (
     <Fragment>
       <div className="mb-5">
         <a href="index.html">
-          <img
-            src="assets/images/logo-sm.svg"
-            alt=""
-            height="30"
+          <Image
+            width={30}
+            height={30}
+            src={IMAGES.LOGO.src}
+            alt={process.env.PRODUCT_NAME}
             className="me-1"
           />
           <span className="logo-txt text-white font-size-22">
@@ -22,7 +26,24 @@ const DashboardSoon: FC = () => {
         justo, rhoncus ut imperdiet a venenatis vitae, justo felis
       </p>
 
-      <div data-countdown="2023/12/31" className="counter-number mt-5"></div>
+      <div data-countdown="2023/12/31" className="counter-number mt-5">
+        <div className="coming-box">
+          <div className="count-title">Days</div>
+          <div className="count-num">%D</div>
+        </div>
+        <div className="coming-box">
+          <div className="count-title">Hours</div>
+          <div className="count-num">%H</div>
+        </div>
+        <div className="coming-box">
+          <div className="count-title">Minutes</div>
+          <div className="count-num">%M</div>
+        </div>
+        <div className="coming-box">
+          <div className="count-title">Seconds</div>
+          <div className="count-num">%S</div>
+        </div>
+      </div>
 
       <form className="app-search mt-5 mx-auto">
         <div className="position-relative">
