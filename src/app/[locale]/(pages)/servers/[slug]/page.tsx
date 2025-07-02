@@ -50,7 +50,7 @@ const ServerDetails: FC<ServerDetailsProps> = async ({ params }) => {
         <Row.Col md={3} className="d-grid gap-3">
           <Button size="lg" as={Link} pathname={RoutePath.Dashboard}>
             {t('actions.startServer')}
-            <Icon.Fa name="rocket" className="ms-2" />
+            <Icon.Bx name="rocket" size={18} className="ms-2" />
           </Button>
           <Card>
             <Card.Body>123</Card.Body>
