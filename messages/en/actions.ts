@@ -5,4 +5,5 @@ export const actions = {
   signIn: 'Sign in',
   viewAll: 'View all',
   backToHome: 'Back to home',
+  startServer: 'Start server',
 };

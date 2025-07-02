@@ -1,11 +1,13 @@
 import {
-  faBars,
-  faArrowRight,
-  faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
+  FaMagnifyingGlass,
+  FaArrowRight,
+  FaBars,
+  FaRocket,
+} from 'react-icons/fa6';
 
 export const ICON_FA = {
-  bars: faBars,
-  'arrow-right': faArrowRight,
-  'magnifying-glass': faMagnifyingGlass,
+  bars: FaBars,
+  rocket: FaRocket,
+  'arrow-right': FaArrowRight,
+  'magnifying-glass': FaMagnifyingGlass,
 };

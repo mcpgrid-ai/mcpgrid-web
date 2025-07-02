@@ -43,13 +43,7 @@ export const ServerCategorySection: FC<ServerCategorySectionProps> = async ({
                 query={{ category: slug }}
               >
                 {t('actions.viewAll')}
-                <Icon.Fa
-                  name="arrow-right"
-                  className="ms-2"
-                  height={13}
-                  width={13}
-                  fixedWidth
-                />
+                <Icon.Fa name="arrow-right" className="ms-2" size={13} />
               </Button>
             </div>
           </Row.Col>

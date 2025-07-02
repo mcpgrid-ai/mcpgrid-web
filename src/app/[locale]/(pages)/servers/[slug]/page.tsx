@@ -2,8 +2,9 @@ import { FC, Fragment } from 'react';
 
 import { strapi } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
-import { Heading } from '@core/uikit';
+import { Button, Card, Heading, Icon, Row } from '@core/uikit';
 import { RoutePath } from '@common/constants';
+import { getTranslations } from '@core/i18n';
 
 interface ServerDetailsProps {
   params: Promise<{
@@ -12,7 +13,7 @@ interface ServerDetailsProps {
 }
 
 const ServerDetails: FC<ServerDetailsProps> = async ({ params }) => {
-  const { slug } = await params;
+  const [t, { slug }] = await Promise.all([getTranslations(), params]);
 
   const {
     pages,
@@ -44,6 +45,18 @@ const ServerDetails: FC<ServerDetailsProps> = async ({ params }) => {
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
+      <Row>
+        <Row.Col md={9}>1</Row.Col>
+        <Row.Col md={3} className="d-grid gap-3">
+          <Button size="lg" as={Link} pathname={RoutePath.Dashboard}>
+            {t('actions.startServer')}
+            <Icon.Fa name="rocket" className="ms-2" />
+          </Button>
+          <Card>
+            <Card.Body>123</Card.Body>
+          </Card>
+        </Row.Col>
+      </Row>
     </Fragment>
   );
 };

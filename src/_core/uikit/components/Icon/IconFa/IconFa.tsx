@@ -1,31 +1,16 @@
 import { FC } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ICON_FA } from './IconFa.const';
 import { IconFaName } from './IconFa.types';
 
 export interface IconFaProps {
   name: IconFaName;
-  fixedWidth?: boolean;
-  width?: number;
-  height?: number;
   className?: string;
+  size?: number;
 }
 
-export const IconFa: FC<IconFaProps> = ({
-  name,
-  width,
-  className,
-  height,
-  fixedWidth = false,
-}) => {
-  return (
-    <FontAwesomeIcon
-      className={className}
-      icon={ICON_FA[name]}
-      width={width}
-      hanging={height}
-      fixedWidth={fixedWidth}
-    />
-  );
+export const IconFa: FC<IconFaProps> = ({ name, className, size }) => {
+  const Component = ICON_FA[name];
+
+  return <Component className={className} size={size} />;
 };
