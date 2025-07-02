@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react';
 import { Countdown } from '../_partitions/Countdown';
 
 import { getTranslations } from '@core/i18n';
-import { Button, Typography } from '@core/uikit';
+import { Button, Icon, Typography } from '@core/uikit';
 import { strapi } from '@network/strapi';
 import { notFound } from '@core/navigation';
 
@@ -41,7 +41,7 @@ const DashboardSoon: FC = async () => {
             placeholder={t('placeholders.enterYourEmailAddress')}
           />
           <Button type="submit">
-            <i className="bx bx-paper-plane align-middle"></i>
+            <Icon.Bx name="paper-plane" size={14} />
           </Button>
         </div>
       </form>
