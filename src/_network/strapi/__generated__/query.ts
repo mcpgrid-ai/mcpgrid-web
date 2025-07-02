@@ -27,6 +27,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  Date: { input: any; output: any };
   DateTime: { input: any; output: any };
   JSON: { input: any; output: any };
 };
@@ -123,6 +124,7 @@ export type FaqInput = {
 export type Feature = {
   __typename?: 'Feature';
   Dashboard: Scalars['Boolean']['output'];
+  ReleaseDate: Scalars['Date']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -131,6 +133,7 @@ export type Feature = {
 
 export type FeatureInput = {
   Dashboard?: InputMaybe<Scalars['Boolean']['input']>;
+  ReleaseDate?: InputMaybe<Scalars['Date']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -1277,6 +1280,24 @@ export type ServerCardFragment = {
   Category?: { __typename?: 'ServerCategory'; Icon: any } | null;
 };
 
+export type GetPageDashboardQueryVariables = Exact<{
+  slug:
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type GetPageDashboardQuery = {
+  __typename?: 'Query';
+  pages: Array<{
+    __typename?: 'Page';
+    Title: string;
+    Subtitle?: string | null;
+    Description?: string | null;
+    Slug: string;
+  } | null>;
+  feature?: { __typename?: 'Feature'; ReleaseDate: any } | null;
+};
+
 export type GetPageFaqsQueryVariables = Exact<{
   slug:
     | Array<InputMaybe<Scalars['String']['input']>>
@@ -1427,6 +1448,19 @@ export const ServerCard = gql`
     }
     Category {
       Icon
+    }
+  }
+`;
+export const GetPageDashboard = gql`
+  query getPageDashboard($slug: [String]!) {
+    pages(filters: { Slug: { in: $slug } }) {
+      Title
+      Subtitle
+      Description
+      Slug
+    }
+    feature {
+      ReleaseDate
     }
   }
 `;

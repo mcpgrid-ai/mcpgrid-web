@@ -1,12 +1,8 @@
 import { PropsWithChildren, ReactElement } from 'react';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { icon } from '@fortawesome/fontawesome-svg-core';
 
 import { HeadingTitle } from './HeadingTitle';
 import { HeadingBreadcrumb } from './HeadingBreadcrumb';
-
-const chevron = icon(faChevronRight).html[0];
-const chevronBase64 = Buffer.from(chevron).toString('base64');
+import { base64Chevron } from './Heading.utils';
 
 export type HeadingProps = PropsWithChildren;
 
@@ -23,7 +19,7 @@ export const Heading: HeadingComponent = ({ children }) => {
         className="col-12"
         style={
           {
-            '--bs-breadcrumb-divider': `url("data:image/svg+xml;base64,${chevronBase64}")`,
+            '--bs-breadcrumb-divider': `url("${base64Chevron}")`,
           } as React.CSSProperties
         }
       >

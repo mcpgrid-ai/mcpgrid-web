@@ -1,17 +1,9 @@
-'use client';
+import { FC, Fragment, PropsWithChildren } from 'react';
 
-import { FC, PropsWithChildren } from 'react';
-
-import { ThemeProviderContext } from './ThemeProvider.context';
-import { ThemeMode } from './ThemeProvider.types';
 import './ThemeProvider.scss';
 
 type ThemeProviderProps = PropsWithChildren;
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-  return (
-    <ThemeProviderContext.Provider value={{ mode: ThemeMode.Light }}>
-      {children}
-    </ThemeProviderContext.Provider>
-  );
+  return <Fragment>{children}</Fragment>;
 };

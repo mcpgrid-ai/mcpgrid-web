@@ -21,9 +21,9 @@ type ListGroupComponent = BsPrefixRefForwardingComponent<
 export const ListGroup: ListGroupComponent = forwardRef<
   HTMLDivElement,
   ListGroupProps
->(function ListGroup({ children, variant, ...props }) {
+>(function ListGroup({ children, variant, ...props }, ref) {
   return (
-    <BsListGroup variant={variant} {...props}>
+    <BsListGroup variant={variant} ref={ref} {...props}>
       {children}
     </BsListGroup>
   );

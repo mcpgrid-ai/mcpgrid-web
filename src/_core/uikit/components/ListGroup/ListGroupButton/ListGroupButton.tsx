@@ -8,12 +8,12 @@ type ListGroupButtonProps = PropsWithChildren<{
 
 // @ts-expect-error x3 error
 export const ListGroupButton: BsPrefixRefForwardingComponent<
-  'button',
+  'a',
   ListGroupButtonProps
-> = forwardRef<HTMLButtonElement, ListGroupButtonProps>(
-  function ListGroupButton({ children, active = false, ...props }) {
+> = forwardRef<HTMLAnchorElement, ListGroupButtonProps>(
+  function ListGroupButton({ children, active = false, ...props }, ref) {
     return (
-      <BsListGroupItem action active={active} {...props}>
+      <BsListGroupItem action active={active} ref={ref} {...props}>
         {children}
       </BsListGroupItem>
     );

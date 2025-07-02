@@ -18,7 +18,7 @@ export const Header: FC = () => {
               data-bs-toggle="collapse"
               data-bs-target="#topnav-menu-content"
             >
-              <Icon.Fa name="bars" width={16} />
+              <Icon.Fa name="bars" size={16} />
             </button>
           </div>
 
