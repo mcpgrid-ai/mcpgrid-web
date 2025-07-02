@@ -4,7 +4,7 @@ import { toNumber } from 'lodash';
 import { PAGE_SIZE } from './page.const';
 
 import { RoutePath } from '@common/constants';
-import { Card, Heading, ListGroup, Pagination, Row } from '@core/uikit';
+import { Heading, Nav, Pagination, Row } from '@core/uikit';
 import { Link, notFound } from '@core/navigation';
 import { strapi } from '@network/strapi';
 import { ServerCard } from '@common/components';
@@ -51,71 +51,67 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
-      <Row>
-        <Row.Col xs={3} className="d-none d-md-block">
-          <Card>
-            <Card.Body>
-              <Card.Title>{t('forms.categories')}</Card.Title>
-            </Card.Body>
-            <ListGroup variant="flush" as="div">
-              <ListGroup.Button
+      <Row className="mb-4">
+        <Row.Col>
+          <Nav variant="pills">
+            <Nav.Item>
+              <Nav.Link
                 as={Link}
-                pathname={RoutePath.Servers}
                 active={!category}
+                pathname={RoutePath.Servers}
                 query={{ search }}
               >
                 {t('options.all')}
-              </ListGroup.Button>
-              {serverCategories.map((item) => {
-                if (item) {
-                  return (
-                    <ListGroup.Button
+              </Nav.Link>
+            </Nav.Item>
+            {serverCategories.map((item) => {
+              if (item) {
+                return (
+                  <Nav.Item key={item.Slug}>
+                    <Nav.Link
                       as={Link}
-                      pathname={RoutePath.Servers}
                       active={category === item.Slug}
+                      pathname={RoutePath.Servers}
                       query={{ search, category: item.Slug }}
-                      key={item.Slug}
                     >
                       {item.Title}
-                    </ListGroup.Button>
-                  );
-                }
-              })}
-            </ListGroup>
-          </Card>
-        </Row.Col>
-        <Row.Col xs={12} md={9}>
-          <Row className="g-4">
-            {list.map((item) => {
-              return (
-                <Row.Col key={item?.Slug} xs={12} sm={6} md={6} lg={4}>
-                  <ServerCard server={item} className="h-100" />
-                </Row.Col>
-              );
+                    </Nav.Link>
+                  </Nav.Item>
+                );
+              }
             })}
-          </Row>
-          <Row className="mt-4">
-            <Row.Col className="d-flex justify-content-center">
-              <Pagination
-                total={servers_connection?.pageInfo.total}
-                page={servers_connection?.pageInfo.page}
-                size={servers_connection?.pageInfo.pageSize}
-              >
-                {/* @ts-expect-error x3 error */}
-                {({ children, page, className }) => {
-                  return (
-                    <Link
-                      pathname={RoutePath.Servers}
-                      query={{ page, category, search }}
-                      className={className}
-                    >
-                      {children}
-                    </Link>
-                  );
-                }}
-              </Pagination>
+          </Nav>
+        </Row.Col>
+      </Row>
+      <Row className="g-4">
+        {list.map((item) => {
+          return (
+            <Row.Col key={item?.Slug} xs={12} sm={6} md={6} lg={4} xl={3}>
+              <ServerCard server={item} className="h-100" />
             </Row.Col>
-          </Row>
+          );
+        })}
+      </Row>
+      <Row className="mt-4">
+        <Row.Col className="d-flex justify-content-center">
+          <Pagination
+            total={servers_connection?.pageInfo.total}
+            page={servers_connection?.pageInfo.page}
+            size={servers_connection?.pageInfo.pageSize}
+          >
+            {/* @ts-expect-error x3 error */}
+            {({ children, page, className }) => {
+              return (
+                <Link
+                  pathname={RoutePath.Servers}
+                  query={{ page, category, search }}
+                  className={className}
+                >
+                  {children}
+                </Link>
+              );
+            }}
+          </Pagination>
         </Row.Col>
       </Row>
     </Fragment>
