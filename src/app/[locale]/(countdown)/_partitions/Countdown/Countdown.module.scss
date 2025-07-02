@@ -1,0 +1,48 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.box {
+  width: 25%;
+  &:last-of-type {
+    .count-num {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.number {
+  font-size: 32px;
+  font-weight: $font-weight-semibold;
+  text-align: center;
+  display: flex;
+  gap: 24px;
+  @media (max-width: 575.98px) {
+    font-size: 18px;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: $font-weight-medium;
+    display: block;
+    padding-bottom: 6px;
+    color: rgba($white, 0.5);
+  }
+}
+
+.num {
+  background-color: $card-bg;
+  padding: 16px 8px;
+  position: relative;
+  border-radius: 4px;
+
+  &::after {
+    content: ':';
+    font-size: 20px;
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $white;
+  }
+}

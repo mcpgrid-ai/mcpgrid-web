@@ -1,46 +1,46 @@
 import { FC, Fragment } from 'react';
 
+import { Countdown } from '../_partitions/Countdown';
+
 import { getTranslations } from '@core/i18n';
-import { Button } from '@core/uikit';
+import { Button, Typography } from '@core/uikit';
+import { strapi } from '@network/strapi';
+import { notFound } from '@core/navigation';
 
 const DashboardSoon: FC = async () => {
-  const [t] = await Promise.all([getTranslations()]);
+  const [
+    t,
+    {
+      data: {
+        pages: [page],
+      },
+    },
+  ] = await Promise.all([
+    getTranslations(),
+    strapi.page.getDashboard({ slug: ['dashboard'] }),
+  ]);
+
+  if (!page) return notFound();
 
   return (
     <Fragment>
-      <h3 className="text-white mt-5">Let's get started with Mcpbox</h3>
-      <p className="text-white-50 font-size-16">
-        Donec pede justo fringilla vel aliquet nec vulputate eget arcu. In enim
-        justo, rhoncus ut imperdiet a venenatis vitae, justo felis
-      </p>
+      <Typography as="h3" className="text-white mt-5">
+        {page.Subtitle}
+      </Typography>
+      <Typography as="p" className="text-white-50 font-size-16">
+        {page.Description}
+      </Typography>
 
-      <div data-countdown="2023/12/31" className="counter-number mt-5">
-        <div className="coming-box">
-          <div className="count-title">{t('forms.days')}</div>
-          <div className="count-num">%D</div>
-        </div>
-        <div className="coming-box">
-          <div className="count-title">{t('forms.hours')}</div>
-          <div className="count-num">%H</div>
-        </div>
-        <div className="coming-box">
-          <div className="count-title">{t('forms.minutes')}</div>
-          <div className="count-num">%M</div>
-        </div>
-        <div className="coming-box">
-          <div className="count-title">{t('forms.seconds')}</div>
-          <div className="count-num">%S</div>
-        </div>
-      </div>
+      <Countdown target={new Date('2025-09-01')} />
 
       <form className="app-search mt-5 mx-auto">
         <div className="position-relative">
           <input
             type="text"
             className="form-control"
-            placeholder="Enter your email address"
+            placeholder={t('placeholders.enterYourEmailAddress')}
           />
-          <Button>
+          <Button type="submit">
             <i className="bx bx-paper-plane align-middle"></i>
           </Button>
         </div>
