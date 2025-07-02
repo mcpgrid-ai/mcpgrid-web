@@ -22,7 +22,7 @@ export const Searchbar: FC<SearchbarProps> = ({
         placeholder={placeholder}
       />
       <button className="btn btn-primary" type={type}>
-        <Icon.Fa name="magnifying-glass" width={16} fixedWidth />
+        <Icon.Fa name="magnifying-glass" size={16} />
       </button>
     </div>
   );
