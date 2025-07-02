@@ -12,6 +12,7 @@ const DashboardSoon: FC = async () => {
     t,
     {
       data: {
+        feature,
         pages: [page],
       },
     },
@@ -31,7 +32,7 @@ const DashboardSoon: FC = async () => {
         {page.Description}
       </Typography>
 
-      <Countdown target={new Date('2025-09-01')} />
+      <Countdown target={new Date(feature?.ReleaseDate)} />
 
       <form className="app-search mt-5 mx-auto">
         <div className="position-relative">

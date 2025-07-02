@@ -40,7 +40,7 @@ const Home = async () => {
                   </Button> */}
                   <Button
                     as={Link}
-                    pathname={RoutePath.SignUp}
+                    pathname={RoutePath.Dashboard}
                     variant="primary"
                     className="mt-2 me-2 waves-effect waves-light"
                   >

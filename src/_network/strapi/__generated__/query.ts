@@ -27,6 +27,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  Date: { input: any; output: any };
   DateTime: { input: any; output: any };
   JSON: { input: any; output: any };
 };
@@ -123,6 +124,7 @@ export type FaqInput = {
 export type Feature = {
   __typename?: 'Feature';
   Dashboard: Scalars['Boolean']['output'];
+  ReleaseDate: Scalars['Date']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -131,6 +133,7 @@ export type Feature = {
 
 export type FeatureInput = {
   Dashboard?: InputMaybe<Scalars['Boolean']['input']>;
+  ReleaseDate?: InputMaybe<Scalars['Date']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -1292,6 +1295,7 @@ export type GetPageDashboardQuery = {
     Description?: string | null;
     Slug: string;
   } | null>;
+  feature?: { __typename?: 'Feature'; ReleaseDate: any } | null;
 };
 
 export type GetPageFaqsQueryVariables = Exact<{
@@ -1454,6 +1458,9 @@ export const GetPageDashboard = gql`
       Subtitle
       Description
       Slug
+    }
+    feature {
+      ReleaseDate
     }
   }
 `;

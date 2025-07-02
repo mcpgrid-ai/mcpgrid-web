@@ -5,4 +5,7 @@ query getPageDashboard($slug: [String]!) {
     Description
     Slug
   }
+  feature {
+    ReleaseDate
+  }
 }
