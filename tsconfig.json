@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@core/*": ["./src/_core/*"],
+      "@bootstrap/*": ["./src/_bootstrap/*"],
       "@common/*": ["./src/_common/*"],
       "@app/*": ["./src/_app/*"],
       "@network/*": ["./src/_network/*"]
