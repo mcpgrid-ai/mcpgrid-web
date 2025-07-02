@@ -5,6 +5,8 @@ import BG_IMG from './layout.jpg';
 import './layout.scss';
 
 import { IMAGES, Row } from '@core/uikit';
+import { Link } from '@core/navigation';
+import { RoutePath } from '@common/constants';
 
 type CountdownLayoutProps = PropsWithChildren;
 
@@ -31,7 +33,7 @@ const CountdownLayout: FC<CountdownLayoutProps> = ({ children }) => {
             <Row.Col lg={8}>
               <div className="text-center py-4 py-sm-5">
                 <div className="mb-5">
-                  <a href="index.html">
+                  <Link pathname={RoutePath.Index}>
                     <Image
                       width={30}
                       height={30}
@@ -42,7 +44,7 @@ const CountdownLayout: FC<CountdownLayoutProps> = ({ children }) => {
                     <span className="logo-txt text-white font-size-22">
                       {process.env.PRODUCT_NAME}
                     </span>
-                  </a>
+                  </Link>
                 </div>
                 {children}
               </div>
