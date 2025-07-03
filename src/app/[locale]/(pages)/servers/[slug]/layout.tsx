@@ -1,8 +1,10 @@
 import { FC, Fragment, PropsWithChildren } from 'react';
 
+import { Tabs } from './_partitions/Tabs';
+
 import { strapi, Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
-import { Avatar, Button, Card, Heading, Icon, Nav, Row } from '@core/uikit';
+import { Avatar, Button, Card, Heading, Icon, Row } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
 import { Iconify } from '@core/uikit/components/Iconify';
@@ -69,22 +71,13 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               <Row>
                 <Row.Col sm className="order-2 order-sm-1">
                   <div className="d-flex align-items-start mt-3 mt-sm-0">
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 me-3">
                       <Avatar size={80}>{avatar}</Avatar>
-                      <div className="avatar-xl me-3">
-                        <img
-                          src="assets/images/users/avatar-2.jpg"
-                          alt=""
-                          className="img-fluid rounded-circle d-block"
-                        />
-                      </div>
                     </div>
                     <div className="flex-grow-1">
                       <div>
                         <h5 className="font-size-16 mb-1">Phyllis Gatlin</h5>
-                        <p className="text-muted font-size-13">
-                          Full Stack Developer
-                        </p>
+                        <p className="text-muted">Full Stack Developer</p>
 
                         <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
                           <div>
@@ -126,29 +119,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                   </div>
                 </Row.Col>
               </Row>
-              <Nav
-                variant="tabs"
-                className="mt-4 border-top nav-tabs-custom card-header-tabs"
-              >
-                <Nav.Item>
-                  <Nav.Link
-                    as={Link}
-                    pathname={RoutePath.ServerDetails}
-                    params={{ slug }}
-                  >
-                    {t('nav.overview')}
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link
-                    as={Link}
-                    pathname={RoutePath.ServerDetailsTools}
-                    params={{ slug }}
-                  >
-                    {t('nav.tools')}
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
+              <Tabs slug={slug} />
             </Card.Body>
           </Card>
           {children}

@@ -3,21 +3,23 @@ import BsNav from 'react-bootstrap/Nav';
 
 import { NavItem } from './NavItem';
 import { NavLink } from './NavLink';
+import { NavPropsValue } from './Nav.types';
 
-export type NavProps = PropsWithChildren<{
+export type NavProps<T extends NavPropsValue> = PropsWithChildren<{
   variant?: 'tabs' | 'pills' | 'underline';
   className?: string;
+  value?: T;
 }>;
 
 interface NavComponent {
-  (props: NavProps): ReactElement;
+  <T extends NavPropsValue = string>(props: NavProps<T>): ReactElement;
   Item: typeof NavItem;
   Link: typeof NavLink;
 }
 
-export const Nav: NavComponent = ({ children, variant, className }) => {
+export const Nav: NavComponent = ({ children, variant, className, value }) => {
   return (
-    <BsNav variant={variant} className={className}>
+    <BsNav variant={variant} className={className} activeKey={value}>
       {children}
     </BsNav>
   );
