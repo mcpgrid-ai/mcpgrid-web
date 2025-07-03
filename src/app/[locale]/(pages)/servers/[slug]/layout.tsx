@@ -1,8 +1,9 @@
 import { FC, Fragment, PropsWithChildren } from 'react';
 
 import { Tabs } from './_partitions/Tabs';
+import { getServerLayoutData } from './layout.utils';
 
-import { strapi, Image } from '@network/strapi';
+import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
 import {
   Avatar,
@@ -24,21 +25,17 @@ type ServerLayoutProps = PropsWithChildren<{
 }>;
 
 const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
-  const [t, { slug }] = await Promise.all([getTranslations(), params]);
+  const { slug } = await params;
 
-  const {
-    pages,
-    servers: [server],
-  } = await strapi.page.getServer({
-    slug: ['home', 'servers'],
-    server: slug,
+  const t = await getTranslations();
+
+  const { server, servers, home, repo } = await getServerLayoutData({
+    slug,
   });
 
-  const servers = pages.find((item) => item && item.Slug === 'servers');
-
-  const home = pages.find((item) => item && item.Slug === 'home');
-
   if (!server || !servers || !home) return notFound();
+
+  console.log(repo);
 
   const avatar = (() => {
     if (server.Logo?.url)

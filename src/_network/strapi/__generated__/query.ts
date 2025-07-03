@@ -935,7 +935,7 @@ export type Server = {
   __typename?: 'Server';
   Category?: Maybe<ServerCategory>;
   Description?: Maybe<Scalars['String']['output']>;
-  GitHubUrl?: Maybe<Scalars['String']['output']>;
+  GitHubUrl: Scalars['String']['output'];
   HomepageUrl?: Maybe<Scalars['String']['output']>;
   Logo?: Maybe<UploadFile>;
   Slug: Scalars['String']['output'];
@@ -1358,7 +1358,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl?: string | null, HomepageUrl?: string | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl: string, HomepageUrl?: string | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;

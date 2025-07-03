@@ -11,6 +11,7 @@ export * from './components/Row';
 export * from './components/Searchbar';
 export * from './components/ThemeProvider';
 export * from './components/Typography';
+export * from './components/Markdown';
 
 // Assets
 export { IMAGES } from './assets/images';

@@ -1,26 +1,33 @@
 import { FC } from 'react';
 
-import { Card } from '@core/uikit';
-import { getTranslations } from '@core/i18n';
+import { getServerDetailsOverviewData } from './page.utils';
 
-interface ServerDetailsProps {
+import { Card, Markdown } from '@core/uikit';
+
+interface ServerDetailsOverviewProps {
   params: Promise<{
     slug: string;
   }>;
 }
 
-const ServerDetails: FC<ServerDetailsProps> = async ({ params }) => {
+const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
+  params,
+}) => {
   const { slug } = await params;
-  const t = await getTranslations();
+
+  const data = await getServerDetailsOverviewData({
+    slug,
+  });
+
+  if (!data?.readme || typeof data?.readme !== 'string') return null;
 
   return (
     <Card>
-      <Card.Heder>
-        <Card.Title>{t('nav.overview')}</Card.Title>
-      </Card.Heder>
-      <Card.Body>{slug}</Card.Body>
+      <Card.Body>
+        <Markdown>{data?.readme}</Markdown>
+      </Card.Body>
     </Card>
   );
 };
 
-export default ServerDetails;
+export default ServerDetailsOverview;

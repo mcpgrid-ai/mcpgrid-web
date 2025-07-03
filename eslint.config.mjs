@@ -15,9 +15,9 @@ const eslintConfig = [
   eslintPluginPrettierRecommended,
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
-    // plugins: {
-    //   import: importPlugin,
-    // },
+    ignores: ['**/__generated__/**'],
+  },
+  {
     rules: {
       'import/order': [
         'warn',
