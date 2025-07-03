@@ -10,5 +10,11 @@ query getPageServer($server: String!, $slug: [String]!) {
     Description
     GitHubUrl
     HomepageUrl
+    Category {
+      Icon
+    }
+    Logo {
+      url
+    }
   }
 }

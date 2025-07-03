@@ -1,10 +1,11 @@
 import { FC, Fragment, PropsWithChildren } from 'react';
 
-import { strapi } from '@network/strapi';
+import { strapi, Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
-import { Button, Card, Heading, Icon, Nav, Row } from '@core/uikit';
+import { Avatar, Button, Card, Heading, Icon, Nav, Row } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
+import { Iconify } from '@core/uikit/components/Iconify';
 
 type ServerLayoutProps = PropsWithChildren<{
   params: Promise<{
@@ -28,6 +29,22 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
   const home = pages.find((item) => item && item.Slug === 'home');
 
   if (!server || !servers || !home) return notFound();
+
+  const avatar = (() => {
+    if (server.Logo?.url)
+      return (
+        <Image
+          src={server.Logo?.url}
+          alt={server.Title}
+          width={48}
+          height={48}
+        />
+      );
+
+    if (server.Category?.Icon)
+      return <Iconify name={server.Category?.Icon.iconName} size={40} />;
+    return null;
+  })();
 
   return (
     <Fragment>
@@ -53,6 +70,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                 <Row.Col sm className="order-2 order-sm-1">
                   <div className="d-flex align-items-start mt-3 mt-sm-0">
                     <div className="flex-shrink-0">
+                      <Avatar size={80}>{avatar}</Avatar>
                       <div className="avatar-xl me-3">
                         <img
                           src="assets/images/users/avatar-2.jpg"

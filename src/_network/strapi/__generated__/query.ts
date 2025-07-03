@@ -1358,7 +1358,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl?: string | null, HomepageUrl?: string | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl?: string | null, HomepageUrl?: string | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
@@ -1464,6 +1464,12 @@ export const GetPageServer = gql`
     Description
     GitHubUrl
     HomepageUrl
+    Category {
+      Icon
+    }
+    Logo {
+      url
+    }
   }
 }
     `;
