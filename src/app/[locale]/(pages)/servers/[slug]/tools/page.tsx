@@ -7,9 +7,9 @@ interface ServerDetailsToolsProps {
 }
 
 const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
-  const q = await params;
+  const { slug } = await params;
 
-  return <Fragment>Tools</Fragment>;
+  return <Fragment>Tools: {slug}</Fragment>;
 };
 
 export default ServerDetailsTools;

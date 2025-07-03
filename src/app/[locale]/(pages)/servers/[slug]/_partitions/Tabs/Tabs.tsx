@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 
-import { Nav } from '@core/uikit';
+import { Icon, Nav } from '@core/uikit';
 import { Link, useRoute } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 import { useTranslations } from '@core/i18n';
@@ -27,7 +27,9 @@ export const Tabs: FC<TabsProps> = ({ slug }) => {
           params={{ slug }}
           value={RoutePath.ServerDetails}
           active={!segment}
+          className="d-flex"
         >
+          <Icon.Bx name="info-circle" size={20} className="me-2" />
           {t('nav.overview')}
         </Nav.Link>
       </Nav.Item>
@@ -38,7 +40,9 @@ export const Tabs: FC<TabsProps> = ({ slug }) => {
           params={{ slug }}
           value={RoutePath.ServerDetailsTools}
           active={segment === 'tools'}
+          className="d-flex"
         >
+          <Icon.Bx name="cog" size={20} className="me-2" />
           {t('nav.tools')}
         </Nav.Link>
       </Nav.Item>

@@ -4,7 +4,15 @@ import { Tabs } from './_partitions/Tabs';
 
 import { strapi, Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
-import { Avatar, Button, Card, Heading, Icon, Row } from '@core/uikit';
+import {
+  Avatar,
+  Button,
+  Card,
+  Heading,
+  Icon,
+  Row,
+  Typography,
+} from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
 import { Iconify } from '@core/uikit/components/Iconify';
@@ -66,7 +74,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
       </Heading>
       <Row>
         <Row.Col xl={9} lg={8}>
-          <Card>
+          <Card className="mb-4">
             <Card.Body>
               <Row>
                 <Row.Col sm className="order-2 order-sm-1">
@@ -76,19 +84,27 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                     </div>
                     <div className="flex-grow-1">
                       <div>
-                        <h5 className="font-size-16 mb-1">Phyllis Gatlin</h5>
-                        <p className="text-muted">Full Stack Developer</p>
+                        <Typography className="m-0">
+                          {server.Description}
+                        </Typography>
 
-                        <div className="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                        {/* <div className="d-flex flex-wrap align-items-center gap-2 gap-lg-3 text-muted font-size-14">
                           <div>
-                            <i className="mdi mdi-circle-medium me-1 text-success align-middle"></i>
-                            Development
+                            <Icon.Bx
+                              name="code-alt"
+                              size={20}
+                              className="me-2"
+                            />
+                            {t.rich('values.developer', {
+                              value: 'test',
+                              styled: (chunks) => (
+                                <Link pathname="/" target="_blank">
+                                  @{chunks}
+                                </Link>
+                              ),
+                            })}
                           </div>
-                          <div>
-                            <i className="mdi mdi-circle-medium me-1 text-success align-middle"></i>
-                            phyllisgatlin@minia.com
-                          </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
