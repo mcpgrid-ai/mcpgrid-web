@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import ReactMarkdown from 'react-markdown';
 import classNames from 'classnames';
+import { Prism } from 'react-syntax-highlighter';
 
 import styles from './Markdown.module.scss';
 
@@ -12,6 +13,7 @@ export const Markdown: FC<MarkdownProps> = ({ children }) => {
   return (
     <div className={classNames(styles.root, 'text-muted')}>
       <ReactMarkdown
+        skipHtml
         components={{
           h1: ({ children, className }) => (
             <h1 className={classNames(styles.h1, className)}>{children}</h1>
@@ -30,6 +32,26 @@ export const Markdown: FC<MarkdownProps> = ({ children }) => {
           ul: ({ children, className }) => (
             <ul className={classNames(styles.ul, className)}>{children}</ul>
           ),
+          code: ({ children, className = '' }) => {
+            if (typeof children !== 'string') return null;
+
+            const language = className.split('language-').join('');
+
+            if (!language)
+              return (
+                <code
+                  className={classNames(className, 'bg-light', styles.code)}
+                >
+                  {children}
+                </code>
+              );
+
+            return (
+              <Prism language={className.split('language-').join('')}>
+                {children}
+              </Prism>
+            );
+          },
         }}
       >
         {children}
