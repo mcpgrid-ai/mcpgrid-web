@@ -18,7 +18,6 @@ import {
 } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
-import { Iconify } from '@core/uikit/components/Iconify';
 
 type ServerLayoutProps = PropsWithChildren<{
   params: Promise<{
@@ -49,7 +48,15 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
       );
 
     if (server.Category?.Icon)
-      return <Iconify name={server.Category?.Icon.iconName} size={40} />;
+      return (
+        <Icon.Svg
+          size={40}
+          icon={server.Category?.Icon.iconData}
+          width={server.Category?.Icon.width}
+          height={server.Category?.Icon.height}
+        />
+      );
+
     return null;
   })();
 
