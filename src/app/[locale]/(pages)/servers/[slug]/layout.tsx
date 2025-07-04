@@ -129,6 +129,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
           </Box>
         </Row.Col>
       </Row>
+      <Row className="mt-5" />
     </Fragment>
   );
 };
