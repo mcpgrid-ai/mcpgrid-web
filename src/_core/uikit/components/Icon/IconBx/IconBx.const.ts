@@ -8,7 +8,12 @@ import {
   BiCodeAlt,
   BiFile,
   BiHome,
+  BiUser,
+  BiBuildings,
+  BiGlobe,
+  BiCalendarAlt,
 } from 'react-icons/bi';
+import { MdBalance } from 'react-icons/md';
 
 export const ICON_BX = {
   'paper-plane': BiPaperPlane,
@@ -20,4 +25,9 @@ export const ICON_BX = {
   'code-alt': BiCodeAlt,
   file: BiFile,
   home: BiHome,
+  user: BiUser,
+  buildings: BiBuildings,
+  globe: BiGlobe,
+  balance: MdBalance,
+  'calendar-alt': BiCalendarAlt,
 };

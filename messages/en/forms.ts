@@ -7,4 +7,8 @@ export const forms = {
   details: 'Details',
   sourceCode: 'Source code',
   homepage: 'Homepage',
+  owner: 'Owner',
+  license: 'License',
+  published: 'Published',
+  language: 'Language',
 };

@@ -28,7 +28,7 @@ export const ServerDetails: FC<ServerDetailsProps> = async ({ repo }) => {
     repo?.homepage || repo?.html_url
       ? [
           {
-            icon: 'link',
+            icon: 'globe',
             href: repo?.homepage || repo?.html_url,
             label: t('forms.homepage'),
             value: new URL(repo?.homepage || repo?.html_url).host,
@@ -36,7 +36,55 @@ export const ServerDetails: FC<ServerDetailsProps> = async ({ repo }) => {
         ]
       : [];
 
-  const details = [...detailsSourceCode, ...detailsHomepage];
+  const detailsOwner: ServerDetailsItem[] = repo?.owner.login
+    ? [
+        {
+          icon: repo?.organization ? 'buildings' : 'user',
+          label: t('forms.owner'),
+          value: `@${repo?.owner.login}`,
+        },
+      ]
+    : [];
+
+  const detailsLicense: ServerDetailsItem[] = repo?.license
+    ? [
+        {
+          href: repo.license.html_url,
+          icon: 'balance',
+          label: t('forms.license'),
+          value: repo.license.name,
+        },
+      ]
+    : [];
+
+  const detailsLanguage: ServerDetailsItem[] = repo?.language
+    ? [
+        {
+          icon: 'code-alt',
+          label: t('forms.language'),
+          value: repo?.language,
+        },
+      ]
+    : [];
+
+  const detailsPublished: ServerDetailsItem[] = repo?.created_at
+    ? [
+        {
+          icon: 'calendar-alt',
+          label: t('forms.published'),
+          value: new Date(repo.created_at).toLocaleString(),
+        },
+      ]
+    : [];
+
+  const details = [
+    ...detailsSourceCode,
+    ...detailsHomepage,
+    ...detailsOwner,
+    ...detailsLanguage,
+    ...detailsLicense,
+    ...detailsPublished,
+  ];
 
   return (
     <Card>
@@ -53,13 +101,15 @@ export const ServerDetails: FC<ServerDetailsProps> = async ({ repo }) => {
                   <Typography as="h6" className="mb-0">
                     {label}
                   </Typography>
-                  {href && (
-                    <Typography>
-                      <Typography as="a" href={href} target="_blank">
+                  <Typography>
+                    {href ? (
+                      <a href={href} target="_blank">
                         {value}
-                      </Typography>
-                    </Typography>
-                  )}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </Typography>
                 </Row.Col>
               </Row>
             </List.Item>
