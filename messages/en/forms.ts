@@ -4,4 +4,11 @@ export const forms = {
   hours: 'Hours',
   minutes: 'Minutes',
   seconds: 'Seconds',
+  details: 'Details',
+  sourceCode: 'Source code',
+  homepage: 'Homepage',
+  owner: 'Owner',
+  license: 'License',
+  published: 'Published',
+  language: 'Language',
 };

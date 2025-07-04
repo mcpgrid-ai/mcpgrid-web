@@ -1,6 +1,33 @@
-import { BiPaperPlane, BiRocket } from 'react-icons/bi';
+import {
+  BiPaperPlane,
+  BiRocket,
+  BiLogoGithub,
+  BiLink,
+  BiInfoCircle,
+  BiCog,
+  BiCodeAlt,
+  BiFile,
+  BiHome,
+  BiUser,
+  BiBuildings,
+  BiGlobe,
+  BiCalendarAlt,
+} from 'react-icons/bi';
+import { MdBalance } from 'react-icons/md';
 
 export const ICON_BX = {
   'paper-plane': BiPaperPlane,
   rocket: BiRocket,
+  'logo-git-hub': BiLogoGithub,
+  link: BiLink,
+  'info-circle': BiInfoCircle,
+  cog: BiCog,
+  'code-alt': BiCodeAlt,
+  file: BiFile,
+  home: BiHome,
+  user: BiUser,
+  buildings: BiBuildings,
+  globe: BiGlobe,
+  balance: MdBalance,
+  'calendar-alt': BiCalendarAlt,
 };

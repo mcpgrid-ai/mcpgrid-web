@@ -1,9 +1,13 @@
 // Components
+export * from './components/Avatar';
+export * from './components/Box';
 export * from './components/Button';
 export * from './components/Card';
 export * from './components/Heading';
 export * from './components/Icon';
+export * from './components/List';
 export * from './components/ListGroup';
+export * from './components/Markdown';
 export * from './components/Nav';
 export * from './components/Pagination';
 export * from './components/Row';

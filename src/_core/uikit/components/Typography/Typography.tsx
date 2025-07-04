@@ -8,11 +8,11 @@ export type TypographyProps = PropsWithChildren<{
 // @ts-expect-error x3 error
 export const Typography: BsPrefixRefForwardingComponent<'p', TypographyProps> =
   forwardRef(function TypographyProps(
-    { as: Component = 'p', children, className },
+    { as: Component = 'p', children, className, ...props },
     ref,
   ) {
     return (
-      <Component ref={ref} className={className}>
+      <Component ref={ref} className={className} {...props}>
         {children}
       </Component>
     );

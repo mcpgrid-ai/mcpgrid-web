@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { CardBody } from './CardBody';
 import { CardTitle } from './CardTitle';
 import { CardText } from './CardText';
+import { CardHeader } from './CardHeader';
 
 export type CardProps = PropsWithChildren<{
   classNames?: string;
@@ -15,6 +16,7 @@ type CardComponent = BsPrefixRefForwardingComponent<'div', CardProps> & {
   Body: typeof CardBody;
   Title: typeof CardTitle;
   Text: typeof CardText;
+  Heder: typeof CardHeader;
 };
 
 // @ts-expect-error x3 error
@@ -34,3 +36,4 @@ export const Card: CardComponent = forwardRef(function Card(
 Card.Body = CardBody;
 Card.Title = CardTitle;
 Card.Text = CardText;
+Card.Heder = CardHeader;

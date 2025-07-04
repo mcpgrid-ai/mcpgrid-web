@@ -1,0 +1,40 @@
+.root {
+  *:first-child {
+    margin-top: 0 !important;
+  }
+}
+
+.h1 {
+  margin: 0.67em 0;
+}
+
+.h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ul {
+  margin-bottom: 1rem;
+}
+
+.p {
+  margin-bottom: 1rem;
+}
+
+.img {
+  max-width: 100%;
+}
+
+.code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bs-topnav-bg);
+  border-radius: var(--bs-border-radius);
+}
