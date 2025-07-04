@@ -5,14 +5,9 @@ import { RoutePath } from '@common/constants';
 export const useNavbarNav = () => {
   const nav: NavbarNavItem[] = [
     {
-      href: RoutePath.Index,
-      label: 'Home',
-      icon: 'home',
-    },
-    {
-      href: RoutePath.Blog,
-      label: 'Blog',
-      icon: 'message-square',
+      href: RoutePath.Servers,
+      label: 'Servers',
+      icon: 'server',
     },
     {
       href: RoutePath.Faqs,

@@ -1,0 +1,8 @@
+@media (width >= 992px) {
+  .root {
+    &.bg {
+      background-color: var(--bs-topnav-bg) !important;
+      border-bottom: 1px solid var(--bs-border-color) !important;
+    }
+  }
+}
