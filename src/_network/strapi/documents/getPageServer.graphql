@@ -9,7 +9,6 @@ query getPageServer($server: String!, $slug: [String]!) {
     Title
     Description
     GitHubUrl
-    HomepageUrl
     Category {
       Icon
     }

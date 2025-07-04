@@ -7,6 +7,7 @@ import {
   BiCog,
   BiCodeAlt,
   BiFile,
+  BiHome,
 } from 'react-icons/bi';
 
 export const ICON_BX = {
@@ -18,4 +19,5 @@ export const ICON_BX = {
   cog: BiCog,
   'code-alt': BiCodeAlt,
   file: BiFile,
+  home: BiHome,
 };

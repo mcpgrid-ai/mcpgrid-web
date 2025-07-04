@@ -1,7 +1,8 @@
 import { FC, Fragment, PropsWithChildren } from 'react';
 
-import { Tabs } from './_partitions/Tabs';
+import { ServerTabs } from './_partitions/ServerTabs';
 import { getServerLayoutData } from './layout.utils';
+import { ServerDetails } from './_partitions/ServerDetails';
 
 import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
@@ -12,7 +13,6 @@ import {
   Card,
   Heading,
   Icon,
-  List,
   Row,
   Typography,
 } from '@core/uikit';
@@ -100,12 +100,12 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                         <Icon.Bx name="logo-git-hub" size={20} />
                       </Button>
                     )}
-                    {repo?.homepage && (
+                    {(repo?.homepage || repo?.html_url) && (
                       <Button
                         as="a"
                         target="_blank"
                         variant="soft-light"
-                        href={repo?.homepage}
+                        href={repo?.homepage || repo?.html_url}
                       >
                         <Icon.Bx name="link" className="me-2" size={20} />
                         {t('actions.homepage')}
@@ -114,7 +114,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                   </div>
                 </Row.Col>
               </Row>
-              <Tabs slug={slug} />
+              <ServerTabs slug={slug} />
             </Card.Body>
           </Card>
           {children}
@@ -125,22 +125,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               {t('actions.startServer')}
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
-            <Card>
-              <Card.Body>
-                <Card.Title className="mb-3">{t('forms.details')}</Card.Title>
-                <List unstyled>
-                  <List.Item>
-                    <Box>123</Box>
-                  </List.Item>
-                  <List.Item>
-                    <Box>123</Box>
-                  </List.Item>
-                  <List.Item>
-                    <Box>123</Box>
-                  </List.Item>
-                </List>
-              </Card.Body>
-            </Card>
+            <ServerDetails repo={repo} />
           </Box>
         </Row.Col>
       </Row>

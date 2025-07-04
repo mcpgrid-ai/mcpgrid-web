@@ -7,11 +7,11 @@ import { Link, useRoute } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 import { useTranslations } from '@core/i18n';
 
-interface TabsProps {
+interface ServerTabsProps {
   slug: string;
 }
 
-export const Tabs: FC<TabsProps> = ({ slug }) => {
+export const ServerTabs: FC<ServerTabsProps> = ({ slug }) => {
   const t = useTranslations();
   const [{ segment }] = useRoute();
 

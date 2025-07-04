@@ -936,7 +936,6 @@ export type Server = {
   Category?: Maybe<ServerCategory>;
   Description?: Maybe<Scalars['String']['output']>;
   GitHubUrl: Scalars['String']['output'];
-  HomepageUrl?: Maybe<Scalars['String']['output']>;
   Logo?: Maybe<UploadFile>;
   Overview?: Maybe<Scalars['String']['output']>;
   Slug: Scalars['String']['output'];
@@ -994,7 +993,6 @@ export type ServerFiltersInput = {
   Category?: InputMaybe<ServerCategoryFiltersInput>;
   Description?: InputMaybe<StringFilterInput>;
   GitHubUrl?: InputMaybe<StringFilterInput>;
-  HomepageUrl?: InputMaybe<StringFilterInput>;
   Overview?: InputMaybe<StringFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
@@ -1011,7 +1009,6 @@ export type ServerInput = {
   Category?: InputMaybe<Scalars['ID']['input']>;
   Description?: InputMaybe<Scalars['String']['input']>;
   GitHubUrl?: InputMaybe<Scalars['String']['input']>;
-  HomepageUrl?: InputMaybe<Scalars['String']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
   Overview?: InputMaybe<Scalars['String']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
@@ -1361,7 +1358,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl: string, HomepageUrl?: string | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl: string, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServerOverviewQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -1473,7 +1470,6 @@ export const GetPageServer = gql`
     Title
     Description
     GitHubUrl
-    HomepageUrl
     Category {
       Icon
     }

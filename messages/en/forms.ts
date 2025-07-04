@@ -5,4 +5,6 @@ export const forms = {
   minutes: 'Minutes',
   seconds: 'Seconds',
   details: 'Details',
+  sourceCode: 'Source code',
+  homepage: 'Homepage',
 };
