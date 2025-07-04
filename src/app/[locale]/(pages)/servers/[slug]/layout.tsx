@@ -13,8 +13,8 @@ import {
   Card,
   Heading,
   Icon,
+  Markdown,
   Row,
-  Typography,
 } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
@@ -80,11 +80,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                       <Avatar size={80}>{avatar}</Avatar>
                     </div>
                     <div className="flex-grow-1">
-                      <div>
-                        <Typography className="m-0">
-                          {server.Description}
-                        </Typography>
-                      </div>
+                      <Markdown>{server.Description}</Markdown>
                     </div>
                   </div>
                 </Row.Col>
