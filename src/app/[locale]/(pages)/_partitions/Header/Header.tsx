@@ -6,13 +6,21 @@ import { HeaderLogo } from './HeaderLogo';
 import { HeaderNav } from './HeaderNav';
 import styles from './Header.module.scss';
 
-import { Box, Icon } from '@core/uikit';
+import { Box, Button, Icon } from '@core/uikit';
+import { getTranslations } from '@core/i18n';
+import { Link } from '@core/navigation';
+import { RoutePath } from '@common/constants';
 
 type HeaderProps = PropsWithChildren<{
   background?: boolean;
 }>;
 
-export const Header: FC<HeaderProps> = ({ children, background = false }) => {
+export const Header: FC<HeaderProps> = async ({
+  children,
+  background = false,
+}) => {
+  const t = await getTranslations();
+
   return (
     <Fragment>
       <header
@@ -38,6 +46,12 @@ export const Header: FC<HeaderProps> = ({ children, background = false }) => {
 
           <Box d="flex">
             <HeaderNav />
+          </Box>
+
+          <Box d="flex" ms={4}>
+            <Button className="f-flex" as={Link} pathname={RoutePath.Dashboard}>
+              {t('actions.getStarted')}
+            </Button>
           </Box>
 
           <div className="d-flex">

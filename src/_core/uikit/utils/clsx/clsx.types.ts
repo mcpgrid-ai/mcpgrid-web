@@ -12,6 +12,7 @@ export type ClsxProps = Partial<{
   mt: ClsxSpacing;
   mx: ClsxSpacing;
   my: ClsxSpacing;
+  ms: ClsxSpacing;
   flexGrow: ClsxFlexGrowShrink;
   flexShrink: ClsxFlexGrowShrink;
 }>;
