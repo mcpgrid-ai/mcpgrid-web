@@ -46,6 +46,19 @@ export const Tabs: FC<TabsProps> = ({ slug }) => {
           {t('nav.tools')}
         </Nav.Link>
       </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          as={Link}
+          pathname={RoutePath.ServerDetailsReadme}
+          params={{ slug }}
+          value={RoutePath.ServerDetailsReadme}
+          active={segment === 'readme'}
+          className="d-flex"
+        >
+          <Icon.Bx name="file" size={20} className="me-2" />
+          {t('nav.readme')}
+        </Nav.Link>
+      </Nav.Item>
     </Nav>
   );
 };

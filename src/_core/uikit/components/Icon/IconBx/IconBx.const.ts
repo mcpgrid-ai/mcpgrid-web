@@ -6,6 +6,7 @@ import {
   BiInfoCircle,
   BiCog,
   BiCodeAlt,
+  BiFile,
 } from 'react-icons/bi';
 
 export const ICON_BX = {
@@ -16,4 +17,5 @@ export const ICON_BX = {
   'info-circle': BiInfoCircle,
   cog: BiCog,
   'code-alt': BiCodeAlt,
+  file: BiFile,
 };

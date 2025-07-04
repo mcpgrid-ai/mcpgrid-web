@@ -39,15 +39,19 @@ export const Markdown: FC<MarkdownProps> = ({ children }) => {
 
             if (!language)
               return (
-                <code
-                  className={classNames(className, 'bg-light', styles.code)}
-                >
+                <code className={classNames(className, styles.code)}>
                   {children}
                 </code>
               );
 
             return (
-              <Prism language={className.split('language-').join('')}>
+              <Prism
+                language={className.split('language-').join('')}
+                customStyle={{
+                  background: 'var(--bs-topnav-bg)',
+                  borderRadius: 'var(--bs-border-radius)',
+                }}
+              >
                 {children}
               </Prism>
             );
