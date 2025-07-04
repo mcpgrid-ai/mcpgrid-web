@@ -1,0 +1,6 @@
+query getPageServerOverview($slug: String!) {
+  servers(filters: { Slug: { eq: $slug } }) {
+    Title
+    Overview
+  }
+}

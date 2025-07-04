@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { getServerDetailsOverviewData } from './page.utils';
-
 import { Card, Markdown } from '@core/uikit';
+import { strapi } from '@network/strapi';
+import { notFound } from '@core/navigation';
 
 interface ServerDetailsOverviewProps {
   params: Promise<{
@@ -15,16 +15,18 @@ const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
 }) => {
   const { slug } = await params;
 
-  const data = await getServerDetailsOverviewData({
+  const {
+    servers: [server],
+  } = await strapi.page.getServerOverview({
     slug,
   });
 
-  if (!data?.readme || typeof data?.readme !== 'string') return null;
+  if (!server) return notFound();
 
   return (
     <Card>
       <Card.Body>
-        <Markdown>{data?.readme}</Markdown>
+        <Markdown>{server.Overview}</Markdown>
       </Card.Body>
     </Card>
   );

@@ -938,6 +938,7 @@ export type Server = {
   GitHubUrl: Scalars['String']['output'];
   HomepageUrl?: Maybe<Scalars['String']['output']>;
   Logo?: Maybe<UploadFile>;
+  Overview?: Maybe<Scalars['String']['output']>;
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -994,6 +995,7 @@ export type ServerFiltersInput = {
   Description?: InputMaybe<StringFilterInput>;
   GitHubUrl?: InputMaybe<StringFilterInput>;
   HomepageUrl?: InputMaybe<StringFilterInput>;
+  Overview?: InputMaybe<StringFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
@@ -1011,6 +1013,7 @@ export type ServerInput = {
   GitHubUrl?: InputMaybe<Scalars['String']['input']>;
   HomepageUrl?: InputMaybe<Scalars['String']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
+  Overview?: InputMaybe<Scalars['String']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1360,6 +1363,13 @@ export type GetPageServerQueryVariables = Exact<{
 
 export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl: string, HomepageUrl?: string | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
+export type GetPageServerOverviewQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerOverviewQuery = { __typename?: 'Query', servers: Array<{ __typename?: 'Server', Title: string, Overview?: string | null } | null> };
+
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
   page: Scalars['Int']['input'];
@@ -1470,6 +1480,14 @@ export const GetPageServer = gql`
     Logo {
       url
     }
+  }
+}
+    `;
+export const GetPageServerOverview = gql`
+    query getPageServerOverview($slug: String!) {
+  servers(filters: {Slug: {eq: $slug}}) {
+    Title
+    Overview
   }
 }
     `;
