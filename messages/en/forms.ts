@@ -4,4 +4,5 @@ export const forms = {
   hours: 'Hours',
   minutes: 'Minutes',
   seconds: 'Seconds',
+  details: 'Details',
 };

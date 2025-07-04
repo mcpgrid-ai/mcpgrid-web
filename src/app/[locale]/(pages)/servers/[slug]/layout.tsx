@@ -7,10 +7,12 @@ import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
 import {
   Avatar,
+  Box,
   Button,
   Card,
   Heading,
   Icon,
+  List,
   Row,
   Typography,
 } from '@core/uikit';
@@ -34,8 +36,6 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
   });
 
   if (!server || !servers || !home) return notFound();
-
-  console.log(repo);
 
   const avatar = (() => {
     if (server.Logo?.url)
@@ -84,46 +84,28 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                         <Typography className="m-0">
                           {server.Description}
                         </Typography>
-
-                        {/* <div className="d-flex flex-wrap align-items-center gap-2 gap-lg-3 text-muted font-size-14">
-                          <div>
-                            <Icon.Bx
-                              name="code-alt"
-                              size={20}
-                              className="me-2"
-                            />
-                            {t.rich('values.developer', {
-                              value: 'test',
-                              styled: (chunks) => (
-                                <Link pathname="/" target="_blank">
-                                  @{chunks}
-                                </Link>
-                              ),
-                            })}
-                          </div>
-                        </div> */}
                       </div>
                     </div>
                   </div>
                 </Row.Col>
                 <Row.Col sm="auto" className="order-1 order-sm-2">
                   <div className="d-flex align-items-start justify-content-end gap-2">
-                    {server.GitHubUrl && (
+                    {repo?.html_url && (
                       <Button
                         as="a"
                         target="_blank"
                         variant="soft-light"
-                        href={server.GitHubUrl}
+                        href={repo?.html_url}
                       >
                         <Icon.Bx name="logo-git-hub" size={20} />
                       </Button>
                     )}
-                    {server.HomepageUrl && (
+                    {repo?.homepage && (
                       <Button
                         as="a"
                         target="_blank"
                         variant="soft-light"
-                        href={server.HomepageUrl}
+                        href={repo?.homepage}
                       >
                         <Icon.Bx name="link" className="me-2" size={20} />
                         {t('actions.homepage')}
@@ -138,15 +120,28 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
           {children}
         </Row.Col>
         <Row.Col xl={3} lg={4}>
-          <div className="d-grid gap-3">
+          <Box d="grid" gap={3}>
             <Button size="lg" as={Link} pathname={RoutePath.Dashboard}>
               {t('actions.startServer')}
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
             <Card>
-              <Card.Body>123</Card.Body>
+              <Card.Body>
+                <Card.Title className="mb-3">{t('forms.details')}</Card.Title>
+                <List unstyled>
+                  <List.Item>
+                    <Box>123</Box>
+                  </List.Item>
+                  <List.Item>
+                    <Box>123</Box>
+                  </List.Item>
+                  <List.Item>
+                    <Box>123</Box>
+                  </List.Item>
+                </List>
+              </Card.Body>
             </Card>
-          </div>
+          </Box>
         </Row.Col>
       </Row>
     </Fragment>
