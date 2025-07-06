@@ -54,10 +54,10 @@ export const ServerCard: FC<ServerCardProps> = async ({
     >
       <Card.Body className="px-3 py-3">
         <Row className="gx-3 flex-nowrap">
-          <Row.Col xs="auto" className="flex-grow-0">
+          <Row.Col xs="auto">
             <Avatar>{avatar}</Avatar>
           </Row.Col>
-          <Row.Col className="flex-grow-1">
+          <Row.Col xs>
             <Card.Title className="mb-1">{title}</Card.Title>
             <Card.Subtitle className="mb-1">
               {t('values.byOwner', { value: owner })}
