@@ -1,16 +1,36 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, PropsWithChildren } from 'react';
+import classNames from 'classnames';
 
 import { HeaderLogo } from './HeaderLogo';
-import { HeaderNavbarNav } from './HeaderNavbarNav';
+// import { HeaderNavbarNav } from './HeaderNavbarNav';
+import { HeaderNav } from './HeaderNav';
+import styles from './Header.module.scss';
 
-import { Icon } from '@core/uikit';
+import { Box, Button, Icon } from '@core/uikit';
+import { getTranslations } from '@core/i18n';
+import { Link } from '@core/navigation';
+import { RoutePath } from '@common/constants';
 
-export const Header: FC = () => {
+type HeaderProps = PropsWithChildren<{
+  background?: boolean;
+}>;
+
+export const Header: FC<HeaderProps> = async ({
+  children,
+  background = false,
+}) => {
+  const t = await getTranslations();
+
   return (
     <Fragment>
-      <header id="page-topbar">
-        <div className="navbar-header">
-          <div className="d-flex">
+      <header
+        id="page-topbar"
+        className={classNames(styles.root, {
+          [styles.bg]: background,
+        })}
+      >
+        <div className={classNames('navbar-header')}>
+          <Box d="flex">
             <HeaderLogo />
             <button
               type="button"
@@ -20,7 +40,19 @@ export const Header: FC = () => {
             >
               <Icon.Fa name="bars" size={16} />
             </button>
-          </div>
+          </Box>
+
+          <Box d="flex" flexGrow={1}></Box>
+
+          <Box d="flex">
+            <HeaderNav />
+          </Box>
+
+          <Box d="flex" ms={4}>
+            <Button className="f-flex" as={Link} pathname={RoutePath.Dashboard}>
+              {t('actions.getStarted')}
+            </Button>
+          </Box>
 
           <div className="d-flex">
             {/* <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -318,8 +350,9 @@ export const Header: FC = () => {
           </div>
         </div>
       </header>
+      {children}
 
-      <div className="topnav">
+      {/* <div className="topnav">
         <div className="container-fluid">
           <nav className="navbar navbar-light navbar-expand-lg topnav-menu">
             <div className="collapse navbar-collapse" id="topnav-menu-content">
@@ -327,7 +360,7 @@ export const Header: FC = () => {
             </div>
           </nav>
         </div>
-      </div>
+      </div> */}
     </Fragment>
   );
 };

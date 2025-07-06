@@ -934,8 +934,10 @@ export type ReviewWorkflowsWorkflowStageRelationResponseCollection = {
 export type Server = {
   __typename?: 'Server';
   Category?: Maybe<ServerCategory>;
-  Description?: Maybe<Scalars['String']['output']>;
+  Description: Scalars['String']['output'];
+  GitHubOwner: Scalars['String']['output'];
   GitHubUrl: Scalars['String']['output'];
+  IsOfficial: Scalars['Boolean']['output'];
   Logo?: Maybe<UploadFile>;
   Overview?: Maybe<Scalars['String']['output']>;
   Slug: Scalars['String']['output'];
@@ -992,7 +994,9 @@ export type ServerEntityResponseCollection = {
 export type ServerFiltersInput = {
   Category?: InputMaybe<ServerCategoryFiltersInput>;
   Description?: InputMaybe<StringFilterInput>;
+  GitHubOwner?: InputMaybe<StringFilterInput>;
   GitHubUrl?: InputMaybe<StringFilterInput>;
+  IsOfficial?: InputMaybe<BooleanFilterInput>;
   Overview?: InputMaybe<StringFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
@@ -1008,7 +1012,9 @@ export type ServerFiltersInput = {
 export type ServerInput = {
   Category?: InputMaybe<Scalars['ID']['input']>;
   Description?: InputMaybe<Scalars['String']['input']>;
+  GitHubOwner?: InputMaybe<Scalars['String']['input']>;
   GitHubUrl?: InputMaybe<Scalars['String']['input']>;
+  IsOfficial?: InputMaybe<Scalars['Boolean']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
   Overview?: InputMaybe<Scalars['String']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
@@ -1322,7 +1328,7 @@ export type UsersPermissionsUserRelationResponseCollection = {
   nodes: Array<UsersPermissionsUser>;
 };
 
-export type ServerCardFragment = { __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null };
+export type ServerCardFragment = { __typename?: 'Server', documentId: string, Title: string, Slug: string, IsOfficial: boolean, Description: string, GitHubOwner: string, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null };
 
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
@@ -1350,7 +1356,7 @@ export type GetPageHomeServersQueryVariables = Exact<{
 }>;
 
 
-export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
+export type GetPageHomeServersQuery = { __typename?: 'Query', serverCategory?: { __typename?: 'ServerCategory', Title: string, Slug: string } | null, servers: Array<{ __typename?: 'Server', documentId: string, Title: string, Slug: string, IsOfficial: boolean, Description: string, GitHubOwner: string, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number } } | null };
 
 export type GetPageServerQueryVariables = Exact<{
   server: Scalars['String']['input'];
@@ -1358,7 +1364,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Description?: string | null, GitHubUrl: string, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, IsOfficial: boolean, Description: string, GitHubUrl: string, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServerOverviewQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -1375,7 +1381,7 @@ export type GetPageServersQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, Slug: string, Description?: string | null, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number, pageSize: number, page: number } } | null, serverCategories: Array<{ __typename?: 'ServerCategory', Title: string, Slug: string } | null> };
+export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', documentId: string, Title: string, Slug: string, IsOfficial: boolean, Description: string, GitHubOwner: string, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number, pageSize: number, page: number } } | null, serverCategories: Array<{ __typename?: 'ServerCategory', Title: string, Slug: string } | null> };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1384,9 +1390,12 @@ export type GetPageSignUpQuery = { __typename?: 'Query', feature?: { __typename?
 
 export const ServerCard = gql`
     fragment ServerCard on Server {
+  documentId
   Title
   Slug
+  IsOfficial
   Description
+  GitHubOwner
   Logo {
     url
   }
@@ -1468,6 +1477,7 @@ export const GetPageServer = gql`
   }
   servers(filters: {Slug: {eq: $server}}) {
     Title
+    IsOfficial
     Description
     GitHubUrl
     Category {

@@ -79,7 +79,7 @@ const Faq: FC = async () => {
                     <Card className="h-100">
                       <Card.Body className="overflow-hidden position-relative">
                         <div>
-                          <Icon.Feather
+                          <Icon.Fi
                             size={80}
                             name="help-circle"
                             className="widget-box-1-icon text-primary"

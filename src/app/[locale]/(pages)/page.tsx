@@ -42,10 +42,10 @@ const Home = async () => {
                     as={Link}
                     pathname={RoutePath.Dashboard}
                     variant="primary"
-                    className="mt-2 me-2 waves-effect waves-light"
+                    className="mt-2 me-2"
                   >
                     {t('actions.getStarted')}
-                    <Icon.Fa name="arrow-right" className="ms-2" size={13} />
+                    <Icon.Fi name="arrow-right" className="ms-1" size={16} />
                   </Button>
                 </div>
                 <Row className="justify-content-center">

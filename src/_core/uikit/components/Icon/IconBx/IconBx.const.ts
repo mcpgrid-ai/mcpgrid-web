@@ -12,6 +12,7 @@ import {
   BiBuildings,
   BiGlobe,
   BiCalendarAlt,
+  BiSolidBadgeCheck,
 } from 'react-icons/bi';
 import { MdBalance } from 'react-icons/md';
 
@@ -30,4 +31,5 @@ export const ICON_BX = {
   globe: BiGlobe,
   balance: MdBalance,
   'calendar-alt': BiCalendarAlt,
+  'solid-badge-check': BiSolidBadgeCheck,
 };

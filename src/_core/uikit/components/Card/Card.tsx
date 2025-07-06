@@ -7,6 +7,7 @@ import { CardBody } from './CardBody';
 import { CardTitle } from './CardTitle';
 import { CardText } from './CardText';
 import { CardHeader } from './CardHeader';
+import { CardSubtitle } from './CardSubtitle';
 
 export type CardProps = PropsWithChildren<{
   classNames?: string;
@@ -17,6 +18,7 @@ type CardComponent = BsPrefixRefForwardingComponent<'div', CardProps> & {
   Title: typeof CardTitle;
   Text: typeof CardText;
   Heder: typeof CardHeader;
+  Subtitle: typeof CardSubtitle;
 };
 
 // @ts-expect-error x3 error
@@ -37,3 +39,4 @@ Card.Body = CardBody;
 Card.Title = CardTitle;
 Card.Text = CardText;
 Card.Heder = CardHeader;
+Card.Subtitle = CardSubtitle;

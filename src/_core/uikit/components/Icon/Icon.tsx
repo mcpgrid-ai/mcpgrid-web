@@ -1,9 +1,11 @@
-import { IconFeather } from './IconFeather/IconFeather';
+import { IconFi } from './IconFi/IconFi';
 import { IconFa } from './IconFa/IconFa';
 import { IconBx } from './IconBx/IconBx';
+import { IconSvg } from './IconSvg/IconSvg';
 
 export const Icon = {
-  Feather: IconFeather,
+  Fi: IconFi,
   Fa: IconFa,
   Bx: IconBx,
+  Svg: IconSvg,
 };

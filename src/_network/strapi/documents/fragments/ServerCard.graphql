@@ -1,7 +1,10 @@
 fragment ServerCard on Server {
+  documentId
   Title
   Slug
+  IsOfficial
   Description
+  GitHubOwner
   Logo {
     url
   }

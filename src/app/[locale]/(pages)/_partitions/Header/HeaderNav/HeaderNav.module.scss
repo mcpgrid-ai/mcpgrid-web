@@ -1,0 +1,19 @@
+.link {
+  font-weight: 500;
+  font-size: 14.5px;
+  &:hover {
+    color: var(--bs-menu-item-active-color);
+    svg {
+      color: var(--bs-menu-item-active-color);
+      fill: var(--bs-sidebar-menu-item-active-effact-color);
+    }
+  }
+  svg {
+    width: 16px;
+    height: 16px;
+    color: var(--bs-menu-item-color);
+    fill: var(--bs-sidebar-menu-item-icon-effact-color);
+    margin-top: -3px;
+    margin-right: 7px;
+  }
+}

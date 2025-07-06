@@ -13,12 +13,12 @@ import {
   Card,
   Heading,
   Icon,
+  Markdown,
   Row,
-  Typography,
+  Tooltip,
 } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
-import { Iconify } from '@core/uikit/components/Iconify';
 
 type ServerLayoutProps = PropsWithChildren<{
   params: Promise<{
@@ -49,14 +49,33 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
       );
 
     if (server.Category?.Icon)
-      return <Iconify name={server.Category?.Icon.iconName} size={40} />;
+      return (
+        <Icon.Svg
+          size={40}
+          icon={server.Category?.Icon.iconData}
+          width={server.Category?.Icon.width}
+          height={server.Category?.Icon.height}
+        />
+      );
+
     return null;
   })();
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{server.Title}</Heading.Title>
+        <Heading.Title>
+          {server.Title}
+          {server.IsOfficial && (
+            <Tooltip content={t('forms.official')} className="ms-1">
+              <Icon.Bx
+                name="solid-badge-check"
+                className="text-primary"
+                size={20}
+              />
+            </Tooltip>
+          )}
+        </Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
             {home.Title}
@@ -80,11 +99,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                       <Avatar size={80}>{avatar}</Avatar>
                     </div>
                     <div className="flex-grow-1">
-                      <div>
-                        <Typography className="m-0">
-                          {server.Description}
-                        </Typography>
-                      </div>
+                      <Markdown>{server.Description}</Markdown>
                     </div>
                   </div>
                 </Row.Col>
