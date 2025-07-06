@@ -26,10 +26,10 @@ export const HeaderNav: FC = async () => {
       <Nav>
         {nav.map(({ href, label, icon }) => {
           return (
-            <Nav.Item key={href} className="ms-3">
+            <Nav.Item key={href}>
               <Nav.Link as={Link} pathname={href} className={styles.link}>
                 <Icon.Fi name={icon} size={16} className="me-2" />
-                <span data-key="t-dashboards">{label}</span>
+                <span>{label}</span>
               </Nav.Link>
             </Nav.Item>
           );

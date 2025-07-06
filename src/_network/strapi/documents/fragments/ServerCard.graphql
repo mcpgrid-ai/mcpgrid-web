@@ -2,6 +2,7 @@ fragment ServerCard on Server {
   Title
   Slug
   Description
+  GitHubOwner
   Logo {
     url
   }

@@ -9,6 +9,7 @@ import { Link } from '@core/navigation';
 import { Card, Row, Avatar, Icon } from '@core/uikit';
 import { Image } from '@network/strapi';
 import { DTO } from '@network/strapi';
+import { getTranslations } from '@core/i18n';
 
 interface ServerCardProps {
   className?: string;
@@ -19,11 +20,14 @@ export const ServerCard: FC<ServerCardProps> = async ({
   className,
   server,
 }) => {
+  const t = await getTranslations();
+
   const slug = server?.Slug;
   const title = server?.Title;
   const description = server?.Description;
   const logo = server?.Logo?.url;
   const icon = server?.Category?.Icon;
+  const owner = server?.GitHubOwner || '';
 
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
@@ -54,7 +58,10 @@ export const ServerCard: FC<ServerCardProps> = async ({
             <Avatar>{avatar}</Avatar>
           </Row.Col>
           <Row.Col className="flex-grow-1">
-            <Card.Title>{title}</Card.Title>
+            <Card.Title className="mb-1">{title}</Card.Title>
+            <Card.Subtitle className="mb-1">
+              {t('values.byOwner', { value: owner })}
+            </Card.Subtitle>
             <Card.Text truncate={3}>{description}</Card.Text>
           </Row.Col>
         </Row>
