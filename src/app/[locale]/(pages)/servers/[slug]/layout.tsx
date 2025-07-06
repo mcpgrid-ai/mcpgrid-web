@@ -15,6 +15,7 @@ import {
   Icon,
   Markdown,
   Row,
+  Tooltip,
 } from '@core/uikit';
 import { RoutePath } from '@common/constants';
 import { getTranslations } from '@core/i18n';
@@ -63,7 +64,18 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{server.Title}</Heading.Title>
+        <Heading.Title>
+          {server.Title}
+          {server.IsOfficial && (
+            <Tooltip content={t('forms.official')} className="ms-1">
+              <Icon.Bx
+                name="solid-badge-check"
+                className="text-primary"
+                size={20}
+              />
+            </Tooltip>
+          )}
+        </Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
             {home.Title}
