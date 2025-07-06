@@ -14,6 +14,7 @@ export * from './components/Pagination';
 export * from './components/Row';
 export * from './components/Searchbar';
 export * from './components/ThemeProvider';
+export * from './components/Tooltip';
 export * from './components/Typography';
 
 // Assets

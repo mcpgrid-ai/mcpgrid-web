@@ -6,7 +6,7 @@ import { RoutePath } from '../../constants';
 import styles from './ServerCard.module.scss';
 
 import { Link } from '@core/navigation';
-import { Card, Row, Avatar, Icon } from '@core/uikit';
+import { Card, Row, Avatar, Icon, Tooltip } from '@core/uikit';
 import { Image } from '@network/strapi';
 import { DTO } from '@network/strapi';
 import { getTranslations } from '@core/i18n';
@@ -28,6 +28,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
   const logo = server?.Logo?.url;
   const icon = server?.Category?.Icon;
   const owner = server?.GitHubOwner || '';
+  const isOfficial = server?.IsOfficial;
 
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
@@ -58,7 +59,18 @@ export const ServerCard: FC<ServerCardProps> = async ({
             <Avatar>{avatar}</Avatar>
           </Row.Col>
           <Row.Col xs>
-            <Card.Title className="mb-1">{title}</Card.Title>
+            <Card.Title className="mb-1">
+              {title}
+              {isOfficial && (
+                <Tooltip content={t('forms.official')} className="ms-1">
+                  <Icon.Bx
+                    name="solid-badge-check"
+                    className="text-primary"
+                    size={18}
+                  />
+                </Tooltip>
+              )}
+            </Card.Title>
             <Card.Subtitle className="mb-1">
               {t('values.byOwner', { value: owner })}
             </Card.Subtitle>
