@@ -16,23 +16,26 @@ export type TooltipProps = PropsWithChildren<{
 
 // @ts-expect-error x3 error
 export const Tooltip: BsPrefixRefForwardingComponent<'span', TooltipProps> =
-  forwardRef<HTMLSpanElement, TooltipProps>(function Tooltip({
-    children,
-    placement,
-    content,
-    className,
-    trigger,
-    // @ts-expect-error x3 error
-    as: Component = 'span',
-    ...props
-  }) {
+  forwardRef<HTMLSpanElement, TooltipProps>(function Tooltip(
+    {
+      children,
+      placement,
+      content,
+      className,
+      trigger,
+      // @ts-expect-error x3 error
+      as: Component = 'span',
+      ...props
+    },
+    ref,
+  ) {
     return (
       <BsOverlayTrigger
         trigger={trigger}
         placement={placement}
         overlay={<BsTooltip>{content}</BsTooltip>}
       >
-        <Component className={className} {...props}>
+        <Component ref={ref} className={className} {...props}>
           {children}
         </Component>
       </BsOverlayTrigger>

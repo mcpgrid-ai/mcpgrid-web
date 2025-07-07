@@ -8,12 +8,13 @@ export type ButtonProps = PropsWithChildren<{
   variant?: ButtonVariant | 'soft-light';
   className?: string;
   size?: 'sm' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
 }>;
 
 // @ts-expect-error x3 error
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
   forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-    { children, className, variant, size, ...rest },
+    { children, className, variant, size, type, ...rest },
     ref,
   ) {
     return (
@@ -21,6 +22,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
         variant={variant}
         size={size}
         ref={ref}
+        type={type}
         className={classNames(
           {
             'btn-soft-light': variant === 'soft-light',
