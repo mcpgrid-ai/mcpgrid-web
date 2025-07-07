@@ -10,6 +10,7 @@ import { Box, Button, Icon } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
+import { DomNodeId } from '@common/constants/domNodeId.const';
 
 type HeaderProps = PropsWithChildren<{
   background?: boolean;
@@ -42,7 +43,7 @@ export const Header: FC<HeaderProps> = async ({
             </button>
           </Box>
 
-          <Box d="flex" flexGrow={1}></Box>
+          <Box d="flex" id={DomNodeId.HeaderSearch} flexGrow={1}></Box>
 
           <Box d="flex">
             <HeaderNav />
