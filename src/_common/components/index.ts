@@ -1,3 +1,3 @@
 export * from './ServerCard';
 export * from './PaceLoader';
-export * from './GlobalSearch';
+export * from './ServersSearch';

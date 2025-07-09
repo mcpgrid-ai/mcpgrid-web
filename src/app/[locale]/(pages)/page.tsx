@@ -2,8 +2,9 @@ import { Fragment } from 'react';
 import classNames from 'classnames';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
+import styles from './page.module.scss';
 
-import { ServerCard, GlobalSearch } from '@common/components';
+import { ServerCard, ServersSearch } from '@common/components';
 import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
@@ -50,7 +51,12 @@ const Home = async () => {
                 </div>
                 <Row className="justify-content-center">
                   <Row.Col xl={10}>
-                    <GlobalSearch className="app-search d-none d-lg-block mt-4" />
+                    <ServersSearch
+                      className={classNames(
+                        styles.search,
+                        'd-none d-lg-block mt-4',
+                      )}
+                    />
                   </Row.Col>
                 </Row>
               </div>
