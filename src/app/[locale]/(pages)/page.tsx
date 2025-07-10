@@ -2,11 +2,12 @@ import { Fragment } from 'react';
 import classNames from 'classnames';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
+import styles from './page.module.scss';
 
-import { ServerCard } from '@common/components';
+import { ServerCard, ServersSearch } from '@common/components';
 import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
-import { Button, Heading, Icon, Row, Searchbar, Typography } from '@core/uikit';
+import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
 
@@ -49,17 +50,8 @@ const Home = async () => {
                   </Button>
                 </div>
                 <Row className="justify-content-center">
-                  <Row.Col xl={10}>
-                    <form
-                      className="app-search d-none d-lg-block mt-4"
-                      method="get"
-                      action={RoutePath.Servers}
-                    >
-                      <Searchbar
-                        name="search"
-                        placeholder={t('placeholders.search')}
-                      />
-                    </form>
+                  <Row.Col xl={10} className="d-none d-lg-block mt-4">
+                    <ServersSearch className={styles.search} />
                   </Row.Col>
                 </Row>
               </div>

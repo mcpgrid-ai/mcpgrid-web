@@ -6,10 +6,11 @@ import { HeaderLogo } from './HeaderLogo';
 import { HeaderNav } from './HeaderNav';
 import styles from './Header.module.scss';
 
-import { Box, Button, Icon } from '@core/uikit';
+import { Box, Button } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
+import { DomNodeId } from '@common/constants/domNodeId.const';
 
 type HeaderProps = PropsWithChildren<{
   background?: boolean;
@@ -32,17 +33,9 @@ export const Header: FC<HeaderProps> = async ({
         <div className={classNames('navbar-header')}>
           <Box d="flex">
             <HeaderLogo />
-            <button
-              type="button"
-              className="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
-              data-bs-toggle="collapse"
-              data-bs-target="#topnav-menu-content"
-            >
-              <Icon.Fa name="bars" size={16} />
-            </button>
           </Box>
 
-          <Box d="flex" flexGrow={1}></Box>
+          <Box d="flex" id={DomNodeId.HeaderSearch} flexGrow={1}></Box>
 
           <Box d="flex">
             <HeaderNav />
