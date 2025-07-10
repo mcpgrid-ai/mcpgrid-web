@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { ServersSearch as Search } from '@common/components';
 import { DomNodeId } from '@common/constants';
+import { Box } from '@core/uikit';
 
 export const ServersSearch: FC = () => {
   const el = document.getElementById(DomNodeId.HeaderSearch);
@@ -12,9 +13,9 @@ export const ServersSearch: FC = () => {
   if (!el) return null;
 
   return createPortal(
-    <div className="w-75">
+    <Box w={75} d="none" dMd="block">
       <Search className="border" />
-    </div>,
+    </Box>,
     el,
   );
 };

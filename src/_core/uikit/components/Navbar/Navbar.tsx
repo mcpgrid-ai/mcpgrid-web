@@ -1,8 +1,10 @@
 import { FC, PropsWithChildren } from 'react';
 import BsNavbar from 'react-bootstrap/Navbar';
 
-export type NavbarProps = PropsWithChildren;
+import { clsx, ClsxProps } from '../../utils/clsx';
 
-export const Navbar: FC<NavbarProps> = ({ children }) => {
-  return <BsNavbar>{children}</BsNavbar>;
+export type NavbarProps = PropsWithChildren<ClsxProps>;
+
+export const Navbar: FC<NavbarProps> = ({ children, ...clxProps }) => {
+  return <BsNavbar className={clsx(clxProps)}>{children}</BsNavbar>;
 };
