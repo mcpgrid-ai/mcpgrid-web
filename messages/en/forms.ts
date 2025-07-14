@@ -12,4 +12,5 @@ export const forms = {
   published: 'Published',
   language: 'Language',
   official: 'Official',
+  parameters: 'Parameters',
 };

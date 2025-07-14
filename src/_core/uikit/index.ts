@@ -1,4 +1,5 @@
 // Components
+export * from './components/Collapsible';
 export * from './components/Avatar';
 export * from './components/Box';
 export * from './components/Button';
