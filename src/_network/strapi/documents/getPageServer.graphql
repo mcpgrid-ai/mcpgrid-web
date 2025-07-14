@@ -10,6 +10,7 @@ query getPageServer($server: String!, $slug: [String]!) {
     IsOfficial
     Description
     GitHubUrl
+    Settings
     Category {
       Icon
     }

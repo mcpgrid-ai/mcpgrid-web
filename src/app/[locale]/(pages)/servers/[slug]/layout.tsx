@@ -3,6 +3,7 @@ import { FC, Fragment, PropsWithChildren } from 'react';
 import { ServerTabs } from './_partitions/ServerTabs';
 import { getServerLayoutData } from './layout.utils';
 import { ServerDetails } from './_partitions/ServerDetails';
+import { ServerSettings } from './_partitions/ServerSettings';
 
 import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
@@ -140,6 +141,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               {t('actions.startServer')}
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
+            <ServerSettings settings={server.Settings} />
             <ServerDetails repo={repo} />
           </Box>
         </Row.Col>

@@ -940,6 +940,7 @@ export type Server = {
   IsOfficial: Scalars['Boolean']['output'];
   Logo?: Maybe<UploadFile>;
   Overview?: Maybe<Scalars['String']['output']>;
+  Settings: Scalars['JSON']['output'];
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
   Tools: Scalars['JSON']['output'];
@@ -999,6 +1000,7 @@ export type ServerFiltersInput = {
   GitHubUrl?: InputMaybe<StringFilterInput>;
   IsOfficial?: InputMaybe<BooleanFilterInput>;
   Overview?: InputMaybe<StringFilterInput>;
+  Settings?: InputMaybe<JsonFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
   Tools?: InputMaybe<JsonFilterInput>;
@@ -1019,6 +1021,7 @@ export type ServerInput = {
   IsOfficial?: InputMaybe<Scalars['Boolean']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
   Overview?: InputMaybe<Scalars['String']['input']>;
+  Settings?: InputMaybe<Scalars['JSON']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
   Tools?: InputMaybe<Scalars['JSON']['input']>;
@@ -1367,7 +1370,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, IsOfficial: boolean, Description: string, GitHubUrl: string, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, IsOfficial: boolean, Description: string, GitHubUrl: string, Settings: any, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServerOverviewQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -1490,6 +1493,7 @@ export const GetPageServer = gql`
     IsOfficial
     Description
     GitHubUrl
+    Settings
     Category {
       Icon
     }
