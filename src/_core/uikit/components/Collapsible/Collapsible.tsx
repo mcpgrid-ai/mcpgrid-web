@@ -4,6 +4,7 @@ import BsAccordionItem from 'react-bootstrap/AccordionItem';
 
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { CollapsibleContent } from './CollapsibleContent';
+import styles from './Collapsible.module.scss';
 
 export type CollapsibleProps = PropsWithChildren<{
   id: string;
@@ -17,7 +18,7 @@ interface CollapsibleComponent {
 
 export const Collapsible: CollapsibleComponent = ({ children, id }) => {
   return (
-    <BsAccordion>
+    <BsAccordion className={styles.root}>
       <BsAccordionItem eventKey={id}>{children}</BsAccordionItem>
     </BsAccordion>
   );
