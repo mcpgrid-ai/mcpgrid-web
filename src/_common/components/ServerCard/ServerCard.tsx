@@ -62,7 +62,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
             <Card.Title className="mb-1">
               {title}
               {isOfficial && (
-                <Tooltip content={t('forms.official')} className="ms-1">
+                <Tooltip content={t('forms.officialVendor')} className="ms-1">
                   <Icon.Bx
                     name="solid-badge-check"
                     className="text-primary"

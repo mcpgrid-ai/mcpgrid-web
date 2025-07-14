@@ -1,0 +1,5 @@
+query getPageServerTools($slug: String!) {
+  servers(filters: { Slug: { eq: $slug } }) {
+    Tools
+  }
+}

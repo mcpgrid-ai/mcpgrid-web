@@ -3,6 +3,7 @@ import { FC, Fragment, PropsWithChildren } from 'react';
 import { ServerTabs } from './_partitions/ServerTabs';
 import { getServerLayoutData } from './layout.utils';
 import { ServerDetails } from './_partitions/ServerDetails';
+import { ServerSettings } from './_partitions/ServerSettings';
 
 import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
@@ -67,7 +68,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
         <Heading.Title>
           {server.Title}
           {server.IsOfficial && (
-            <Tooltip content={t('forms.official')} className="ms-1">
+            <Tooltip content={t('forms.officialVendor')} className="ms-1">
               <Icon.Bx
                 name="solid-badge-check"
                 className="text-primary"
@@ -140,6 +141,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               {t('actions.startServer')}
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
+            <ServerSettings settings={server.Settings} />
             <ServerDetails repo={repo} />
           </Box>
         </Row.Col>

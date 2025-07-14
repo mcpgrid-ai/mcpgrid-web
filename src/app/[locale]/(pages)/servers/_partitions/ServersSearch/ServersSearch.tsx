@@ -8,7 +8,7 @@ import { DomNodeId } from '@common/constants';
 import { Box } from '@core/uikit';
 
 export const ServersSearch: FC = () => {
-  const el = document.getElementById(DomNodeId.HeaderSearch);
+  const el = window.document.getElementById(DomNodeId.HeaderSearch);
 
   if (!el) return null;
 

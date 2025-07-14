@@ -940,8 +940,10 @@ export type Server = {
   IsOfficial: Scalars['Boolean']['output'];
   Logo?: Maybe<UploadFile>;
   Overview?: Maybe<Scalars['String']['output']>;
+  Settings: Scalars['JSON']['output'];
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
+  Tools: Scalars['JSON']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -998,8 +1000,10 @@ export type ServerFiltersInput = {
   GitHubUrl?: InputMaybe<StringFilterInput>;
   IsOfficial?: InputMaybe<BooleanFilterInput>;
   Overview?: InputMaybe<StringFilterInput>;
+  Settings?: InputMaybe<JsonFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
+  Tools?: InputMaybe<JsonFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
@@ -1017,8 +1021,10 @@ export type ServerInput = {
   IsOfficial?: InputMaybe<Scalars['Boolean']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
   Overview?: InputMaybe<Scalars['String']['input']>;
+  Settings?: InputMaybe<Scalars['JSON']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
+  Tools?: InputMaybe<Scalars['JSON']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -1364,7 +1370,7 @@ export type GetPageServerQueryVariables = Exact<{
 }>;
 
 
-export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, IsOfficial: boolean, Description: string, GitHubUrl: string, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type GetPageServerQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', Title: string, IsOfficial: boolean, Description: string, GitHubUrl: string, Settings: any, Category?: { __typename?: 'ServerCategory', Icon: any } | null, Logo?: { __typename?: 'UploadFile', url: string } | null } | null> };
 
 export type GetPageServerOverviewQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -1372,6 +1378,13 @@ export type GetPageServerOverviewQueryVariables = Exact<{
 
 
 export type GetPageServerOverviewQuery = { __typename?: 'Query', servers: Array<{ __typename?: 'Server', Title: string, Overview?: string | null } | null> };
+
+export type GetPageServerToolsQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerToolsQuery = { __typename?: 'Query', servers: Array<{ __typename?: 'Server', Tools: any } | null> };
 
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
@@ -1480,6 +1493,7 @@ export const GetPageServer = gql`
     IsOfficial
     Description
     GitHubUrl
+    Settings
     Category {
       Icon
     }
@@ -1494,6 +1508,13 @@ export const GetPageServerOverview = gql`
   servers(filters: {Slug: {eq: $slug}}) {
     Title
     Overview
+  }
+}
+    `;
+export const GetPageServerTools = gql`
+    query getPageServerTools($slug: String!) {
+  servers(filters: {Slug: {eq: $slug}}) {
+    Tools
   }
 }
     `;
