@@ -9,6 +9,7 @@ interface ServerToolParameter {
   name: string;
   type: string;
   description?: string;
+  required: boolean;
 }
 
 interface ServerTool {

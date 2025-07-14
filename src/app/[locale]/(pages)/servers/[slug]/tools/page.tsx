@@ -28,11 +28,11 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
             <Collapsible id={id}>
               <Collapsible.Header>
                 <Box>
-                  <Typography as="h5" className="mb-1">
+                  <Typography as="h5" className="mb-1 font-size-15">
                     {id}
                   </Typography>
                   {description && (
-                    <Typography as="p" className="m-0 text-muted">
+                    <Typography as="p" className="m-0 font-size-15 text-muted">
                       {description}
                     </Typography>
                   )}
@@ -40,34 +40,40 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
               </Collapsible.Header>
               <Collapsible.Content>
                 {parameters?.length && (
-                  <Fragment>
-                    <Typography as="h5" className="mb-3">
+                  <Box>
+                    <Typography as="h5" className="font-size-15">
                       {t('forms.parameters')}
                     </Typography>
+                    <div className="my-3 border-top" />
                     <Box d="grid" gap={3} className={styles.parameters}>
-                      {parameters?.map(({ name, type, description }) => {
-                        return (
-                          <Fragment key={name}>
-                            <Box>
-                              <Typography as="h6" className="m-0">
-                                {name}
-                              </Typography>
-                            </Box>
-                            <Box>
-                              <Badge bg="light" className="font-size-12">
-                                {type}
-                              </Badge>
-                            </Box>
-                            <Box>
-                              <Typography className="m-0 text-muted">
-                                {description}
-                              </Typography>
-                            </Box>
-                          </Fragment>
-                        );
-                      })}
+                      {parameters?.map(
+                        ({ name, type, description, required }) => {
+                          return (
+                            <Fragment key={name}>
+                              <Box>
+                                <Typography as="h6" className="m-0">
+                                  {name}
+                                  {required && (
+                                    <span className="text-danger">*</span>
+                                  )}
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Badge bg="light" className="font-size-12">
+                                  {type}
+                                </Badge>
+                              </Box>
+                              <Box>
+                                <Typography className="m-0 text-muted font-size-15">
+                                  {description}
+                                </Typography>
+                              </Box>
+                            </Fragment>
+                          );
+                        },
+                      )}
                     </Box>
-                  </Fragment>
+                  </Box>
                 )}
               </Collapsible.Content>
             </Collapsible>
