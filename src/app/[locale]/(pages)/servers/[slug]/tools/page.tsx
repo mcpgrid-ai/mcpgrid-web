@@ -1,9 +1,10 @@
 import { FC, Fragment } from 'react';
 
 import { getServerTools } from './page.utils';
+import styles from './page.module.scss';
 
 import { getTranslations } from '@core/i18n';
-import { Box, Collapsible, Typography } from '@core/uikit';
+import { Box, Collapsible, Typography, Badge } from '@core/uikit';
 
 interface ServerDetailsToolsProps {
   params: Promise<{
@@ -24,7 +25,7 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
       {tools.map(({ id, description, parameters }) => {
         return (
           <Box key={id} mb={3}>
-            <Collapsible id="slug">
+            <Collapsible id={id}>
               <Collapsible.Header>
                 <Box>
                   <Typography as="h5" className="mb-1">
@@ -38,18 +39,36 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
                 </Box>
               </Collapsible.Header>
               <Collapsible.Content>
-                <Typography as="h6">{t('forms.parameters')}</Typography>
-                <Box>
-                  {parameters?.map(({ name, type, description }) => {
-                    return (
-                      <Fragment key={name}>
-                        <Box>{name}</Box>
-                        <Box>{type}</Box>
-                        <Box>{description}</Box>
-                      </Fragment>
-                    );
-                  })}
-                </Box>
+                {parameters?.length && (
+                  <Fragment>
+                    <Typography as="h5" className="mb-3">
+                      {t('forms.parameters')}
+                    </Typography>
+                    <Box d="grid" gap={3} className={styles.parameters}>
+                      {parameters?.map(({ name, type, description }) => {
+                        return (
+                          <Fragment key={name}>
+                            <Box>
+                              <Typography as="h6" className="m-0">
+                                {name}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Badge bg="light" className="font-size-12">
+                                {type}
+                              </Badge>
+                            </Box>
+                            <Box>
+                              <Typography className="m-0 text-muted">
+                                {description}
+                              </Typography>
+                            </Box>
+                          </Fragment>
+                        );
+                      })}
+                    </Box>
+                  </Fragment>
+                )}
               </Collapsible.Content>
             </Collapsible>
           </Box>

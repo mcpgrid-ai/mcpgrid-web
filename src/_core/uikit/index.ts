@@ -1,9 +1,10 @@
 // Components
-export * from './components/Collapsible';
 export * from './components/Avatar';
+export * from './components/Badge';
 export * from './components/Box';
 export * from './components/Button';
 export * from './components/Card';
+export * from './components/Collapsible';
 export * from './components/Heading';
 export * from './components/Icon';
 export * from './components/List';
