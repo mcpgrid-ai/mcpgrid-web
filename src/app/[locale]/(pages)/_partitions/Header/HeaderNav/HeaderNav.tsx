@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 
 import { NavbarNavItem } from './HeaderNav.types';
 import styles from './HeaderNav.module.scss';
@@ -22,21 +22,19 @@ export const HeaderNav: FC = async () => {
   ];
 
   return (
-    <Fragment>
-      <Navbar>
-        <Nav>
-          {nav.map(({ href, label, icon }) => {
-            return (
-              <Nav.Item key={href}>
-                <Nav.Link as={Link} pathname={href} className={styles.link}>
-                  <Icon.Fi name={icon} size={16} />
-                  <span className="ms-2 d-none d-md-inline">{label}</span>
-                </Nav.Link>
-              </Nav.Item>
-            );
-          })}
-        </Nav>
-      </Navbar>
-    </Fragment>
+    <Navbar>
+      <Nav>
+        {nav.map(({ href, label, icon }) => {
+          return (
+            <Nav.Item key={href}>
+              <Nav.Link as={Link} pathname={href} className={styles.link}>
+                <Icon.Fi name={icon} size={16} className="me-2" />
+                <span>{label}</span>
+              </Nav.Link>
+            </Nav.Item>
+          );
+        })}
+      </Nav>
+    </Navbar>
   );
 };
