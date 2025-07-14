@@ -1,10 +1,10 @@
 import { FC, Fragment } from 'react';
 
-import { getServerTools } from './page.utils';
 import styles from './page.module.scss';
 
 import { getTranslations } from '@core/i18n';
 import { Box, Collapsible, Typography, Badge } from '@core/uikit';
+import { strapi } from '@network/strapi';
 
 interface ServerDetailsToolsProps {
   params: Promise<{
@@ -16,13 +16,13 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
   const { slug } = await params;
   const t = await getTranslations();
 
-  const tools = await getServerTools({
+  const { Tools } = await strapi.page.getServerTools({
     slug,
   });
 
   return (
     <Fragment>
-      {tools.map(({ id, description, parameters }) => {
+      {Tools?.map(({ id, description, parameters }) => {
         return (
           <Box key={id} mb={3}>
             <Collapsible id={id}>

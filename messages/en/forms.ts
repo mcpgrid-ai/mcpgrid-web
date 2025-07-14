@@ -11,6 +11,6 @@ export const forms = {
   license: 'License',
   published: 'Published',
   language: 'Language',
-  official: 'Official',
+  officialVendor: 'Official vendor',
   parameters: 'Parameters',
 };

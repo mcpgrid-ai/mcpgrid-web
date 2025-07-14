@@ -942,6 +942,7 @@ export type Server = {
   Overview?: Maybe<Scalars['String']['output']>;
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
+  Tools: Scalars['JSON']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1000,6 +1001,7 @@ export type ServerFiltersInput = {
   Overview?: InputMaybe<StringFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
+  Tools?: InputMaybe<JsonFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ServerFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
@@ -1019,6 +1021,7 @@ export type ServerInput = {
   Overview?: InputMaybe<Scalars['String']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
+  Tools?: InputMaybe<Scalars['JSON']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -1373,6 +1376,13 @@ export type GetPageServerOverviewQueryVariables = Exact<{
 
 export type GetPageServerOverviewQuery = { __typename?: 'Query', servers: Array<{ __typename?: 'Server', Title: string, Overview?: string | null } | null> };
 
+export type GetPageServerToolsQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerToolsQuery = { __typename?: 'Query', servers: Array<{ __typename?: 'Server', Tools: any } | null> };
+
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
   page: Scalars['Int']['input'];
@@ -1494,6 +1504,13 @@ export const GetPageServerOverview = gql`
   servers(filters: {Slug: {eq: $slug}}) {
     Title
     Overview
+  }
+}
+    `;
+export const GetPageServerTools = gql`
+    query getPageServerTools($slug: String!) {
+  servers(filters: {Slug: {eq: $slug}}) {
+    Tools
   }
 }
     `;
