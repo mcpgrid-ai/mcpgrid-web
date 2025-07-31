@@ -1,5 +1,5 @@
 module.exports = {
-  meilisearch: {
+  api: {
     output: {
       mode: 'tags-split',
       client: 'react-query',
@@ -7,25 +7,25 @@ module.exports = {
       override: {
         mutator: {
           name: 'customInstance',
-          path: './src/_network/meilisearch/utils/orval/orval.utils.ts',
+          path: './src/_network/api/utils/orval/orval.utils.ts',
         },
         query: {
           useInfinite: true,
           queryOptions: {
             name: 'customQueryOptions',
-            path: './src/_network/meilisearch/utils/orval/orval.utils.ts',
+            path: './src/_network/api/utils/orval/orval.utils.ts',
           },
           useInfiniteQueryParam: 'skip',
         },
       },
-      target: './src/_network/meilisearch/__generated__/api.ts',
+      target: './src/_network/api/__generated__/api.ts',
     },
     afterAllFilesWrite: {
       command: 'eslint ./src --fix',
       injectGeneratedDirsAndFiles: true,
     },
     input: {
-      target: './src/_network/meilisearch/openapi.json',
+      target: './src/_network/api/openapi.json',
     },
   },
 };

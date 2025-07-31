@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
-import { MeilisearchProvider } from '@network/meilisearch';
+import { MeilisearchProvider } from '@network/api';
 
 type CommonLayoutProps = PropsWithChildren;
 

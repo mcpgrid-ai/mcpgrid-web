@@ -1,13 +1,13 @@
 'use client';
 
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { get } from 'lodash';
 
 import { RoutePath } from '../../constants';
 
 import { Typeahead, TypeaheadOnSearchCallback } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
-import { useSearchWithPost } from '@network/meilisearch';
+import { useGetServers } from '@network/api';
 
 interface ServersSearchProps {
   bg?: boolean;
@@ -15,31 +15,27 @@ interface ServersSearchProps {
 
 export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   const t = useTranslations();
+  const [query, setQuery] = useState<string>();
 
-  const { isPending, data, mutate } = useSearchWithPost();
+  const { isLoading, data } = useGetServers(
+    {
+      q: query,
+      take: 5,
+    },
+    {
+      query: {
+        enabled: !!query,
+      },
+    },
+  );
 
-  console.log(data?.hits);
+  console.log(data?.data);
 
   const handleOnSearch: TypeaheadOnSearchCallback = useCallback(
     ({ q }) => {
-      mutate({
-        indexUid: 'server',
-        data: {
-          q,
-          limit: 10,
-          offset: 0,
-          // @ts-expect-error x3 error
-          attributesToRetrieve: [
-            'Category.Icon',
-            'Title',
-            'Description',
-            'documentId',
-            'Logo.url',
-          ],
-        },
-      });
+      setQuery(() => q);
     },
-    [mutate],
+    [setQuery],
   );
 
   const options = useMemo(() => get(data, ['hits'], []), [data]);
@@ -49,7 +45,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
       bg={bg}
       action={RoutePath.Servers}
       options={options}
-      isLoading={isPending}
+      isLoading={isLoading}
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     />

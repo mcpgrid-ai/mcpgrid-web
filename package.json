@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "gen:strapi": "graphql-codegen --config ./strapi.config.ts",
-    "gen:meilisearch": "orval --config ./orval.config.js",
-    "act": "act -j deploy --secret-file .env --env-file .env --var-file .env --container-architecture linux/amd64"
+    "gen:api": "yarn download:api && orval --config ./api.config.js",
+    "act": "act -j deploy --secret-file .env --env-file .env --var-file .env --container-architecture linux/amd64",
+    "download:api": "curl -o src/_network/api/openapi.json http://localhost:3001/docs/swagger.json -H 'Accept: application/json'"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
