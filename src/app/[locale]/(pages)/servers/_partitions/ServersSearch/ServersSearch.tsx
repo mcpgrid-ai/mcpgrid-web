@@ -14,7 +14,7 @@ export const ServersSearch: FC = () => {
 
   return createPortal(
     <Box w={75} d="none" dMd="block">
-      <Search className="border" />
+      <Search />
     </Box>,
     el,
   );

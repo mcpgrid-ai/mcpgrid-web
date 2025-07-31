@@ -16,6 +16,7 @@ export type TypeaheadProps = PropsWithChildren<{
   options: Array<Record<string, unknown>>;
   placeholder?: string;
   bg?: boolean;
+  action?: string;
 }>;
 
 export const Typeahead: FC<TypeaheadProps> = memo(function Typeahead({
@@ -24,15 +25,17 @@ export const Typeahead: FC<TypeaheadProps> = memo(function Typeahead({
   options,
   placeholder,
   bg,
+  action,
 }) {
   return (
-    <div
+    <form
+      method="get"
+      action={action}
       className={classNames(styles.wrapper, {
         [styles.bg]: bg,
       })}
     >
       <AsyncTypeahead
-        filterBy={['documentId']}
         isLoading={isLoading}
         labelKey="Title"
         onSearch={(q) => onSearch({ q })}
@@ -43,6 +46,6 @@ export const Typeahead: FC<TypeaheadProps> = memo(function Typeahead({
       <Button type="submit" className={styles.btn}>
         <Icon.Fa name="magnifying-glass" size={16} />
       </Button>
-    </div>
+    </form>
   );
 });

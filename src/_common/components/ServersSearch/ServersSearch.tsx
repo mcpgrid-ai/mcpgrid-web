@@ -5,15 +5,15 @@ import { get } from 'lodash';
 
 import { RoutePath } from '../../constants';
 
-import { Searchbar, Typeahead, TypeaheadOnSearchCallback } from '@core/uikit';
+import { Typeahead, TypeaheadOnSearchCallback } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
 import { useSearchWithPost } from '@network/meilisearch';
 
 interface ServersSearchProps {
-  className?: string;
+  bg?: boolean;
 }
 
-export const ServersSearch: FC<ServersSearchProps> = ({ className }) => {
+export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   const t = useTranslations();
 
   const { isPending, data, mutate } = useSearchWithPost();
@@ -45,20 +45,13 @@ export const ServersSearch: FC<ServersSearchProps> = ({ className }) => {
   const options = useMemo(() => get(data, ['hits'], []), [data]);
 
   return (
-    <form method="get" action={RoutePath.Servers}>
-      <Typeahead
-        bg
-        options={options}
-        isLoading={isPending}
-        onSearch={handleOnSearch}
-        placeholder={t('placeholders.search')}
-      />
-      <Searchbar
-        name="search"
-        type="submit"
-        className={className}
-        placeholder={t('placeholders.search')}
-      />
-    </form>
+    <Typeahead
+      bg={bg}
+      action={RoutePath.Servers}
+      options={options}
+      isLoading={isPending}
+      onSearch={handleOnSearch}
+      placeholder={t('placeholders.search')}
+    />
   );
 };
