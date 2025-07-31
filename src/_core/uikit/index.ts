@@ -17,6 +17,7 @@ export * from './components/Row';
 export * from './components/Searchbar';
 export * from './components/ThemeProvider';
 export * from './components/Tooltip';
+export * from './components/Typeahead';
 export * from './components/Typography';
 
 // Assets

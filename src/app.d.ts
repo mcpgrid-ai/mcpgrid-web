@@ -3,5 +3,7 @@ declare namespace NodeJS {
     STRAPI_HOST: string;
     STRAPI_API_TOKEN: string;
     PRODUCT_NAME: string;
+    MEILISEARCH_HOST: string;
+    MEILISEARCH_API_KEY: string;
   }
 }

@@ -1,0 +1,33 @@
+.wrapper {
+  position: relative;
+  input {
+    &:global(.rbt-input) {
+      height: 40px;
+      box-shadow: none;
+      padding-left: 17px;
+      padding-right: 50px;
+      background-color: var(--bs-body-bg);
+      border: none;
+      &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: var(--bs-body-bg);
+      }
+    }
+  }
+  &.bg {
+    input {
+      &:global(.rbt-input) {
+        background-color: var(--bs-topbar-search-bg) !important;
+      }
+    }
+  }
+}
+
+button.btn {
+  height: 34px;
+  padding: 0 10px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}

@@ -5,11 +5,7 @@
  * Meilisearch HTTP server
  * OpenAPI spec version: 1.15.2
  */
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -19,7 +15,7 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
 import type {
@@ -33,667 +29,957 @@ import type {
   SearchWithUrlQueryParams,
   SummarizedTaskView,
   SwapIndexesPayload,
-  UpdateIndexRequest
+  UpdateIndexRequest,
 } from '../api.schemas';
 
 import { customInstance } from '../../utils/orval/orval.utils';
 import { customQueryOptions } from '../../utils/orval/orval.utils';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
 
 /**
  * List all indexes.
  * @summary List indexes
  */
 export const listIndexes = (
-    params?: ListIndexesParams,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  params?: ListIndexesParams,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<PaginationViewIndexView>(
-      {url: `/indexes`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
+  return customInstance<PaginationViewIndexView>(
+    { url: `/indexes`, method: 'GET', params, signal },
+    options,
+  );
+};
 
-export const getListIndexesQueryKey = (params?: ListIndexesParams,) => {
-    return [`/indexes`, ...(params ? [params]: [])] as const;
-    }
+export const getListIndexesQueryKey = (params?: ListIndexesParams) => {
+  return [`/indexes`, ...(params ? [params] : [])] as const;
+};
 
-    
-export const useListIndexesInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof listIndexes>>, TError = ResponseError>(params?: ListIndexesParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const useListIndexesInfiniteQueryOptions = <
+  TData = Awaited<ReturnType<typeof listIndexes>>,
+  TError = ResponseError,
+>(
+  params?: ListIndexesParams,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof listIndexes>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getListIndexesQueryKey(params);
 
-  const queryKey =  queryOptions?.queryKey ?? getListIndexesQueryKey(params);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof listIndexes>>> = ({
+    signal,
+    pageParam,
+  }) =>
+    listIndexes(
+      { ...params, skip: pageParam || params?.['skip'] },
+      requestOptions,
+      signal,
+    );
 
-  
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listIndexes>>> = ({ signal, pageParam }) => listIndexes({...params, 'skip': pageParam || params?.['skip']}, requestOptions, signal);
+  return customOptions as UseInfiniteQueryOptions<
+    Awaited<ReturnType<typeof listIndexes>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      
-
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseInfiniteQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type ListIndexesInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof listIndexes>>>
-export type ListIndexesInfiniteQueryError = ResponseError
-
+export type ListIndexesInfiniteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listIndexes>>
+>;
+export type ListIndexesInfiniteQueryError = ResponseError;
 
 /**
  * @summary List indexes
  */
 
-export function useListIndexesInfinite<TData = Awaited<ReturnType<typeof listIndexes>>, TError = ResponseError>(
- params?: ListIndexesParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useListIndexesInfinite<
+  TData = Awaited<ReturnType<typeof listIndexes>>,
+  TError = ResponseError,
+>(
+  params?: ListIndexesParams,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof listIndexes>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useListIndexesInfiniteQueryOptions(params, options);
 
-  const queryOptions = useListIndexesInfiniteQueryOptions(params,options)
+  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
+    TData,
+    TError
+  > & { queryKey: QueryKey };
 
-  const query = useInfiniteQuery(queryOptions ) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-
-
-export const useListIndexesQueryOptions = <TData = Awaited<ReturnType<typeof listIndexes>>, TError = ResponseError>(params?: ListIndexesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const useListIndexesQueryOptions = <
+  TData = Awaited<ReturnType<typeof listIndexes>>,
+  TError = ResponseError,
+>(
+  params?: ListIndexesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof listIndexes>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getListIndexesQueryKey(params);
 
-  const queryKey =  queryOptions?.queryKey ?? getListIndexesQueryKey(params);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof listIndexes>>> = ({
+    signal,
+  }) => listIndexes(params, requestOptions, signal);
 
-  
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listIndexes>>> = ({ signal }) => listIndexes(params, requestOptions, signal);
+  return customOptions as UseQueryOptions<
+    Awaited<ReturnType<typeof listIndexes>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      
-
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type ListIndexesQueryResult = NonNullable<Awaited<ReturnType<typeof listIndexes>>>
-export type ListIndexesQueryError = ResponseError
-
+export type ListIndexesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listIndexes>>
+>;
+export type ListIndexesQueryError = ResponseError;
 
 /**
  * @summary List indexes
  */
 
-export function useListIndexes<TData = Awaited<ReturnType<typeof listIndexes>>, TError = ResponseError>(
- params?: ListIndexesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listIndexes>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useListIndexes<
+  TData = Awaited<ReturnType<typeof listIndexes>>,
+  TError = ResponseError,
+>(
+  params?: ListIndexesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof listIndexes>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useListIndexesQueryOptions(params, options);
 
-  const queryOptions = useListIndexesQueryOptions(params,options)
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
-  const query = useQuery(queryOptions ) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
-
-
 
 /**
  * Create an index.
  * @summary Create index
  */
 export const createIndex = (
-    indexCreateRequest: IndexCreateRequest,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  indexCreateRequest: IndexCreateRequest,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<SummarizedTaskView>(
-      {url: `/indexes`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: indexCreateRequest, signal
+  return customInstance<SummarizedTaskView>(
+    {
+      url: `/indexes`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: indexCreateRequest,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  );
+};
 
+export const getCreateIndexMutationOptions = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createIndex>>,
+    TError,
+    { data: IndexCreateRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createIndex>>,
+  TError,
+  { data: IndexCreateRequest },
+  TContext
+> => {
+  const mutationKey = ['createIndex'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-export const getCreateIndexMutationOptions = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createIndex>>, TError,{data: IndexCreateRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof createIndex>>, TError,{data: IndexCreateRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createIndex>>,
+    { data: IndexCreateRequest }
+  > = (props) => {
+    const { data } = props ?? {};
 
-const mutationKey = ['createIndex'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+    return createIndex(data, requestOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type CreateIndexMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createIndex>>
+>;
+export type CreateIndexMutationBody = IndexCreateRequest;
+export type CreateIndexMutationError = ResponseError;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createIndex>>, {data: IndexCreateRequest}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createIndex(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateIndexMutationResult = NonNullable<Awaited<ReturnType<typeof createIndex>>>
-    export type CreateIndexMutationBody = IndexCreateRequest
-    export type CreateIndexMutationError = ResponseError
-
-    /**
+/**
  * @summary Create index
  */
-export const useCreateIndex = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createIndex>>, TError,{data: IndexCreateRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof createIndex>>,
-        TError,
-        {data: IndexCreateRequest},
-        TContext
-      > => {
+export const useCreateIndex = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createIndex>>,
+    TError,
+    { data: IndexCreateRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createIndex>>,
+  TError,
+  { data: IndexCreateRequest },
+  TContext
+> => {
+  const mutationOptions = getCreateIndexMutationOptions(options);
 
-      const mutationOptions = getCreateIndexMutationOptions(options);
-
-      return useMutation(mutationOptions );
-    }
-    /**
+  return useMutation(mutationOptions);
+};
+/**
  * Get information about an index.
  * @summary Get index
  */
 export const getIndex = (
-    indexUid: string,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  indexUid: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<IndexView>(
-      {url: `/indexes/${indexUid}`, method: 'GET', signal
-    },
-      options);
-    }
-  
+  return customInstance<IndexView>(
+    { url: `/indexes/${indexUid}`, method: 'GET', signal },
+    options,
+  );
+};
 
-export const getGetIndexQueryKey = (indexUid: string,) => {
-    return [`/indexes/${indexUid}`] as const;
-    }
+export const getGetIndexQueryKey = (indexUid: string) => {
+  return [`/indexes/${indexUid}`] as const;
+};
 
-    
-export const useGetIndexInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof getIndex>>, TError = ResponseError>(indexUid: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const useGetIndexInfiniteQueryOptions = <
+  TData = Awaited<ReturnType<typeof getIndex>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof getIndex>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetIndexQueryKey(indexUid);
 
-  const queryKey =  queryOptions?.queryKey ?? getGetIndexQueryKey(indexUid);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getIndex>>> = ({
+    signal,
+  }) => getIndex(indexUid, requestOptions, signal);
 
-  
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getIndex>>> = ({ signal }) => getIndex(indexUid, requestOptions, signal);
+  return customOptions as UseInfiniteQueryOptions<
+    Awaited<ReturnType<typeof getIndex>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      
-
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseInfiniteQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetIndexInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getIndex>>>
-export type GetIndexInfiniteQueryError = ResponseError
-
+export type GetIndexInfiniteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getIndex>>
+>;
+export type GetIndexInfiniteQueryError = ResponseError;
 
 /**
  * @summary Get index
  */
 
-export function useGetIndexInfinite<TData = Awaited<ReturnType<typeof getIndex>>, TError = ResponseError>(
- indexUid: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useGetIndexInfinite<
+  TData = Awaited<ReturnType<typeof getIndex>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof getIndex>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useGetIndexInfiniteQueryOptions(indexUid, options);
 
-  const queryOptions = useGetIndexInfiniteQueryOptions(indexUid,options)
+  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
+    TData,
+    TError
+  > & { queryKey: QueryKey };
 
-  const query = useInfiniteQuery(queryOptions ) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-
-
-export const useGetIndexQueryOptions = <TData = Awaited<ReturnType<typeof getIndex>>, TError = ResponseError>(indexUid: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const useGetIndexQueryOptions = <
+  TData = Awaited<ReturnType<typeof getIndex>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getIndex>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetIndexQueryKey(indexUid);
 
-  const queryKey =  queryOptions?.queryKey ?? getGetIndexQueryKey(indexUid);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getIndex>>> = ({
+    signal,
+  }) => getIndex(indexUid, requestOptions, signal);
 
-  
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getIndex>>> = ({ signal }) => getIndex(indexUid, requestOptions, signal);
+  return customOptions as UseQueryOptions<
+    Awaited<ReturnType<typeof getIndex>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      
-
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetIndexQueryResult = NonNullable<Awaited<ReturnType<typeof getIndex>>>
-export type GetIndexQueryError = ResponseError
-
+export type GetIndexQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getIndex>>
+>;
+export type GetIndexQueryError = ResponseError;
 
 /**
  * @summary Get index
  */
 
-export function useGetIndex<TData = Awaited<ReturnType<typeof getIndex>>, TError = ResponseError>(
- indexUid: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getIndex>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useGetIndex<
+  TData = Awaited<ReturnType<typeof getIndex>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getIndex>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useGetIndexQueryOptions(indexUid, options);
 
-  const queryOptions = useGetIndexQueryOptions(indexUid,options)
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
-  const query = useQuery(queryOptions ) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
-
-
 
 /**
  * Delete an index.
  * @summary Delete index
  */
 export const deleteIndex = (
-    indexUid: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      
-      
-      return customInstance<SummarizedTaskView>(
-      {url: `/indexes/${indexUid}`, method: 'DELETE'
-    },
-      options);
-    }
-  
+  indexUid: string,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<SummarizedTaskView>(
+    { url: `/indexes/${indexUid}`, method: 'DELETE' },
+    options,
+  );
+};
 
+export const getDeleteIndexMutationOptions = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteIndex>>,
+    TError,
+    { indexUid: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteIndex>>,
+  TError,
+  { indexUid: string },
+  TContext
+> => {
+  const mutationKey = ['deleteIndex'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-export const getDeleteIndexMutationOptions = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteIndex>>, TError,{indexUid: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteIndex>>, TError,{indexUid: string}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteIndex>>,
+    { indexUid: string }
+  > = (props) => {
+    const { indexUid } = props ?? {};
 
-const mutationKey = ['deleteIndex'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+    return deleteIndex(indexUid, requestOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type DeleteIndexMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteIndex>>
+>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteIndex>>, {indexUid: string}> = (props) => {
-          const {indexUid} = props ?? {};
+export type DeleteIndexMutationError = ResponseError;
 
-          return  deleteIndex(indexUid,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteIndexMutationResult = NonNullable<Awaited<ReturnType<typeof deleteIndex>>>
-    
-    export type DeleteIndexMutationError = ResponseError
-
-    /**
+/**
  * @summary Delete index
  */
-export const useDeleteIndex = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteIndex>>, TError,{indexUid: string}, TContext>, request?: SecondParameter<typeof customInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteIndex>>,
-        TError,
-        {indexUid: string},
-        TContext
-      > => {
+export const useDeleteIndex = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteIndex>>,
+    TError,
+    { indexUid: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteIndex>>,
+  TError,
+  { indexUid: string },
+  TContext
+> => {
+  const mutationOptions = getDeleteIndexMutationOptions(options);
 
-      const mutationOptions = getDeleteIndexMutationOptions(options);
-
-      return useMutation(mutationOptions );
-    }
-    /**
+  return useMutation(mutationOptions);
+};
+/**
  * Update the `primaryKey` of an index.
 Return an error if the index doesn't exists yet or if it contains documents.
  * @summary Update index
  */
 export const updateIndex = (
-    indexUid: string,
-    updateIndexRequest: UpdateIndexRequest,
- options?: SecondParameter<typeof customInstance>,) => {
-      
-      
-      return customInstance<SummarizedTaskView>(
-      {url: `/indexes/${indexUid}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateIndexRequest
+  indexUid: string,
+  updateIndexRequest: UpdateIndexRequest,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<SummarizedTaskView>(
+    {
+      url: `/indexes/${indexUid}`,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateIndexRequest,
     },
-      options);
-    }
-  
+    options,
+  );
+};
 
+export const getUpdateIndexMutationOptions = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateIndex>>,
+    TError,
+    { indexUid: string; data: UpdateIndexRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updateIndex>>,
+  TError,
+  { indexUid: string; data: UpdateIndexRequest },
+  TContext
+> => {
+  const mutationKey = ['updateIndex'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-export const getUpdateIndexMutationOptions = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateIndex>>, TError,{indexUid: string;data: UpdateIndexRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateIndex>>, TError,{indexUid: string;data: UpdateIndexRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updateIndex>>,
+    { indexUid: string; data: UpdateIndexRequest }
+  > = (props) => {
+    const { indexUid, data } = props ?? {};
 
-const mutationKey = ['updateIndex'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+    return updateIndex(indexUid, data, requestOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type UpdateIndexMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updateIndex>>
+>;
+export type UpdateIndexMutationBody = UpdateIndexRequest;
+export type UpdateIndexMutationError = ResponseError;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateIndex>>, {indexUid: string;data: UpdateIndexRequest}> = (props) => {
-          const {indexUid,data} = props ?? {};
-
-          return  updateIndex(indexUid,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateIndexMutationResult = NonNullable<Awaited<ReturnType<typeof updateIndex>>>
-    export type UpdateIndexMutationBody = UpdateIndexRequest
-    export type UpdateIndexMutationError = ResponseError
-
-    /**
+/**
  * @summary Update index
  */
-export const useUpdateIndex = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateIndex>>, TError,{indexUid: string;data: UpdateIndexRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof updateIndex>>,
-        TError,
-        {indexUid: string;data: UpdateIndexRequest},
-        TContext
-      > => {
+export const useUpdateIndex = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateIndex>>,
+    TError,
+    { indexUid: string; data: UpdateIndexRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updateIndex>>,
+  TError,
+  { indexUid: string; data: UpdateIndexRequest },
+  TContext
+> => {
+  const mutationOptions = getUpdateIndexMutationOptions(options);
 
-      const mutationOptions = getUpdateIndexMutationOptions(options);
-
-      return useMutation(mutationOptions );
-    }
-    /**
+  return useMutation(mutationOptions);
+};
+/**
  * Search for documents matching a specific query in the given index.
  * @summary Search an index with GET
  */
 export const searchWithUrlQuery = (
-    indexUid: string,
-    params: SearchWithUrlQueryParams,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<SearchResult>(
-      {url: `/indexes/${indexUid}/search`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
+  return customInstance<SearchResult>(
+    { url: `/indexes/${indexUid}/search`, method: 'GET', params, signal },
+    options,
+  );
+};
 
-export const getSearchWithUrlQueryQueryKey = (indexUid: string,
-    params: SearchWithUrlQueryParams,) => {
-    return [`/indexes/${indexUid}/search`, ...(params ? [params]: [])] as const;
-    }
-
-    
-export const useSearchWithUrlQueryInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof searchWithUrlQuery>>, TError = ResponseError>(indexUid: string,
-    params: SearchWithUrlQueryParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const getSearchWithUrlQueryQueryKey = (
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
 ) => {
+  return [`/indexes/${indexUid}/search`, ...(params ? [params] : [])] as const;
+};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+export const useSearchWithUrlQueryInfiniteQueryOptions = <
+  TData = Awaited<ReturnType<typeof searchWithUrlQuery>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof searchWithUrlQuery>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearchWithUrlQueryQueryKey(indexUid,params);
+  const queryKey =
+    queryOptions?.queryKey ?? getSearchWithUrlQueryQueryKey(indexUid, params);
 
-  
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof searchWithUrlQuery>>
+  > = ({ signal, pageParam }) =>
+    searchWithUrlQuery(
+      indexUid,
+      { ...params, skip: pageParam || params?.['skip'] },
+      requestOptions,
+      signal,
+    );
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof searchWithUrlQuery>>> = ({ signal, pageParam }) => searchWithUrlQuery(indexUid,{...params, 'skip': pageParam || params?.['skip']}, requestOptions, signal);
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-      
+  return customOptions as UseInfiniteQueryOptions<
+    Awaited<ReturnType<typeof searchWithUrlQuery>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseInfiniteQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type SearchWithUrlQueryInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof searchWithUrlQuery>>>
-export type SearchWithUrlQueryInfiniteQueryError = ResponseError
-
+export type SearchWithUrlQueryInfiniteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof searchWithUrlQuery>>
+>;
+export type SearchWithUrlQueryInfiniteQueryError = ResponseError;
 
 /**
  * @summary Search an index with GET
  */
 
-export function useSearchWithUrlQueryInfinite<TData = Awaited<ReturnType<typeof searchWithUrlQuery>>, TError = ResponseError>(
- indexUid: string,
-    params: SearchWithUrlQueryParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useSearchWithUrlQueryInfinite<
+  TData = Awaited<ReturnType<typeof searchWithUrlQuery>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
+  options?: {
+    query?: UseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof searchWithUrlQuery>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useSearchWithUrlQueryInfiniteQueryOptions(
+    indexUid,
+    params,
+    options,
+  );
 
-  const queryOptions = useSearchWithUrlQueryInfiniteQueryOptions(indexUid,params,options)
+  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
+    TData,
+    TError
+  > & { queryKey: QueryKey };
 
-  const query = useInfiniteQuery(queryOptions ) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-
-
-export const useSearchWithUrlQueryQueryOptions = <TData = Awaited<ReturnType<typeof searchWithUrlQuery>>, TError = ResponseError>(indexUid: string,
-    params: SearchWithUrlQueryParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const useSearchWithUrlQueryQueryOptions = <
+  TData = Awaited<ReturnType<typeof searchWithUrlQuery>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof searchWithUrlQuery>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey =
+    queryOptions?.queryKey ?? getSearchWithUrlQueryQueryKey(indexUid, params);
 
-  const queryKey =  queryOptions?.queryKey ?? getSearchWithUrlQueryQueryKey(indexUid,params);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof searchWithUrlQuery>>
+  > = ({ signal }) =>
+    searchWithUrlQuery(indexUid, params, requestOptions, signal);
 
-  
+  const customOptions = customQueryOptions({
+    ...queryOptions,
+    queryKey,
+    queryFn,
+  });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof searchWithUrlQuery>>> = ({ signal }) => searchWithUrlQuery(indexUid,params, requestOptions, signal);
+  return customOptions as UseQueryOptions<
+    Awaited<ReturnType<typeof searchWithUrlQuery>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
 
-      
-
-      const customOptions = customQueryOptions({...queryOptions, queryKey, queryFn});
-
-   return  customOptions as UseQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type SearchWithUrlQueryQueryResult = NonNullable<Awaited<ReturnType<typeof searchWithUrlQuery>>>
-export type SearchWithUrlQueryQueryError = ResponseError
-
+export type SearchWithUrlQueryQueryResult = NonNullable<
+  Awaited<ReturnType<typeof searchWithUrlQuery>>
+>;
+export type SearchWithUrlQueryQueryError = ResponseError;
 
 /**
  * @summary Search an index with GET
  */
 
-export function useSearchWithUrlQuery<TData = Awaited<ReturnType<typeof searchWithUrlQuery>>, TError = ResponseError>(
- indexUid: string,
-    params: SearchWithUrlQueryParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof searchWithUrlQuery>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useSearchWithUrlQuery<
+  TData = Awaited<ReturnType<typeof searchWithUrlQuery>>,
+  TError = ResponseError,
+>(
+  indexUid: string,
+  params: SearchWithUrlQueryParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof searchWithUrlQuery>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customInstance>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = useSearchWithUrlQueryQueryOptions(
+    indexUid,
+    params,
+    options,
+  );
 
-  const queryOptions = useSearchWithUrlQueryQueryOptions(indexUid,params,options)
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
 
-  const query = useQuery(queryOptions ) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
-
-
 
 /**
  * Search for documents matching a specific query in the given index.
  * @summary Search with POST
  */
 export const searchWithPost = (
-    indexUid: string,
-    searchQuery: SearchQuery,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  indexUid: string,
+  searchQuery: SearchQuery,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<SearchResult>(
-      {url: `/indexes/${indexUid}/search`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: searchQuery, signal
+  return customInstance<SearchResult>(
+    {
+      url: `/indexes/${indexUid}/search`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: searchQuery,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  );
+};
 
+export const getSearchWithPostMutationOptions = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof searchWithPost>>,
+    TError,
+    { indexUid: string; data: SearchQuery },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof searchWithPost>>,
+  TError,
+  { indexUid: string; data: SearchQuery },
+  TContext
+> => {
+  const mutationKey = ['searchWithPost'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-export const getSearchWithPostMutationOptions = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchWithPost>>, TError,{indexUid: string;data: SearchQuery}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof searchWithPost>>, TError,{indexUid: string;data: SearchQuery}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof searchWithPost>>,
+    { indexUid: string; data: SearchQuery }
+  > = (props) => {
+    const { indexUid, data } = props ?? {};
 
-const mutationKey = ['searchWithPost'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+    return searchWithPost(indexUid, data, requestOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type SearchWithPostMutationResult = NonNullable<
+  Awaited<ReturnType<typeof searchWithPost>>
+>;
+export type SearchWithPostMutationBody = SearchQuery;
+export type SearchWithPostMutationError = ResponseError;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof searchWithPost>>, {indexUid: string;data: SearchQuery}> = (props) => {
-          const {indexUid,data} = props ?? {};
-
-          return  searchWithPost(indexUid,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type SearchWithPostMutationResult = NonNullable<Awaited<ReturnType<typeof searchWithPost>>>
-    export type SearchWithPostMutationBody = SearchQuery
-    export type SearchWithPostMutationError = ResponseError
-
-    /**
+/**
  * @summary Search with POST
  */
-export const useSearchWithPost = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchWithPost>>, TError,{indexUid: string;data: SearchQuery}, TContext>, request?: SecondParameter<typeof customInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof searchWithPost>>,
-        TError,
-        {indexUid: string;data: SearchQuery},
-        TContext
-      > => {
+export const useSearchWithPost = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof searchWithPost>>,
+    TError,
+    { indexUid: string; data: SearchQuery },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof searchWithPost>>,
+  TError,
+  { indexUid: string; data: SearchQuery },
+  TContext
+> => {
+  const mutationOptions = getSearchWithPostMutationOptions(options);
 
-      const mutationOptions = getSearchWithPostMutationOptions(options);
-
-      return useMutation(mutationOptions );
-    }
-    /**
+  return useMutation(mutationOptions);
+};
+/**
  * Swap the documents, settings, and task history of two or more indexes. You can only swap indexes in pairs. However, a single request can swap as many index pairs as you wish.
 Swapping indexes is an atomic transaction: either all indexes are successfully swapped, or none are.
 Swapping indexA and indexB will also replace every mention of indexA by indexB and vice-versa in the task history. enqueued tasks are left unmodified.
  * @summary Swap indexes
  */
 export const swapIndexes = (
-    swapIndexesPayload: SwapIndexesPayload[],
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+  swapIndexesPayload: SwapIndexesPayload[],
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return customInstance<SummarizedTaskView>(
-      {url: `/swap-indexes`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: swapIndexesPayload, signal
+  return customInstance<SummarizedTaskView>(
+    {
+      url: `/swap-indexes`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: swapIndexesPayload,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  );
+};
 
+export const getSwapIndexesMutationOptions = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof swapIndexes>>,
+    TError,
+    { data: SwapIndexesPayload[] },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof swapIndexes>>,
+  TError,
+  { data: SwapIndexesPayload[] },
+  TContext
+> => {
+  const mutationKey = ['swapIndexes'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-export const getSwapIndexesMutationOptions = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof swapIndexes>>, TError,{data: SwapIndexesPayload[]}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof swapIndexes>>, TError,{data: SwapIndexesPayload[]}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof swapIndexes>>,
+    { data: SwapIndexesPayload[] }
+  > = (props) => {
+    const { data } = props ?? {};
 
-const mutationKey = ['swapIndexes'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+    return swapIndexes(data, requestOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type SwapIndexesMutationResult = NonNullable<
+  Awaited<ReturnType<typeof swapIndexes>>
+>;
+export type SwapIndexesMutationBody = SwapIndexesPayload[];
+export type SwapIndexesMutationError = ResponseError;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof swapIndexes>>, {data: SwapIndexesPayload[]}> = (props) => {
-          const {data} = props ?? {};
-
-          return  swapIndexes(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type SwapIndexesMutationResult = NonNullable<Awaited<ReturnType<typeof swapIndexes>>>
-    export type SwapIndexesMutationBody = SwapIndexesPayload[]
-    export type SwapIndexesMutationError = ResponseError
-
-    /**
+/**
  * @summary Swap indexes
  */
-export const useSwapIndexes = <TError = ResponseError,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof swapIndexes>>, TError,{data: SwapIndexesPayload[]}, TContext>, request?: SecondParameter<typeof customInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof swapIndexes>>,
-        TError,
-        {data: SwapIndexesPayload[]},
-        TContext
-      > => {
+export const useSwapIndexes = <
+  TError = ResponseError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof swapIndexes>>,
+    TError,
+    { data: SwapIndexesPayload[] },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof swapIndexes>>,
+  TError,
+  { data: SwapIndexesPayload[] },
+  TContext
+> => {
+  const mutationOptions = getSwapIndexesMutationOptions(options);
 
-      const mutationOptions = getSwapIndexesMutationOptions(options);
-
-      return useMutation(mutationOptions );
-    }
-    
+  return useMutation(mutationOptions);
+};

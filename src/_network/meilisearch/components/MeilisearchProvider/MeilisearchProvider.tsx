@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, PropsWithChildren, useRef } from 'react';
 import { useUnmount } from 'react-use';
 
@@ -12,6 +14,7 @@ import {
 
 export type MeilisearchProviderProps = PropsWithChildren<{
   baseUrl: string;
+  apiKey: string;
   requestInterceptorRejected?: RequestInterceptorRejectedFn;
   requestInterceptorFulfilled?: RequestInterceptorFulfilledFn;
   responseInterceptorRejected?: ResponseInterceptorRejectedFn;
@@ -21,12 +24,18 @@ export type MeilisearchProviderProps = PropsWithChildren<{
 export const MeilisearchProvider: FC<MeilisearchProviderProps> = ({
   children,
   baseUrl,
+  apiKey,
   requestInterceptorFulfilled: instanceRequestInterceptorFulfilled,
   requestInterceptorRejected: instanceRequestInterceptorRejected,
   responseInterceptorRejected: instanceResponseInterceptorRejected,
   responseInterceptorFulfilled: instanceResponseInterceptorFulfilled,
 }) => {
-  const { current: instance } = useRef(HttpClient.instance(baseUrl));
+  const { current: instance } = useRef(
+    HttpClient.instance({
+      apiKey,
+      baseURL: baseUrl,
+    }),
+  );
 
   const requestInterceptorFulfilled =
     instanceRequestInterceptorFulfilled || null;

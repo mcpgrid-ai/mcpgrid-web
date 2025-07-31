@@ -1,6 +1,6 @@
 input.search {
-  background-color: var(--bs-topbar-search-bg);
+  background-color: var(--bs-topbar-search-bg) !important;
   &:focus {
-    background-color: var(--bs-topbar-search-bg);
+    background-color: var(--bs-topbar-search-bg) !important;
   }
 }
