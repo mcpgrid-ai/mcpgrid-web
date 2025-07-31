@@ -14,7 +14,6 @@ import {
 
 export type ApiProviderProps = PropsWithChildren<{
   baseUrl: string;
-  apiKey: string;
   requestInterceptorRejected?: RequestInterceptorRejectedFn;
   requestInterceptorFulfilled?: RequestInterceptorFulfilledFn;
   responseInterceptorRejected?: ResponseInterceptorRejectedFn;
@@ -24,7 +23,6 @@ export type ApiProviderProps = PropsWithChildren<{
 export const ApiProvider: FC<ApiProviderProps> = ({
   children,
   baseUrl,
-  apiKey,
   requestInterceptorFulfilled: instanceRequestInterceptorFulfilled,
   requestInterceptorRejected: instanceRequestInterceptorRejected,
   responseInterceptorRejected: instanceResponseInterceptorRejected,
@@ -32,7 +30,6 @@ export const ApiProvider: FC<ApiProviderProps> = ({
 }) => {
   const { current: instance } = useRef(
     HttpClient.instance({
-      apiKey,
       baseURL: baseUrl,
     }),
   );

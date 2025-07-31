@@ -12,10 +12,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
     <ThemeProvider>
       <TranslationsProvider>
         <QueryProvider>
-          <ApiProvider
-            baseUrl={process.env.MEILISEARCH_HOST}
-            apiKey={process.env.MEILISEARCH_API_KEY}
-          >
+          <ApiProvider baseUrl={process.env.API_HOST}>
             <html lang="en">
               <body
                 data-layout-size="boxed"
