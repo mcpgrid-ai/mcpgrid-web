@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
-import { MeilisearchProvider } from '@network/api';
+import { ApiProvider } from '@network/api';
 
 type CommonLayoutProps = PropsWithChildren;
 
@@ -12,7 +12,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
     <ThemeProvider>
       <TranslationsProvider>
         <QueryProvider>
-          <MeilisearchProvider
+          <ApiProvider
             baseUrl={process.env.MEILISEARCH_HOST}
             apiKey={process.env.MEILISEARCH_API_KEY}
           >
@@ -26,7 +26,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
                 {children}
               </body>
             </html>
-          </MeilisearchProvider>
+          </ApiProvider>
         </QueryProvider>
       </TranslationsProvider>
     </ThemeProvider>

@@ -1,32 +1,46 @@
 'use client';
 
-import { FC, memo, PropsWithChildren } from 'react';
-import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { ReactElement, ReactNode } from 'react';
+import { AsyncTypeahead, Menu } from 'react-bootstrap-typeahead';
 import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 
-import { TypeaheadOnSearchCallback } from './Typeahead.types';
+import { TypeaheadItem, TypeaheadItemContext } from './TypeaheadItem';
+import {
+  TypeaheadOnSearchCallback,
+  TypeaheadChildrenProps,
+} from './Typeahead.types';
 import styles from './Typeahead.module.scss';
 
-export type TypeaheadProps = PropsWithChildren<{
+export interface TypeaheadProps<T extends object> {
   isLoading: boolean;
   onSearch: TypeaheadOnSearchCallback;
-  options: Array<Record<string, unknown>>;
+  options: Array<T>;
   placeholder?: string;
   bg?: boolean;
   action?: string;
-}>;
+  label: keyof T;
+  children: (props: TypeaheadChildrenProps<T>) => ReactElement;
+}
 
-export const Typeahead: FC<TypeaheadProps> = memo(function Typeahead({
+interface TypeaheadComponent {
+  <T extends object = Record<string, unknown>>(
+    props: TypeaheadProps<T>,
+  ): ReactElement | ReactNode;
+  Item: typeof TypeaheadItem;
+}
+
+export const Typeahead: TypeaheadComponent = ({
   isLoading,
   onSearch,
   options,
   placeholder,
   bg,
   action,
-}) {
+  children,
+}) => {
   return (
     <form
       method="get"
@@ -37,15 +51,33 @@ export const Typeahead: FC<TypeaheadProps> = memo(function Typeahead({
     >
       <AsyncTypeahead
         isLoading={isLoading}
-        labelKey="Title"
+        labelKey="title"
         onSearch={(q) => onSearch({ q })}
         options={options}
         className={classNames(styles.input)}
         placeholder={placeholder}
+        filterBy={() => true}
+        renderMenu={(results, menuProps) => (
+          <Menu {...menuProps}>
+            {results.map((option, index) => (
+              <TypeaheadItemContext.Provider
+                value={{ option, position: index }}
+                key={index}
+              >
+                {children({
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  option: option as any,
+                })}
+              </TypeaheadItemContext.Provider>
+            ))}
+          </Menu>
+        )}
       />
       <Button type="submit" className={styles.btn}>
         <Icon.Fa name="magnifying-glass" size={16} />
       </Button>
     </form>
   );
-});
+};
+
+Typeahead.Item = TypeaheadItem;

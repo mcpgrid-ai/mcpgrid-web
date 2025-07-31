@@ -10,9 +10,9 @@ import {
   RequestInterceptorRejectedFn,
   ResponseInterceptorFulfilledFn,
   ResponseInterceptorRejectedFn,
-} from './MeilisearchProvider.types';
+} from './ApiProvider.types';
 
-export type MeilisearchProviderProps = PropsWithChildren<{
+export type ApiProviderProps = PropsWithChildren<{
   baseUrl: string;
   apiKey: string;
   requestInterceptorRejected?: RequestInterceptorRejectedFn;
@@ -21,7 +21,7 @@ export type MeilisearchProviderProps = PropsWithChildren<{
   responseInterceptorFulfilled?: ResponseInterceptorFulfilledFn;
 }>;
 
-export const MeilisearchProvider: FC<MeilisearchProviderProps> = ({
+export const ApiProvider: FC<ApiProviderProps> = ({
   children,
   baseUrl,
   apiKey,

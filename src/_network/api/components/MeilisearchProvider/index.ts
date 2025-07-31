@@ -1,2 +1,2 @@
-export { MeilisearchProvider } from './MeilisearchProvider';
-export type { MeilisearchProviderProps } from './MeilisearchProvider';
+export { ApiProvider } from './ApiProvider';
+export type { ApiProviderProps } from './ApiProvider';

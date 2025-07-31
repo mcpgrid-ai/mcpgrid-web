@@ -15,6 +15,7 @@ export interface ServerItem {
   id: string;
   slug: string;
   title: string;
+  owner: string;
   icon: HubIcon;
   /** @nullable */
   logo: string | null;
