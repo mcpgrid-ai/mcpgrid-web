@@ -45,6 +45,7 @@ jobs:
           env_vars: |-
             PRODUCT_NAME=${{ vars.PRODUCT_NAME }}
             STRAPI_HOST=${{ secrets.STRAPI_HOST }}
+            API_HOST=${{ vars.API_HOST }}
             STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}
 
       - name: Remove Cloud App Engine versions
