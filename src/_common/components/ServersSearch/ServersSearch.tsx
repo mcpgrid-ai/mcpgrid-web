@@ -56,7 +56,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     >
-      {({ option: { logo, title, icon, slug } }) => {
+      {({ option: { logo, title, icon, slug, owner } }) => {
         return (
           <Typeahead.Item>
             <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
@@ -79,7 +79,9 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
                   <Typography as="h6" className="m-0">
                     {title}
                   </Typography>
-                  <Typography className="m-0 text-muted">{title}</Typography>
+                  <Typography className="m-0 text-muted">
+                    {t('values.byOwner', { value: owner })}
+                  </Typography>
                 </Row.Col>
               </Row>
             </Link>
