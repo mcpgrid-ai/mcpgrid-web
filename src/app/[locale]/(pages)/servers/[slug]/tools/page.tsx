@@ -32,14 +32,18 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
                     {id}
                   </Typography>
                   {description && (
-                    <Typography as="p" className="m-0 font-size-15 text-muted">
+                    <Typography
+                      as="p"
+                      className="m-0 font-size-15 text-muted"
+                      truncate={2}
+                    >
                       {description}
                     </Typography>
                   )}
                 </Box>
               </Collapsible.Header>
               <Collapsible.Content>
-                {parameters?.length && (
+                {parameters?.length ? (
                   <Box>
                     <Typography as="h5" className="font-size-15">
                       {t('forms.parameters')}
@@ -74,7 +78,7 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
                       )}
                     </Box>
                   </Box>
-                )}
+                ) : null}
               </Collapsible.Content>
             </Collapsible>
           </Box>

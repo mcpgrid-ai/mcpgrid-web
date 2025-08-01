@@ -5,7 +5,7 @@ import { AsyncTypeahead, Menu } from 'react-bootstrap-typeahead';
 import classNames from 'classnames';
 
 import { Button } from '../Button';
-import { Icon } from '../Icon';
+import { Icon, IconFaName } from '../Icon';
 
 import { TypeaheadItem, TypeaheadItemContext } from './TypeaheadItem';
 import {
@@ -15,6 +15,7 @@ import {
 import styles from './Typeahead.module.scss';
 
 export interface TypeaheadProps<T extends object> {
+  icon?: IconFaName;
   isLoading: boolean;
   onSearch: TypeaheadOnSearchCallback;
   options: Array<T>;
@@ -40,6 +41,7 @@ export const Typeahead: TypeaheadComponent = ({
   bg,
   action,
   children,
+  icon = 'magnifying-glass',
 }) => {
   return (
     <form
@@ -74,7 +76,7 @@ export const Typeahead: TypeaheadComponent = ({
         )}
       />
       <Button type="submit" className={styles.btn}>
-        <Icon.Fa name="magnifying-glass" size={16} />
+        <Icon.Fa name={icon} size={16} />
       </Button>
     </form>
   );

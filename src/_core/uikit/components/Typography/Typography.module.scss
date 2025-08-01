@@ -1,0 +1,10 @@
+.root {
+  @for $i from 1 through 10 {
+    &.truncate#{$i} {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: #{$i};
+      overflow: hidden;
+    }
+  }
+}
