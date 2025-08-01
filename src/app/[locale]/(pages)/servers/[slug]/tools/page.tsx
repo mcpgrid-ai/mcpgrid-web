@@ -43,12 +43,12 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
                 </Box>
               </Collapsible.Header>
               <Collapsible.Content>
-                {parameters?.length ? (
-                  <Box>
-                    <Typography as="h5" className="font-size-15">
-                      {t('forms.parameters')}
-                    </Typography>
-                    <div className="my-3 border-top" />
+                <Box>
+                  <Typography as="h5" className="font-size-15">
+                    {t('forms.parameters')}
+                  </Typography>
+                  <div className="my-3 border-top" />
+                  {parameters?.length ? (
                     <Box d="grid" gap={3} className={styles.parameters}>
                       {parameters?.map(
                         ({ name, type, description, required }) => {
@@ -77,8 +77,14 @@ const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
                         },
                       )}
                     </Box>
-                  </Box>
-                ) : null}
+                  ) : (
+                    <Box>
+                      <Typography className="m-0 text-muted font-size-15">
+                        {t('noData.noParametersFound')}
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
               </Collapsible.Content>
             </Collapsible>
           </Box>
