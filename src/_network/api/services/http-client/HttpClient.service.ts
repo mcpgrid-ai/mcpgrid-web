@@ -17,8 +17,8 @@ export class HttpClient {
     });
   }
 
-  public static instance(params: HttpClientParams): HttpClient {
-    if (!HttpClient.client) {
+  public static instance(params?: HttpClientParams): HttpClient {
+    if (!HttpClient.client && params) {
       HttpClient.client = new HttpClient(params);
     }
 
