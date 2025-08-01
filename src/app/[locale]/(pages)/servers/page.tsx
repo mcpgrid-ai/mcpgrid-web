@@ -9,6 +9,7 @@ import { Link, notFound } from '@core/navigation';
 import { strapi } from '@network/strapi';
 import { ServerCard } from '@common/components';
 import { getTranslations } from '@core/i18n';
+import { getServers } from '@network/api';
 
 interface ServersProps {
   searchParams: Promise<{
@@ -23,8 +24,14 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 
   const { category, search, page = '1' } = await searchParams;
 
+  const { data, total } = await getServers({
+    take: PAGE_SIZE,
+    q: search,
+    skip: (toNumber(page) - 1) * PAGE_SIZE,
+  });
+
   const {
-    data: { pages, servers: list, servers_connection, serverCategories },
+    data: { pages, serverCategories },
   } = await strapi.page.getServers({
     category,
     slug: ['servers', 'home'],
@@ -84,21 +91,33 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
         </Row.Col>
       </Row>
       <Row className="g-4">
-        {list.map((item) => {
+        {data.map((item) => {
           return (
-            <Row.Col key={item?.Slug} xs={12} sm={6} md={6} lg={4} xl={3}>
-              <ServerCard server={item} className="h-100" />
+            <Row.Col key={item.slug} xs={12} sm={6} md={6} lg={4} xl={3}>
+              <ServerCard
+                server={{
+                  Description: item.description,
+                  documentId: item.id,
+                  GitHubOwner: item.owner,
+                  Slug: item.slug,
+                  Title: item.title,
+                  Category: {
+                    Icon: item.icon,
+                  },
+                  Logo: {
+                    url: item.logo || '',
+                  },
+                  IsOfficial: item.isOfficial,
+                }}
+                className="h-100"
+              />
             </Row.Col>
           );
         })}
       </Row>
       <Row className="mt-4">
         <Row.Col className="d-flex justify-content-center">
-          <Pagination
-            total={servers_connection?.pageInfo.total}
-            page={servers_connection?.pageInfo.page}
-            size={servers_connection?.pageInfo.pageSize}
-          >
+          <Pagination total={total} page={toNumber(page)} size={PAGE_SIZE}>
             {/* @ts-expect-error x3 error */}
             {({ children, page, className }) => {
               return (

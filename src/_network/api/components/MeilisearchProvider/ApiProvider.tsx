@@ -3,7 +3,7 @@
 import { FC, PropsWithChildren, useRef } from 'react';
 import { useUnmount } from 'react-use';
 
-import { HttpClient } from '../../services/http-client';
+import { ApiClient } from '../../services/api-client';
 
 import {
   RequestInterceptorFulfilledFn,
@@ -29,7 +29,7 @@ export const ApiProvider: FC<ApiProviderProps> = ({
   responseInterceptorFulfilled: instanceResponseInterceptorFulfilled,
 }) => {
   const { current: instance } = useRef(
-    HttpClient.instance({
+    ApiClient.instance({
       baseURL: baseUrl,
     }),
   );

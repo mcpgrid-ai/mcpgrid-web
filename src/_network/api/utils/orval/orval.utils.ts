@@ -1,13 +1,13 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 import { get, merge } from 'lodash';
 
-import { HttpClient } from '../../services/http-client/HttpClient.service';
+import { ApiClient } from '../../services/api-client/ApiClient.service';
 
 export const customInstance = <T>(
   config: AxiosRequestConfig,
   request?: AxiosRequestConfig,
 ): Promise<T> => {
-  return HttpClient.instance()
+  return ApiClient.instance()
     .axios({ ...config, ...request })
     .then(({ data }) => data)
     .catch((error: AxiosError) =>
