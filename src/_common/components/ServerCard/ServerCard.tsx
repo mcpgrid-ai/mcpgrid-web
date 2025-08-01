@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import classNames from 'classnames';
+import Image from 'next/image';
 
 import { RoutePath } from '../../constants';
 
@@ -7,7 +8,6 @@ import styles from './ServerCard.module.scss';
 
 import { Link } from '@core/navigation';
 import { Card, Row, Avatar, Icon, Tooltip } from '@core/uikit';
-import { Image } from '@network/strapi';
 import { DTO } from '@network/strapi';
 import { getTranslations } from '@core/i18n';
 
@@ -23,7 +23,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
   const t = await getTranslations();
 
   const slug = server?.Slug;
-  const title = server?.Title;
+  const title = server?.Title || '';
   const description = server?.Description;
   const logo = server?.Logo?.url;
   const icon = server?.Category?.Icon;
@@ -31,7 +31,7 @@ export const ServerCard: FC<ServerCardProps> = async ({
   const isOfficial = server?.IsOfficial;
 
   const avatar = (() => {
-    if (logo) return <Image src={logo} alt={title} className={styles.logo} />;
+    if (logo) return <Image src={logo} alt={title} width={48} height={48} />;
 
     if (icon)
       return (

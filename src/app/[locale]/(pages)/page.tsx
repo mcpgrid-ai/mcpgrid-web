@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 import classNames from 'classnames';
 
 import { ServerCategorySection } from './_partitions/ServerCategorySection';
-import styles from './page.module.scss';
+import { ServersSearch } from './_partitions/ServersSearch';
 
-import { ServerCard, ServersSearch } from '@common/components';
+import { ServerCard } from '@common/components';
 import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
@@ -51,7 +51,7 @@ const Home = async () => {
                 </div>
                 <Row className="justify-content-center">
                   <Row.Col xl={10} className="d-none d-lg-block mt-4">
-                    <ServersSearch className={styles.search} />
+                    <ServersSearch />
                   </Row.Col>
                 </Row>
               </div>

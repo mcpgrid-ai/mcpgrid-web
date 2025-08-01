@@ -1,11 +1,11 @@
 import { FC, Fragment, PropsWithChildren } from 'react';
+import Image from 'next/image';
 
 import { ServerTabs } from './_partitions/ServerTabs';
 import { getServerLayoutData } from './layout.utils';
 import { ServerDetails } from './_partitions/ServerDetails';
 import { ServerSettings } from './_partitions/ServerSettings';
 
-import { Image } from '@network/strapi';
 import { Link, notFound } from '@core/navigation';
 import {
   Avatar,
@@ -44,8 +44,8 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
         <Image
           src={server.Logo?.url}
           alt={server.Title}
-          width={48}
-          height={48}
+          width={64}
+          height={64}
         />
       );
 
@@ -97,7 +97,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                 <Row.Col sm className="order-2 order-sm-1">
                   <div className="d-flex align-items-start mt-3 mt-sm-0">
                     <div className="flex-shrink-0 me-3">
-                      <Avatar size={80}>{avatar}</Avatar>
+                      <Avatar size={64}>{avatar}</Avatar>
                     </div>
                     <div className="flex-grow-1">
                       <Markdown>{server.Description}</Markdown>

@@ -29,6 +29,7 @@ export const Avatar: FC<AvatarProps> = ({
         'd-flex',
         'align-items-center',
         'justify-content-center',
+        'overflow-hidden',
         className,
       )}
     >
