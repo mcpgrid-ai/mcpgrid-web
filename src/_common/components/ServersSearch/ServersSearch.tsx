@@ -48,7 +48,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   return (
     <Typeahead
       bg={bg}
-      name="q"
+      name="search"
       label="title"
       action={RoutePath.Servers}
       options={options}

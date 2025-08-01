@@ -50,7 +50,7 @@ const Home = async () => {
                   </Button>
                 </div>
                 <Row className="justify-content-center">
-                  <Row.Col xl={10} className="d-none d-lg-block mt-4">
+                  <Row.Col xl={10} sm={9} className="d-none d-sm-block mt-4">
                     <ServersSearch />
                   </Row.Col>
                 </Row>

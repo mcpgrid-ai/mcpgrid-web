@@ -5,6 +5,7 @@ export * from './components/Box';
 export * from './components/Button';
 export * from './components/Card';
 export * from './components/Collapsible';
+export * from './components/Dropdown';
 export * from './components/Heading';
 export * from './components/Icon';
 export * from './components/List';
