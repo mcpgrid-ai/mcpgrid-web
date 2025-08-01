@@ -24,10 +24,30 @@
   }
 }
 
+input.input {
+  height: 40px;
+  box-shadow: none;
+  padding-left: 17px;
+  padding-right: 50px;
+  background-color: var(--bs-body-bg);
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: var(--bs-body-bg);
+  }
+  &.bg {
+    border: none;
+    background-color: var(--bs-topbar-search-bg) !important;
+  }
+}
+
 button.btn {
   height: 34px;
   padding: 0 10px;
   position: absolute;
   top: 3px;
   right: 3px;
+  .spinner {
+    --bs-spinner-vertical-align: middle;
+  }
 }

@@ -7,6 +7,7 @@ import { options } from './options';
 import { notifications } from './notifications';
 import { nav } from './nav';
 import { values } from './values';
+import { noData } from './no-data';
 
 const messages = {
   actions,
@@ -18,6 +19,7 @@ const messages = {
   notifications,
   nav,
   values,
+  noData,
 };
 
 export default messages;

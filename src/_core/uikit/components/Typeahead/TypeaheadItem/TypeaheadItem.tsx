@@ -22,7 +22,13 @@ export const TypeaheadItem: BsPrefixRefForwardingComponent<
 
   return (
     // @ts-expect-error x3 error
-    <DropdownItem {...props} {...other} ref={ref} className="px-2 py-2">
+    <DropdownItem
+      // @ts-expect-error x3 error
+      ref={ref}
+      className="px-2 py-2"
+      {...props}
+      {...other}
+    >
       {children}
     </DropdownItem>
   );

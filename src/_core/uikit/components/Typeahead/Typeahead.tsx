@@ -3,9 +3,11 @@
 import { ReactElement, ReactNode } from 'react';
 import { AsyncTypeahead, Menu } from 'react-bootstrap-typeahead';
 import classNames from 'classnames';
+import BsSpinner from 'react-bootstrap/Spinner';
+import BsFormControl from 'react-bootstrap/FormControl';
 
 import { Button } from '../Button';
-import { Icon } from '../Icon';
+import { Icon, IconFaName } from '../Icon';
 
 import { TypeaheadItem, TypeaheadItemContext } from './TypeaheadItem';
 import {
@@ -15,6 +17,7 @@ import {
 import styles from './Typeahead.module.scss';
 
 export interface TypeaheadProps<T extends object> {
+  icon?: IconFaName;
   isLoading: boolean;
   onSearch: TypeaheadOnSearchCallback;
   options: Array<T>;
@@ -22,6 +25,7 @@ export interface TypeaheadProps<T extends object> {
   bg?: boolean;
   action?: string;
   label: keyof T;
+  name?: string;
   children: (props: TypeaheadChildrenProps<T>) => ReactElement;
 }
 
@@ -40,23 +44,38 @@ export const Typeahead: TypeaheadComponent = ({
   bg,
   action,
   children,
+  name,
+  label,
+  icon = 'magnifying-glass',
 }) => {
   return (
-    <form
-      method="get"
-      action={action}
-      className={classNames(styles.wrapper, {
-        [styles.bg]: bg,
-      })}
-    >
+    <form method="get" action={action} className={classNames(styles.wrapper)}>
       <AsyncTypeahead
-        isLoading={isLoading}
-        labelKey="title"
+        isLoading={false}
+        labelKey={label.toString()}
         onSearch={(q) => onSearch({ q })}
         options={options}
         className={classNames(styles.input)}
         placeholder={placeholder}
         filterBy={() => true}
+        minLength={3}
+        renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
+          // @ts-expect-error x3 error
+          <BsFormControl
+            as="input"
+            type="text"
+            placeholder={placeholder}
+            ref={(input) => {
+              inputRef(input);
+              referenceElementRef(input);
+            }}
+            {...inputProps}
+            className={classNames(styles.input, {
+              [styles.bg]: bg,
+            })}
+            name={name}
+          />
+        )}
         renderMenu={(results, menuProps) => (
           <Menu {...menuProps}>
             {results.map((option, index) => (
@@ -74,7 +93,11 @@ export const Typeahead: TypeaheadComponent = ({
         )}
       />
       <Button type="submit" className={styles.btn}>
-        <Icon.Fa name="magnifying-glass" size={16} />
+        {isLoading ? (
+          <BsSpinner size="sm" className={styles.spinner} />
+        ) : (
+          <Icon.Fa name={icon} size={16} />
+        )}
       </Button>
     </form>
   );

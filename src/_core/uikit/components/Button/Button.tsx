@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import { forwardRef, PropsWithChildren } from 'react';
 import BsButton from 'react-bootstrap/Button';
 import { BsPrefixRefForwardingComponent } from 'react-bootstrap/esm/helpers';
-import { ButtonVariant } from 'react-bootstrap/esm/types';
+
+import { ButtonVariant } from './Button.types';
 
 export type ButtonProps = PropsWithChildren<{
-  variant?: ButtonVariant | 'soft-light';
+  variant?: ButtonVariant;
   className?: string;
   size?: 'sm' | 'lg';
   type?: 'button' | 'submit' | 'reset';

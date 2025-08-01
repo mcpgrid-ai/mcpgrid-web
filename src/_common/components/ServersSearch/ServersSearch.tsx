@@ -48,6 +48,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   return (
     <Typeahead
       bg={bg}
+      name="search"
       label="title"
       action={RoutePath.Servers}
       options={options}
@@ -55,35 +56,35 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     >
-      {({ option: { logo, title, icon, slug } }) => {
+      {({ option: { logo, title, icon, slug, owner } }) => {
         return (
-          <Typeahead.Item
-            as={Link}
-            pathname={RoutePath.ServerDetails}
-            params={{ slug }}
-          >
-            <Row className="gx-2">
-              <Row.Col xs="auto">
-                <Avatar size={36}>
-                  {logo ? (
-                    <Image src={logo} width={36} height={36} alt={title} />
-                  ) : (
-                    <Icon.Svg
-                      height={icon.height}
-                      width={icon.width}
-                      size={20}
-                      icon={icon.iconData}
-                    />
-                  )}
-                </Avatar>
-              </Row.Col>
-              <Row.Col xs>
-                <Typography as="h6" className="m-0">
-                  {title}
-                </Typography>
-                <Typography className="m-0 text-muted">{title}</Typography>
-              </Row.Col>
-            </Row>
+          <Typeahead.Item>
+            <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
+              <Row className="gx-2">
+                <Row.Col xs="auto">
+                  <Avatar size={36}>
+                    {logo ? (
+                      <Image src={logo} width={36} height={36} alt={title} />
+                    ) : (
+                      <Icon.Svg
+                        height={icon.height}
+                        width={icon.width}
+                        size={20}
+                        icon={icon.iconData}
+                      />
+                    )}
+                  </Avatar>
+                </Row.Col>
+                <Row.Col xs>
+                  <Typography as="h6" className="m-0">
+                    {title}
+                  </Typography>
+                  <Typography className="m-0 text-muted">
+                    {t('values.byOwner', { value: owner })}
+                  </Typography>
+                </Row.Col>
+              </Row>
+            </Link>
           </Typeahead.Item>
         );
       }}

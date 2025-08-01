@@ -36,6 +36,17 @@ export const ServerSettings: FC<ServerSettingsProps> = async ({ settings }) => {
               </Row>
             </List.Item>
           ))}
+          {!settings.length ? (
+            <List.Item>
+              <Row className="gx-2">
+                <Row.Col xs>
+                  <Typography className="text-muted m-0">
+                    {t('noData.noSettingsFound')}
+                  </Typography>
+                </Row.Col>
+              </Row>
+            </List.Item>
+          ) : null}
         </List>
       </Card.Body>
     </Card>
