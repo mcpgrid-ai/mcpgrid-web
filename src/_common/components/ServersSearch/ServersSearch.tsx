@@ -58,7 +58,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
     >
       {({ option: { logo, title, icon, slug, owner } }) => {
         return (
-          <Typeahead.Item>
+          <Typeahead.Item as="div">
             <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
               <Row className="gx-2">
                 <Row.Col xs="auto">

@@ -1,5 +1,8 @@
 .wrapper {
   position: relative;
+  :global(.rbt-loader) {
+    display: none !important;
+  }
   input {
     &:global(.rbt-input) {
       height: 40px;

@@ -16,7 +16,9 @@ export interface ServerItem {
   slug: string;
   title: string;
   owner: string;
+  description: string;
   icon: HubIcon;
+  isOfficial: boolean;
   /** @nullable */
   logo: string | null;
 }
@@ -30,5 +32,6 @@ export type GetServersParams = {
 take?: number;
 skip?: number;
 q?: string;
+category?: string;
 };
 

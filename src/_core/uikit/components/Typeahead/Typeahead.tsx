@@ -51,7 +51,7 @@ export const Typeahead: TypeaheadComponent = ({
   return (
     <form method="get" action={action} className={classNames(styles.wrapper)}>
       <AsyncTypeahead
-        isLoading={false}
+        isLoading={isLoading}
         labelKey={label.toString()}
         onSearch={(q) => onSearch({ q })}
         options={options}
@@ -91,7 +91,9 @@ export const Typeahead: TypeaheadComponent = ({
             ))}
           </Menu>
         )}
-      />
+      >
+        {() => null}
+      </AsyncTypeahead>
       <Button type="submit" className={styles.btn}>
         {isLoading ? (
           <BsSpinner size="sm" className={styles.spinner} />
