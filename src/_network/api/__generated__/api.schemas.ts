@@ -32,5 +32,6 @@ export type GetServersParams = {
 take?: number;
 skip?: number;
 q?: string;
+category?: string;
 };
 

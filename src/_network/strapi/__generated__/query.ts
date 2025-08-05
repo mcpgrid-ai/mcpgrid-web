@@ -952,6 +952,7 @@ export type Server = {
 
 export type ServerCategory = {
   __typename?: 'ServerCategory';
+  Default?: Maybe<Scalars['Boolean']['output']>;
   Icon: Scalars['JSON']['output'];
   Slug: Scalars['String']['output'];
   Title: Scalars['String']['output'];
@@ -968,6 +969,7 @@ export type ServerCategoryEntityResponseCollection = {
 };
 
 export type ServerCategoryFiltersInput = {
+  Default?: InputMaybe<BooleanFilterInput>;
   Icon?: InputMaybe<JsonFilterInput>;
   Slug?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
@@ -981,6 +983,7 @@ export type ServerCategoryFiltersInput = {
 };
 
 export type ServerCategoryInput = {
+  Default?: InputMaybe<Scalars['Boolean']['input']>;
   Icon?: InputMaybe<Scalars['JSON']['input']>;
   Slug?: InputMaybe<Scalars['String']['input']>;
   Title?: InputMaybe<Scalars['String']['input']>;
@@ -1388,13 +1391,10 @@ export type GetPageServerToolsQuery = { __typename?: 'Query', servers: Array<{ _
 
 export type GetPageServersQueryVariables = Exact<{
   slug: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
-  page: Scalars['Int']['input'];
-  pageSize: Scalars['Int']['input'];
-  category?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, servers: Array<{ __typename?: 'Server', documentId: string, Title: string, Slug: string, IsOfficial: boolean, Description: string, GitHubOwner: string, Logo?: { __typename?: 'UploadFile', url: string } | null, Category?: { __typename?: 'ServerCategory', Icon: any } | null } | null>, servers_connection?: { __typename?: 'ServerEntityResponseCollection', pageInfo: { __typename?: 'Pagination', total: number, pageSize: number, page: number } } | null, serverCategories: Array<{ __typename?: 'ServerCategory', Title: string, Slug: string } | null> };
+export type GetPageServersQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', Title: string, Subtitle?: string | null, Description?: string | null, Slug: string } | null>, serverCategories: Array<{ __typename?: 'ServerCategory', Title: string, Slug: string } | null> };
 
 export type GetPageSignUpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1519,35 +1519,19 @@ export const GetPageServerTools = gql`
 }
     `;
 export const GetPageServers = gql`
-    query getPageServers($slug: [String]!, $page: Int!, $pageSize: Int!, $category: String) {
+    query getPageServers($slug: [String]!) {
   pages(filters: {Slug: {in: $slug}}) {
     Title
     Subtitle
     Description
     Slug
   }
-  servers(
-    pagination: {page: $page, pageSize: $pageSize}
-    filters: {Category: {Slug: {eq: $category}}}
-  ) {
-    ...ServerCard
-  }
-  servers_connection(
-    pagination: {page: $page, pageSize: $pageSize}
-    filters: {Category: {Slug: {eq: $category}}}
-  ) {
-    pageInfo {
-      total
-      pageSize
-      page
-    }
-  }
   serverCategories(pagination: {limit: 100}) {
     Title
     Slug
   }
 }
-    ${ServerCard}`;
+    `;
 export const GetPageSignUp = gql`
     query getPageSignUp {
   feature {

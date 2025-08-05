@@ -27,16 +27,14 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
   const { data, total } = await getServers({
     take: PAGE_SIZE,
     q: search,
+    category,
     skip: (toNumber(page) - 1) * PAGE_SIZE,
   });
 
   const {
     data: { pages, serverCategories },
   } = await strapi.page.getServers({
-    category,
     slug: ['servers', 'home'],
-    page: toNumber(page),
-    pageSize: PAGE_SIZE,
   });
 
   const servers = pages.find((item) => item && item.Slug === 'servers');
