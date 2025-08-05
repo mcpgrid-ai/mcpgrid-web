@@ -106,27 +106,23 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                 </Row.Col>
                 <Row.Col sm="auto" className="order-1 order-sm-2">
                   <div className="d-flex align-items-start justify-content-end gap-2">
-                    {repo?.html_url && (
-                      <Button
-                        as="a"
-                        target="_blank"
-                        variant="soft-light"
-                        href={repo?.html_url}
-                      >
-                        <Icon.Bx name="logo-git-hub" size={20} />
-                      </Button>
-                    )}
-                    {(repo?.homepage || repo?.html_url) && (
-                      <Button
-                        as="a"
-                        target="_blank"
-                        variant="soft-light"
-                        href={repo?.homepage || repo?.html_url}
-                      >
-                        <Icon.Bx name="link" className="me-2" size={20} />
-                        {t('actions.homepage')}
-                      </Button>
-                    )}
+                    <Button
+                      as="a"
+                      target="_blank"
+                      variant="soft-light"
+                      href={server.Homepage}
+                    >
+                      <Icon.Bx name="logo-git-hub" size={20} />
+                    </Button>
+                    <Button
+                      as="a"
+                      target="_blank"
+                      variant="soft-light"
+                      href={server.GitHubUrl}
+                    >
+                      <Icon.Bx name="link" className="me-2" size={20} />
+                      {t('actions.homepage')}
+                    </Button>
                   </div>
                 </Row.Col>
               </Row>
@@ -142,7 +138,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
             <ServerSettings settings={server.Settings} />
-            <ServerDetails repo={repo} />
+            <ServerDetails server={server} repo={repo} />
           </Box>
         </Row.Col>
       </Row>

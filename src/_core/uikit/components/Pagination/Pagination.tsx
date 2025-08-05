@@ -85,6 +85,7 @@ export const Pagination: BsPrefixRefForwardingComponent<'ul', PaginationProps> =
             current !== 1 &&
             current !== count && (
               <BsPageItem
+                key={value}
                 page={current}
                 as={Children}
                 className="mx-1"

@@ -5,36 +5,63 @@ import { ServerDetailsItem } from './ServerDetails.types';
 import { github } from '@network/github';
 import { getTranslations } from '@core/i18n';
 import { Card, Icon, List, Row, Typography } from '@core/uikit';
+import { DTO } from '@network/strapi';
 
 interface ServerDetailsProps {
+  server: DTO.GetPageServerQuery['servers']['0'];
   repo: Awaited<ReturnType<typeof github.repo.getByUrl>> | null;
 }
 
-export const ServerDetails: FC<ServerDetailsProps> = async ({ repo }) => {
+export const ServerDetails: FC<ServerDetailsProps> = async ({
+  server,
+  repo,
+}) => {
   const t = await getTranslations();
 
-  const detailsSourceCode: ServerDetailsItem[] = repo?.html_url
+  // const detailsSourceCode: ServerDetailsItem[] = repo?.html_url
+  //   ? [
+  //       {
+  //         href: repo.html_url,
+  //         icon: 'logo-git-hub',
+  //         label: t('forms.sourceCode'),
+  //         value: new URL(repo?.html_url).host,
+  //       },
+  //     ]
+  //   : [];
+
+  const detailsSourceCode: ServerDetailsItem[] = server?.GitHubUrl
     ? [
         {
-          href: repo.html_url,
+          href: server?.GitHubUrl,
           icon: 'logo-git-hub',
           label: t('forms.sourceCode'),
-          value: new URL(repo?.html_url).host,
+          value: new URL(server?.GitHubUrl).host,
         },
       ]
     : [];
 
-  const detailsHomepage: ServerDetailsItem[] =
-    repo?.homepage || repo?.html_url
-      ? [
-          {
-            icon: 'globe',
-            href: repo?.homepage || repo?.html_url,
-            label: t('forms.homepage'),
-            value: new URL(repo?.homepage || repo?.html_url).host,
-          },
-        ]
-      : [];
+  // const detailsHomepage: ServerDetailsItem[] =
+  //   repo?.homepage || repo?.html_url
+  //     ? [
+  //         {
+  //           icon: 'globe',
+  //           href: repo?.homepage || repo?.html_url,
+  //           label: t('forms.homepage'),
+  //           value: new URL(repo?.homepage || repo?.html_url).host,
+  //         },
+  //       ]
+  //     : [];
+
+  const detailsHomepage: ServerDetailsItem[] = server?.Homepage
+    ? [
+        {
+          icon: 'globe',
+          href: server?.Homepage,
+          label: t('forms.homepage'),
+          value: new URL(server?.Homepage).host,
+        },
+      ]
+    : [];
 
   const detailsOwner: ServerDetailsItem[] = repo?.owner.login
     ? [
