@@ -7,9 +7,14 @@ query getPageServer($server: String!, $slug: [String]!) {
   }
   servers(filters: { Slug: { eq: $server } }) {
     Title
+    Homepage
     IsOfficial
     Description
     GitHubUrl
+    GitHubOwner
+    GitHubLicense
+    GitHubLanguage
+    GitHubPublishedAt
     Settings
     Category {
       Icon
