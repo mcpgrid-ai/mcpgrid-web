@@ -2,20 +2,15 @@ import { FC } from 'react';
 
 import { ServerDetailsItem } from './ServerDetails.types';
 
-import { github } from '@network/github';
 import { getTranslations } from '@core/i18n';
 import { Card, Icon, List, Row, Typography } from '@core/uikit';
 import { DTO } from '@network/strapi';
 
 interface ServerDetailsProps {
   server: DTO.GetPageServerQuery['servers']['0'];
-  repo: Awaited<ReturnType<typeof github.repo.getByUrl>> | null;
 }
 
-export const ServerDetails: FC<ServerDetailsProps> = async ({
-  server,
-  repo,
-}) => {
+export const ServerDetails: FC<ServerDetailsProps> = async ({ server }) => {
   const t = await getTranslations();
 
   // const detailsSourceCode: ServerDetailsItem[] = repo?.html_url
@@ -63,43 +58,83 @@ export const ServerDetails: FC<ServerDetailsProps> = async ({
       ]
     : [];
 
-  const detailsOwner: ServerDetailsItem[] = repo?.owner.login
+  // const detailsOwner: ServerDetailsItem[] = repo?.owner.login
+  //   ? [
+  //       {
+  //         icon: repo?.organization ? 'buildings' : 'user',
+  //         label: t('forms.owner'),
+  //         value: `@${repo?.owner.login}`,
+  //       },
+  //     ]
+  //   : [];
+
+  const detailsOwner: ServerDetailsItem[] = server?.GitHubOwner
     ? [
         {
-          icon: repo?.organization ? 'buildings' : 'user',
+          icon: 'user',
           label: t('forms.owner'),
-          value: `@${repo?.owner.login}`,
+          value: `@${server?.GitHubOwner}`,
         },
       ]
     : [];
 
-  const detailsLicense: ServerDetailsItem[] = repo?.license
+  // const detailsLicense: ServerDetailsItem[] = repo?.license
+  //   ? [
+  //       {
+  //         href: repo.license.html_url,
+  //         icon: 'balance',
+  //         label: t('forms.license'),
+  //         value: repo.license.name,
+  //       },
+  //     ]
+  //   : [];
+
+  const detailsLicense: ServerDetailsItem[] = server?.GitHubLicense
     ? [
         {
-          href: repo.license.html_url,
           icon: 'balance',
           label: t('forms.license'),
-          value: repo.license.name,
+          value: server?.GitHubLicense,
         },
       ]
     : [];
 
-  const detailsLanguage: ServerDetailsItem[] = repo?.language
+  // const detailsLanguage: ServerDetailsItem[] = repo?.language
+  //   ? [
+  //       {
+  //         icon: 'code-alt',
+  //         label: t('forms.language'),
+  //         value: repo?.language,
+  //       },
+  //     ]
+  //   : [];
+
+  const detailsLanguage: ServerDetailsItem[] = server?.GitHubLanguage
     ? [
         {
           icon: 'code-alt',
           label: t('forms.language'),
-          value: repo?.language,
+          value: server?.GitHubLanguage,
         },
       ]
     : [];
 
-  const detailsPublished: ServerDetailsItem[] = repo?.created_at
+  // const detailsPublished: ServerDetailsItem[] = repo?.created_at
+  //   ? [
+  //       {
+  //         icon: 'calendar-alt',
+  //         label: t('forms.published'),
+  //         value: new Date(repo.created_at).toLocaleString(),
+  //       },
+  //     ]
+  //   : [];
+
+  const detailsPublished: ServerDetailsItem[] = server?.GitHubPublishedAt
     ? [
         {
           icon: 'calendar-alt',
           label: t('forms.published'),
-          value: new Date(repo.created_at).toLocaleString(),
+          value: new Date(server?.GitHubPublishedAt).toLocaleString(),
         },
       ]
     : [];

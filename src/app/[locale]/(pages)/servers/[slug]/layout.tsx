@@ -32,7 +32,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
 
   const t = await getTranslations();
 
-  const { server, servers, home, repo } = await getServerLayoutData({
+  const { server, servers, home } = await getServerLayoutData({
     slug,
   });
 
@@ -138,7 +138,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
             <ServerSettings settings={server.Settings} />
-            <ServerDetails server={server} repo={repo} />
+            <ServerDetails server={server} />
           </Box>
         </Row.Col>
       </Row>
