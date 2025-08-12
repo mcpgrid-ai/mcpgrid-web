@@ -377,6 +377,8 @@ export type Mutation = {
   createInitialUser: UserAuthenticationWithPasswordSuccess;
   createLog?: Maybe<Log>;
   createLogs?: Maybe<Array<Maybe<Log>>>;
+  createPage?: Maybe<Page>;
+  createPages?: Maybe<Array<Maybe<Page>>>;
   createServer?: Maybe<Server>;
   createServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   createServerCategory?: Maybe<ServerCategory>;
@@ -387,6 +389,8 @@ export type Mutation = {
   deleteFrequentlyAskedQuestions?: Maybe<Array<Maybe<FrequentlyAskedQuestion>>>;
   deleteLog?: Maybe<Log>;
   deleteLogs?: Maybe<Array<Maybe<Log>>>;
+  deletePage?: Maybe<Page>;
+  deletePages?: Maybe<Array<Maybe<Page>>>;
   deleteServer?: Maybe<Server>;
   deleteServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   deleteServerCategory?: Maybe<ServerCategory>;
@@ -398,6 +402,8 @@ export type Mutation = {
   updateFrequentlyAskedQuestions?: Maybe<Array<Maybe<FrequentlyAskedQuestion>>>;
   updateLog?: Maybe<Log>;
   updateLogs?: Maybe<Array<Maybe<Log>>>;
+  updatePage?: Maybe<Page>;
+  updatePages?: Maybe<Array<Maybe<Page>>>;
   updateServer?: Maybe<Server>;
   updateServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   updateServerCategory?: Maybe<ServerCategory>;
@@ -435,6 +441,16 @@ export type MutationCreateLogArgs = {
 
 export type MutationCreateLogsArgs = {
   data: Array<LogCreateInput>;
+};
+
+
+export type MutationCreatePageArgs = {
+  data: PageCreateInput;
+};
+
+
+export type MutationCreatePagesArgs = {
+  data: Array<PageCreateInput>;
 };
 
 
@@ -485,6 +501,16 @@ export type MutationDeleteLogArgs = {
 
 export type MutationDeleteLogsArgs = {
   where: Array<LogWhereUniqueInput>;
+};
+
+
+export type MutationDeletePageArgs = {
+  where: PageWhereUniqueInput;
+};
+
+
+export type MutationDeletePagesArgs = {
+  where: Array<PageWhereUniqueInput>;
 };
 
 
@@ -540,6 +566,17 @@ export type MutationUpdateLogsArgs = {
 };
 
 
+export type MutationUpdatePageArgs = {
+  data: PageUpdateInput;
+  where: PageWhereUniqueInput;
+};
+
+
+export type MutationUpdatePagesArgs = {
+  data: Array<PageUpdateArgs>;
+};
+
+
 export type MutationUpdateServerArgs = {
   data: ServerUpdateInput;
   where: ServerWhereUniqueInput;
@@ -591,6 +628,68 @@ export enum OrderDirection {
   Desc = 'desc'
 }
 
+export type Page = {
+  __typename?: 'Page';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PageCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PageOrderByInput = {
+  createdAt?: InputMaybe<OrderDirection>;
+  description?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  slug?: InputMaybe<OrderDirection>;
+  subtitle?: InputMaybe<OrderDirection>;
+  title?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+};
+
+export type PageUpdateArgs = {
+  data: PageUpdateInput;
+  where: PageWhereUniqueInput;
+};
+
+export type PageUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PageWhereInput = {
+  AND?: InputMaybe<Array<PageWhereInput>>;
+  NOT?: InputMaybe<Array<PageWhereInput>>;
+  OR?: InputMaybe<Array<PageWhereInput>>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  slug?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+};
+
+export type PageWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PasswordState = {
   __typename?: 'PasswordState';
   isSet: Scalars['Boolean']['output'];
@@ -606,6 +705,9 @@ export type Query = {
   log?: Maybe<Log>;
   logs?: Maybe<Array<Log>>;
   logsCount?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Page>;
+  pages?: Maybe<Array<Page>>;
+  pagesCount?: Maybe<Scalars['Int']['output']>;
   server?: Maybe<Server>;
   serverCategories?: Maybe<Array<ServerCategory>>;
   serverCategoriesCount?: Maybe<Scalars['Int']['output']>;
@@ -653,6 +755,25 @@ export type QueryLogsArgs = {
 
 export type QueryLogsCountArgs = {
   where?: LogWhereInput;
+};
+
+
+export type QueryPageArgs = {
+  where: PageWhereUniqueInput;
+};
+
+
+export type QueryPagesArgs = {
+  cursor?: InputMaybe<PageWhereUniqueInput>;
+  orderBy?: Array<PageOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: PageWhereInput;
+};
+
+
+export type QueryPagesCountArgs = {
+  where?: PageWhereInput;
 };
 
 
@@ -983,15 +1104,23 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type GetPageFaqsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPageFaqsQueryVariables = Exact<{
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
 
 
-export type GetPageFaqsQuery = { __typename?: 'Query', frequentlyAskedQuestions?: Array<{ __typename?: 'FrequentlyAskedQuestion', title?: string | null, description?: string | null }> | null };
+export type GetPageFaqsQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, subtitle?: string | null, description?: string | null }> | null, frequentlyAskedQuestions?: Array<{ __typename?: 'FrequentlyAskedQuestion', title?: string | null, description?: string | null }> | null };
 
 
 export const GetPageFaqs = gql`
-    query getPageFaqs {
-  frequentlyAskedQuestions {
+    query getPageFaqs($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    slug
+    subtitle
+    description
+  }
+  frequentlyAskedQuestions(orderBy: {id: asc}) {
     title
     description
   }

@@ -4,40 +4,40 @@ import { padStart } from 'lodash';
 
 import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
-import { getTranslations } from '@core/i18n';
-import { strapi } from '@network/strapi';
+// import { getTranslations } from '@core/i18n';
 import { keystone } from '@network/keystone';
-import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
+import {
+  // Button,
+  Card,
+  Heading,
+  Icon,
+  Row,
+  Typography,
+} from '@core/uikit';
 
 const Faq: FC = async () => {
   const {
-    data: { social, pages },
-  } = await strapi.page.getFaqs({
+    data: { frequentlyAskedQuestions, pages },
+  } = await keystone.pages.getFaqs({
     slug: ['faqs', 'home'],
   });
 
-  const {
-    data: { frequentlyAskedQuestions },
-  } = await keystone.pages.getFaqs({
-    // slug: ['faqs', 'home'],
-  });
+  // const t = await getTranslations();
 
-  const t = await getTranslations();
+  const faqs = pages?.find((item) => item && item.slug === 'faqs');
 
-  const faqs = pages.find((item) => item && item.Slug === 'faqs');
-
-  const home = pages.find((item) => item && item.Slug === 'home');
+  const home = pages?.find((item) => item && item.slug === 'home');
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{faqs?.Title}</Heading.Title>
+        <Heading.Title>{faqs?.title}</Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
-            {home?.Title}
+            {home?.title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {faqs?.Title}
+            {faqs?.title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
@@ -46,11 +46,11 @@ const Faq: FC = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <Typography as="h5">{faqs?.Subtitle}</Typography>
+                <Typography as="h5">{faqs?.subtitle}</Typography>
                 <Typography className="text-muted">
-                  {faqs?.Description}
+                  {faqs?.description}
                 </Typography>
-                <div>
+                {/* <div>
                   <Button
                     as={Link}
                     pathname={RoutePath.ContactUs}
@@ -70,7 +70,7 @@ const Faq: FC = async () => {
                       {t('actions.sendUsTweet')}
                     </Button>
                   )}
-                </div>
+                </div> */}
               </div>
             </Row.Col>
           </Row>
