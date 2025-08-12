@@ -1,0 +1,15 @@
+query getPageFaqs {
+  # pages(filters: { Slug: { in: $slug } }) {
+  #   Title
+  #   Subtitle
+  #   Description
+  #   Slug
+  # }
+  frequentlyAskedQuestions {
+    title
+    description
+  }
+  # social {
+  #   X
+  # }
+}

@@ -6,13 +6,20 @@ import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
 import { getTranslations } from '@core/i18n';
 import { strapi } from '@network/strapi';
+import { keystone } from '@network/keystone';
 import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
 
 const Faq: FC = async () => {
   const {
-    data: { faqs: list, social, pages },
+    data: { social, pages },
   } = await strapi.page.getFaqs({
     slug: ['faqs', 'home'],
+  });
+
+  const {
+    data: { frequentlyAskedQuestions },
+  } = await keystone.pages.getFaqs({
+    // slug: ['faqs', 'home'],
   });
 
   const t = await getTranslations();
@@ -72,10 +79,10 @@ const Faq: FC = async () => {
       <Row>
         <Row.Col lg={12}>
           <Row className="mt-5 gy-4">
-            {list.map((item, index) => {
+            {frequentlyAskedQuestions?.map((item, index) => {
               if (item) {
                 return (
-                  <Row.Col key={item.Title} xl={4} sm={6}>
+                  <Row.Col key={item.title} xl={4} sm={6}>
                     <Card className="h-100">
                       <Card.Body className="overflow-hidden position-relative">
                         <div>
@@ -91,10 +98,10 @@ const Faq: FC = async () => {
                           </Typography>
                         </div>
                         <Typography className="mt-3" as="h5">
-                          {item.Title}
+                          {item.title}
                         </Typography>
                         <Typography className="text-muted mt-3 mb-0">
-                          {item.Description}
+                          {item.description}
                         </Typography>
                       </Card.Body>
                     </Card>

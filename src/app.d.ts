@@ -4,5 +4,6 @@ declare namespace NodeJS {
     STRAPI_API_TOKEN: string;
     PRODUCT_NAME: string;
     API_HOST: string;
+    KEYSTONE_SCHEMA_URL: string;
   }
 }
