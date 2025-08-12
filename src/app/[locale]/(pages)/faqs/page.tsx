@@ -7,6 +7,7 @@ import { Link } from '@core/navigation';
 // import { getTranslations } from '@core/i18n';
 import { keystone } from '@network/keystone';
 import {
+  Box,
   // Button,
   Card,
   Heading,
@@ -112,6 +113,7 @@ const Faq: FC = async () => {
           </Row>
         </Row.Col>
       </Row>
+      <Box mt={5} />
     </Fragment>
   );
 };
