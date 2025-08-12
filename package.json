@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "gen:ks": "graphql-codegen --config ./keystone.config.ts",
     "gen:strapi": "graphql-codegen --config ./strapi.config.ts",
     "gen:api": "yarn download:api && orval --config ./api.config.js",
     "act": "act -j deploy --secret-file .env --env-file .env --var-file .env --container-architecture linux/amd64",

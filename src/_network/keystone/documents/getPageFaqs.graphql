@@ -1,0 +1,12 @@
+query getPageFaqs($slug: [String!]!) {
+  pages(where: { slug: { in: $slug } }) {
+    title
+    slug
+    subtitle
+    description
+  }
+  frequentlyAskedQuestions(orderBy: { id: asc }) {
+    title
+    description
+  }
+}

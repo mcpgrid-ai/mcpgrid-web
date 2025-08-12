@@ -4,33 +4,41 @@ import { padStart } from 'lodash';
 
 import { RoutePath } from '@common/constants';
 import { Link } from '@core/navigation';
-import { getTranslations } from '@core/i18n';
-import { strapi } from '@network/strapi';
-import { Button, Card, Heading, Icon, Row, Typography } from '@core/uikit';
+// import { getTranslations } from '@core/i18n';
+import { keystone } from '@network/keystone';
+import {
+  Box,
+  // Button,
+  Card,
+  Heading,
+  Icon,
+  Row,
+  Typography,
+} from '@core/uikit';
 
 const Faq: FC = async () => {
   const {
-    data: { faqs: list, social, pages },
-  } = await strapi.page.getFaqs({
+    data: { frequentlyAskedQuestions, pages },
+  } = await keystone.pages.getFaqs({
     slug: ['faqs', 'home'],
   });
 
-  const t = await getTranslations();
+  // const t = await getTranslations();
 
-  const faqs = pages.find((item) => item && item.Slug === 'faqs');
+  const faqs = pages?.find((item) => item && item.slug === 'faqs');
 
-  const home = pages.find((item) => item && item.Slug === 'home');
+  const home = pages?.find((item) => item && item.slug === 'home');
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{faqs?.Title}</Heading.Title>
+        <Heading.Title>{faqs?.title}</Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
-            {home?.Title}
+            {home?.title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {faqs?.Title}
+            {faqs?.title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
@@ -39,11 +47,11 @@ const Faq: FC = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <Typography as="h5">{faqs?.Subtitle}</Typography>
+                <Typography as="h5">{faqs?.subtitle}</Typography>
                 <Typography className="text-muted">
-                  {faqs?.Description}
+                  {faqs?.description}
                 </Typography>
-                <div>
+                {/* <div>
                   <Button
                     as={Link}
                     pathname={RoutePath.ContactUs}
@@ -63,7 +71,7 @@ const Faq: FC = async () => {
                       {t('actions.sendUsTweet')}
                     </Button>
                   )}
-                </div>
+                </div> */}
               </div>
             </Row.Col>
           </Row>
@@ -72,10 +80,10 @@ const Faq: FC = async () => {
       <Row>
         <Row.Col lg={12}>
           <Row className="mt-5 gy-4">
-            {list.map((item, index) => {
+            {frequentlyAskedQuestions?.map((item, index) => {
               if (item) {
                 return (
-                  <Row.Col key={item.Title} xl={4} sm={6}>
+                  <Row.Col key={item.title} xl={4} sm={6}>
                     <Card className="h-100">
                       <Card.Body className="overflow-hidden position-relative">
                         <div>
@@ -91,10 +99,10 @@ const Faq: FC = async () => {
                           </Typography>
                         </div>
                         <Typography className="mt-3" as="h5">
-                          {item.Title}
+                          {item.title}
                         </Typography>
                         <Typography className="text-muted mt-3 mb-0">
-                          {item.Description}
+                          {item.description}
                         </Typography>
                       </Card.Body>
                     </Card>
@@ -105,6 +113,7 @@ const Faq: FC = async () => {
           </Row>
         </Row.Col>
       </Row>
+      <Box mt={5} />
     </Fragment>
   );
 };
