@@ -1,0 +1,6 @@
+query getPageServerTools($slug: String!) {
+  servers(where: { slug: { equals: $slug } }) {
+    slug
+    tools
+  }
+}

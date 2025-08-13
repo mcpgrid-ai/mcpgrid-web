@@ -1228,6 +1228,13 @@ export type GetPageServerOverviewQueryVariables = Exact<{
 
 export type GetPageServerOverviewQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, title?: string | null, overview?: string | null }> | null };
 
+export type GetPageServerToolsQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerToolsQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, tools?: any | null }> | null };
+
 
 export const GetPageDashboard = gql`
     query getPageDashboard($slug: [String!]!) {
@@ -1293,6 +1300,14 @@ export const GetPageServerOverview = gql`
     slug
     title
     overview
+  }
+}
+    `;
+export const GetPageServerTools = gql`
+    query getPageServerTools($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    tools
   }
 }
     `;
