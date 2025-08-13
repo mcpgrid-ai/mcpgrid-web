@@ -4,35 +4,34 @@ import { Countdown } from '../_partitions/Countdown';
 
 import { getTranslations } from '@core/i18n';
 import { Button, Icon, Typography } from '@core/uikit';
-import { strapi } from '@network/strapi';
 import { notFound } from '@core/navigation';
+import { keystone } from '@network/keystone';
+
+const SLUG = 'dashboard';
 
 const DashboardSoon: FC = async () => {
-  const [
-    t,
-    {
-      data: {
-        feature,
-        pages: [page],
-      },
-    },
-  ] = await Promise.all([
-    getTranslations(),
-    strapi.page.getDashboard({ slug: ['dashboard'] }),
-  ]);
+  const t = await getTranslations();
+
+  const {
+    data: { config, pages },
+  } = await keystone.pages.getDashboard({
+    slug: [SLUG],
+  });
+
+  const page = pages?.find(({ slug }) => slug === SLUG);
 
   if (!page) return notFound();
 
   return (
     <Fragment>
       <Typography as="h3" className="text-white mt-5">
-        {page.Subtitle}
+        {page.subtitle}
       </Typography>
       <Typography as="p" className="text-white-50 font-size-16">
-        {page.Description}
+        {page.description}
       </Typography>
 
-      <Countdown target={new Date(feature?.ReleaseDate)} />
+      <Countdown target={new Date(config?.releaseDate)} />
 
       <form className="app-search mt-5 mx-auto">
         <div className="position-relative">

@@ -1,0 +1,11 @@
+query getPageDashboard($slug: [String!]!) {
+  pages(where: { slug: { in: $slug } }) {
+    title
+    subtitle
+    description
+    slug
+  }
+  config {
+    releaseDate
+  }
+}
