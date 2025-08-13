@@ -1,0 +1,12 @@
+query getPageServers($slug: [String!]!) {
+  pages(where: { slug: { in: $slug } }) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories(take: 100) {
+    title
+    slug
+  }
+}

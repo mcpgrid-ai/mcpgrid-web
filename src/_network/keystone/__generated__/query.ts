@@ -1199,6 +1199,8 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ServerCardFragment = { __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null };
+
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
@@ -1235,7 +1237,31 @@ export type GetPageServerToolsQueryVariables = Exact<{
 
 export type GetPageServerToolsQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, tools?: any | null }> | null };
 
+export type GetPageServersQueryVariables = Exact<{
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
 
+
+export type GetPageServersQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null };
+
+export const ServerCard = gql`
+    fragment ServerCard on Server {
+  id
+  title
+  slug
+  isOfficial
+  description
+  githubOwner
+  category {
+    icon {
+      publicUrlTransformed
+    }
+  }
+  icon {
+    publicUrlTransformed
+  }
+}
+    `;
 export const GetPageDashboard = gql`
     query getPageDashboard($slug: [String!]!) {
   pages(where: {slug: {in: $slug}}) {
@@ -1308,6 +1334,20 @@ export const GetPageServerTools = gql`
   servers(where: {slug: {equals: $slug}}) {
     slug
     tools
+  }
+}
+    `;
+export const GetPageServers = gql`
+    query getPageServers($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories(take: 100) {
+    title
+    slug
   }
 }
     `;
