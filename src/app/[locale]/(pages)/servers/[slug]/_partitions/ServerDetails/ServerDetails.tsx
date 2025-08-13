@@ -4,137 +4,73 @@ import { ServerDetailsItem } from './ServerDetails.types';
 
 import { getTranslations } from '@core/i18n';
 import { Card, Icon, List, Row, Typography } from '@core/uikit';
-import { DTO } from '@network/strapi';
+import { DTO } from '@network/keystone';
 
 interface ServerDetailsProps {
-  server: DTO.GetPageServerQuery['servers']['0'];
+  server: Exclude<DTO.GetPageServerQuery['servers'], null | undefined>['0'];
 }
 
 export const ServerDetails: FC<ServerDetailsProps> = async ({ server }) => {
   const t = await getTranslations();
 
-  // const detailsSourceCode: ServerDetailsItem[] = repo?.html_url
-  //   ? [
-  //       {
-  //         href: repo.html_url,
-  //         icon: 'logo-git-hub',
-  //         label: t('forms.sourceCode'),
-  //         value: new URL(repo?.html_url).host,
-  //       },
-  //     ]
-  //   : [];
-
-  const detailsSourceCode: ServerDetailsItem[] = server?.GitHubUrl
+  const detailsSourceCode: ServerDetailsItem[] = server?.githubUrl
     ? [
         {
-          href: server?.GitHubUrl,
+          href: server?.githubUrl,
           icon: 'logo-git-hub',
           label: t('forms.sourceCode'),
-          value: new URL(server?.GitHubUrl).host,
+          value: new URL(server?.githubUrl).host,
         },
       ]
     : [];
 
-  // const detailsHomepage: ServerDetailsItem[] =
-  //   repo?.homepage || repo?.html_url
-  //     ? [
-  //         {
-  //           icon: 'globe',
-  //           href: repo?.homepage || repo?.html_url,
-  //           label: t('forms.homepage'),
-  //           value: new URL(repo?.homepage || repo?.html_url).host,
-  //         },
-  //       ]
-  //     : [];
-
-  const detailsHomepage: ServerDetailsItem[] = server?.Homepage
+  const detailsHomepage: ServerDetailsItem[] = server?.homepage
     ? [
         {
           icon: 'globe',
-          href: server?.Homepage,
+          href: server?.homepage,
           label: t('forms.homepage'),
-          value: new URL(server?.Homepage).host,
+          value: new URL(server?.homepage).host,
         },
       ]
     : [];
 
-  // const detailsOwner: ServerDetailsItem[] = repo?.owner.login
-  //   ? [
-  //       {
-  //         icon: repo?.organization ? 'buildings' : 'user',
-  //         label: t('forms.owner'),
-  //         value: `@${repo?.owner.login}`,
-  //       },
-  //     ]
-  //   : [];
-
-  const detailsOwner: ServerDetailsItem[] = server?.GitHubOwner
+  const detailsOwner: ServerDetailsItem[] = server?.githubOwner
     ? [
         {
           icon: 'user',
           label: t('forms.owner'),
-          value: `@${server?.GitHubOwner}`,
+          value: `@${server?.githubOwner}`,
         },
       ]
     : [];
 
-  // const detailsLicense: ServerDetailsItem[] = repo?.license
-  //   ? [
-  //       {
-  //         href: repo.license.html_url,
-  //         icon: 'balance',
-  //         label: t('forms.license'),
-  //         value: repo.license.name,
-  //       },
-  //     ]
-  //   : [];
-
-  const detailsLicense: ServerDetailsItem[] = server?.GitHubLicense
+  const detailsLicense: ServerDetailsItem[] = server?.githubLicense
     ? [
         {
           icon: 'balance',
           label: t('forms.license'),
-          value: server?.GitHubLicense,
+          value: server?.githubLicense,
         },
       ]
     : [];
 
-  // const detailsLanguage: ServerDetailsItem[] = repo?.language
-  //   ? [
-  //       {
-  //         icon: 'code-alt',
-  //         label: t('forms.language'),
-  //         value: repo?.language,
-  //       },
-  //     ]
-  //   : [];
-
-  const detailsLanguage: ServerDetailsItem[] = server?.GitHubLanguage
+  const detailsLanguage: ServerDetailsItem[] = server?.githubLanguage
     ? [
         {
           icon: 'code-alt',
           label: t('forms.language'),
-          value: server?.GitHubLanguage,
+          value: server?.githubLanguage,
         },
       ]
     : [];
 
-  // const detailsPublished: ServerDetailsItem[] = repo?.created_at
-  //   ? [
-  //       {
-  //         icon: 'calendar-alt',
-  //         label: t('forms.published'),
-  //         value: new Date(repo.created_at).toLocaleString(),
-  //       },
-  //     ]
-  //   : [];
-
-  const detailsPublished: ServerDetailsItem[] = server?.GitHubPublishedAt
+  const detailsPublished: ServerDetailsItem[] = server?.githubPublishedAt
     ? [
         {
           icon: 'calendar-alt',
           label: t('forms.published'),
-          value: new Date(server?.GitHubPublishedAt).toLocaleString(),
+          value: new Date(server?.githubPublishedAt).toLocaleString(),
         },
       ]
     : [];

@@ -1,0 +1,7 @@
+query getPageServerOverview($slug: String!) {
+  servers(where: { slug: { equals: $slug } }) {
+    slug
+    title
+    overview
+  }
+}

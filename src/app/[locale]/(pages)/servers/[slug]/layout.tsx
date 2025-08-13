@@ -39,23 +39,23 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
   if (!server || !servers || !home) return notFound();
 
   const avatar = (() => {
-    if (server.Logo?.url)
+    if (server.icon?.publicUrlTransformed)
       return (
         <Image
-          src={server.Logo?.url}
-          alt={server.Title}
+          src={server.icon?.publicUrlTransformed}
+          alt={server?.title || ''}
           width={64}
           height={64}
         />
       );
 
-    if (server.Category?.Icon)
+    if (server.category?.icon?.publicUrlTransformed)
       return (
-        <Icon.Svg
-          size={40}
-          icon={server.Category?.Icon.iconData}
-          width={server.Category?.Icon.width}
-          height={server.Category?.Icon.height}
+        <Image
+          src={server.category?.icon?.publicUrlTransformed}
+          alt={server?.title || ''}
+          width={64}
+          height={64}
         />
       );
 
@@ -66,8 +66,8 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
     <Fragment>
       <Heading>
         <Heading.Title>
-          {server.Title}
-          {server.IsOfficial && (
+          {server.title}
+          {server.isOfficial && (
             <Tooltip content={t('forms.officialVendor')} className="ms-1">
               <Icon.Bx
                 name="solid-badge-check"
@@ -79,13 +79,13 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
         </Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
-            {home.Title}
+            {home.title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Servers}>
-            {servers.Title}
+            {servers.title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {server.Title}
+            {server.title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
@@ -100,29 +100,33 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
                       <Avatar size={64}>{avatar}</Avatar>
                     </div>
                     <div className="flex-grow-1">
-                      <Markdown>{server.Description}</Markdown>
+                      <Markdown>{server.description}</Markdown>
                     </div>
                   </div>
                 </Row.Col>
                 <Row.Col sm="auto" className="order-1 order-sm-2">
                   <div className="d-flex align-items-start justify-content-end gap-2">
-                    <Button
-                      as="a"
-                      target="_blank"
-                      variant="soft-light"
-                      href={server.Homepage}
-                    >
-                      <Icon.Bx name="logo-git-hub" size={20} />
-                    </Button>
-                    <Button
-                      as="a"
-                      target="_blank"
-                      variant="soft-light"
-                      href={server.GitHubUrl}
-                    >
-                      <Icon.Bx name="link" className="me-2" size={20} />
-                      {t('actions.homepage')}
-                    </Button>
+                    {server.homepage && (
+                      <Button
+                        as="a"
+                        target="_blank"
+                        variant="soft-light"
+                        href={server.homepage}
+                      >
+                        <Icon.Bx name="logo-git-hub" size={20} />
+                      </Button>
+                    )}
+                    {server.githubUrl && (
+                      <Button
+                        as="a"
+                        target="_blank"
+                        variant="soft-light"
+                        href={server.githubUrl}
+                      >
+                        <Icon.Bx name="link" className="me-2" size={20} />
+                        {t('actions.homepage')}
+                      </Button>
+                    )}
                   </div>
                 </Row.Col>
               </Row>
@@ -137,7 +141,7 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
               {t('actions.startServer')}
               <Icon.Bx name="rocket" size={18} className="ms-2" />
             </Button>
-            <ServerSettings settings={server.Settings} />
+            <ServerSettings settings={server.settings} />
             <ServerDetails server={server} />
           </Box>
         </Row.Col>

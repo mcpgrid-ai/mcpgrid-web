@@ -1,0 +1,29 @@
+query getPageServer($server: String!, $slug: [String!]!) {
+  pages(where: { slug: { in: $slug } }) {
+    title
+    subtitle
+    description
+    slug
+  }
+  servers(where: { slug: { equals: $server } }) {
+    title
+    slug
+    homepage
+    isOfficial
+    description
+    githubUrl
+    githubOwner
+    githubLicense
+    githubLanguage
+    githubPublishedAt
+    settings
+    category {
+      icon {
+        publicUrlTransformed
+      }
+    }
+    icon {
+      publicUrlTransformed
+    }
+  }
+}

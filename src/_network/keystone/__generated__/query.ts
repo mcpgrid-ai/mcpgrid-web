@@ -1213,6 +1213,21 @@ export type GetPageFaqsQueryVariables = Exact<{
 
 export type GetPageFaqsQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, subtitle?: string | null, description?: string | null }> | null, frequentlyAskedQuestions?: Array<{ __typename?: 'FrequentlyAskedQuestion', title?: string | null, description?: string | null }> | null };
 
+export type GetPageServerQueryVariables = Exact<{
+  server: Scalars['String']['input'];
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, servers?: Array<{ __typename?: 'Server', title?: string | null, slug?: string | null, homepage?: string | null, isOfficial?: boolean | null, description?: string | null, githubUrl?: string | null, githubOwner?: string | null, githubLicense?: string | null, githubLanguage?: string | null, githubPublishedAt?: any | null, settings?: any | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+
+export type GetPageServerOverviewQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerOverviewQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, title?: string | null, overview?: string | null }> | null };
+
 
 export const GetPageDashboard = gql`
     query getPageDashboard($slug: [String!]!) {
@@ -1238,6 +1253,46 @@ export const GetPageFaqs = gql`
   frequentlyAskedQuestions(orderBy: {id: asc}) {
     title
     description
+  }
+}
+    `;
+export const GetPageServer = gql`
+    query getPageServer($server: String!, $slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  servers(where: {slug: {equals: $server}}) {
+    title
+    slug
+    homepage
+    isOfficial
+    description
+    githubUrl
+    githubOwner
+    githubLicense
+    githubLanguage
+    githubPublishedAt
+    settings
+    category {
+      icon {
+        publicUrlTransformed
+      }
+    }
+    icon {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+export const GetPageServerOverview = gql`
+    query getPageServerOverview($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    title
+    overview
   }
 }
     `;
