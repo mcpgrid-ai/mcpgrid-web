@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { Card, Markdown } from '@core/uikit';
-import { strapi } from '@network/strapi';
 import { notFound } from '@core/navigation';
+import { keystone } from '@network/keystone';
 
 interface ServerDetailsOverviewProps {
   params: Promise<{
@@ -15,18 +15,18 @@ const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
 }) => {
   const { slug } = await params;
 
-  const {
-    servers: [server],
-  } = await strapi.page.getServerOverview({
+  const { servers } = await keystone.pages.getServerOverview({
     slug,
   });
+
+  const server = servers?.find(({ slug: id }) => id === slug);
 
   if (!server) return notFound();
 
   return (
     <Card>
       <Card.Body>
-        <Markdown>{server.Overview}</Markdown>
+        <Markdown>{server.overview}</Markdown>
       </Card.Body>
     </Card>
   );

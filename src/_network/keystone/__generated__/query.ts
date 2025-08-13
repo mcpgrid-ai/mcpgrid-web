@@ -78,6 +78,42 @@ export type CloudinaryImage_FilePublicUrlTransformedArgs = {
   transformation?: InputMaybe<CloudinaryImageFormat>;
 };
 
+export type Config = {
+  __typename?: 'Config';
+  id: Scalars['ID']['output'];
+  releaseDate?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ConfigCreateInput = {
+  releaseDate?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ConfigOrderByInput = {
+  id?: InputMaybe<OrderDirection>;
+  releaseDate?: InputMaybe<OrderDirection>;
+};
+
+export type ConfigUpdateArgs = {
+  data: ConfigUpdateInput;
+  where?: ConfigWhereUniqueInput;
+};
+
+export type ConfigUpdateInput = {
+  releaseDate?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ConfigWhereInput = {
+  AND?: InputMaybe<Array<ConfigWhereInput>>;
+  NOT?: InputMaybe<Array<ConfigWhereInput>>;
+  OR?: InputMaybe<Array<ConfigWhereInput>>;
+  id?: InputMaybe<IdFilter>;
+  releaseDate?: InputMaybe<DateTimeNullableFilter>;
+};
+
+export type ConfigWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type CreateInitialUserInput = {
   email?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -372,6 +408,8 @@ export type LogWhereUniqueInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   authenticateUserWithPassword?: Maybe<UserAuthenticationWithPasswordResult>;
+  createConfig?: Maybe<Config>;
+  createConfigs?: Maybe<Array<Maybe<Config>>>;
   createFrequentlyAskedQuestion?: Maybe<FrequentlyAskedQuestion>;
   createFrequentlyAskedQuestions?: Maybe<Array<Maybe<FrequentlyAskedQuestion>>>;
   createInitialUser: UserAuthenticationWithPasswordSuccess;
@@ -385,6 +423,8 @@ export type Mutation = {
   createServers?: Maybe<Array<Maybe<Server>>>;
   createUser?: Maybe<User>;
   createUsers?: Maybe<Array<Maybe<User>>>;
+  deleteConfig?: Maybe<Config>;
+  deleteConfigs?: Maybe<Array<Maybe<Config>>>;
   deleteFrequentlyAskedQuestion?: Maybe<FrequentlyAskedQuestion>;
   deleteFrequentlyAskedQuestions?: Maybe<Array<Maybe<FrequentlyAskedQuestion>>>;
   deleteLog?: Maybe<Log>;
@@ -398,6 +438,8 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   endSession: Scalars['Boolean']['output'];
+  updateConfig?: Maybe<Config>;
+  updateConfigs?: Maybe<Array<Maybe<Config>>>;
   updateFrequentlyAskedQuestion?: Maybe<FrequentlyAskedQuestion>;
   updateFrequentlyAskedQuestions?: Maybe<Array<Maybe<FrequentlyAskedQuestion>>>;
   updateLog?: Maybe<Log>;
@@ -416,6 +458,16 @@ export type Mutation = {
 export type MutationAuthenticateUserWithPasswordArgs = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+
+export type MutationCreateConfigArgs = {
+  data: ConfigCreateInput;
+};
+
+
+export type MutationCreateConfigsArgs = {
+  data: Array<ConfigCreateInput>;
 };
 
 
@@ -484,6 +536,16 @@ export type MutationCreateUsersArgs = {
 };
 
 
+export type MutationDeleteConfigArgs = {
+  where?: ConfigWhereUniqueInput;
+};
+
+
+export type MutationDeleteConfigsArgs = {
+  where: Array<ConfigWhereUniqueInput>;
+};
+
+
 export type MutationDeleteFrequentlyAskedQuestionArgs = {
   where: FrequentlyAskedQuestionWhereUniqueInput;
 };
@@ -541,6 +603,17 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteUsersArgs = {
   where: Array<UserWhereUniqueInput>;
+};
+
+
+export type MutationUpdateConfigArgs = {
+  data: ConfigUpdateInput;
+  where?: ConfigWhereUniqueInput;
+};
+
+
+export type MutationUpdateConfigsArgs = {
+  data: Array<ConfigUpdateArgs>;
 };
 
 
@@ -698,6 +771,9 @@ export type PasswordState = {
 export type Query = {
   __typename?: 'Query';
   authenticatedItem?: Maybe<AuthenticatedItem>;
+  config?: Maybe<Config>;
+  configs?: Maybe<Array<Config>>;
+  configsCount?: Maybe<Scalars['Int']['output']>;
   frequentlyAskedQuestion?: Maybe<FrequentlyAskedQuestion>;
   frequentlyAskedQuestions?: Maybe<Array<FrequentlyAskedQuestion>>;
   frequentlyAskedQuestionsCount?: Maybe<Scalars['Int']['output']>;
@@ -717,6 +793,25 @@ export type Query = {
   user?: Maybe<User>;
   users?: Maybe<Array<User>>;
   usersCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type QueryConfigArgs = {
+  where?: ConfigWhereUniqueInput;
+};
+
+
+export type QueryConfigsArgs = {
+  cursor?: InputMaybe<ConfigWhereUniqueInput>;
+  orderBy?: Array<ConfigOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: ConfigWhereInput;
+};
+
+
+export type QueryConfigsCountArgs = {
+  where?: ConfigWhereInput;
 };
 
 
@@ -1104,6 +1199,15 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ServerCardFragment = { __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null };
+
+export type GetPageDashboardQueryVariables = Exact<{
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type GetPageDashboardQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, config?: { __typename?: 'Config', releaseDate?: any | null } | null };
+
 export type GetPageFaqsQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
@@ -1111,7 +1215,66 @@ export type GetPageFaqsQueryVariables = Exact<{
 
 export type GetPageFaqsQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, subtitle?: string | null, description?: string | null }> | null, frequentlyAskedQuestions?: Array<{ __typename?: 'FrequentlyAskedQuestion', title?: string | null, description?: string | null }> | null };
 
+export type GetPageServerQueryVariables = Exact<{
+  server: Scalars['String']['input'];
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
 
+
+export type GetPageServerQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, servers?: Array<{ __typename?: 'Server', title?: string | null, slug?: string | null, homepage?: string | null, isOfficial?: boolean | null, description?: string | null, githubUrl?: string | null, githubOwner?: string | null, githubLicense?: string | null, githubLanguage?: string | null, githubPublishedAt?: any | null, settings?: any | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+
+export type GetPageServerOverviewQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerOverviewQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, title?: string | null, overview?: string | null }> | null };
+
+export type GetPageServerToolsQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageServerToolsQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, tools?: any | null }> | null };
+
+export type GetPageServersQueryVariables = Exact<{
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type GetPageServersQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null };
+
+export const ServerCard = gql`
+    fragment ServerCard on Server {
+  id
+  title
+  slug
+  isOfficial
+  description
+  githubOwner
+  category {
+    icon {
+      publicUrlTransformed
+    }
+  }
+  icon {
+    publicUrlTransformed
+  }
+}
+    `;
+export const GetPageDashboard = gql`
+    query getPageDashboard($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  config {
+    releaseDate
+  }
+}
+    `;
 export const GetPageFaqs = gql`
     query getPageFaqs($slug: [String!]!) {
   pages(where: {slug: {in: $slug}}) {
@@ -1123,6 +1286,68 @@ export const GetPageFaqs = gql`
   frequentlyAskedQuestions(orderBy: {id: asc}) {
     title
     description
+  }
+}
+    `;
+export const GetPageServer = gql`
+    query getPageServer($server: String!, $slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  servers(where: {slug: {equals: $server}}) {
+    title
+    slug
+    homepage
+    isOfficial
+    description
+    githubUrl
+    githubOwner
+    githubLicense
+    githubLanguage
+    githubPublishedAt
+    settings
+    category {
+      icon {
+        publicUrlTransformed
+      }
+    }
+    icon {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+export const GetPageServerOverview = gql`
+    query getPageServerOverview($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    title
+    overview
+  }
+}
+    `;
+export const GetPageServerTools = gql`
+    query getPageServerTools($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    tools
+  }
+}
+    `;
+export const GetPageServers = gql`
+    query getPageServers($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories(take: 100) {
+    title
+    slug
   }
 }
     `;

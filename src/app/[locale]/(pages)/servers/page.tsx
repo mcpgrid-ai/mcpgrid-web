@@ -6,10 +6,10 @@ import { PAGE_SIZE } from './page.const';
 import { RoutePath } from '@common/constants';
 import { Heading, Nav, Pagination, Row } from '@core/uikit';
 import { Link, notFound } from '@core/navigation';
-import { strapi } from '@network/strapi';
 import { ServerCard } from '@common/components';
 import { getTranslations } from '@core/i18n';
 import { getServers } from '@network/api';
+import { keystone } from '@network/keystone';
 
 interface ServersProps {
   searchParams: Promise<{
@@ -24,35 +24,40 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 
   const { category, search, page = '1' } = await searchParams;
 
-  const { data, total } = await getServers({
-    take: PAGE_SIZE,
-    q: search,
-    category,
-    skip: (toNumber(page) - 1) * PAGE_SIZE,
-  });
+  const { data, total } = await (async () => {
+    try {
+      const { data, total } = await getServers({
+        take: PAGE_SIZE,
+        q: search,
+        category,
+        skip: (toNumber(page) - 1) * PAGE_SIZE,
+      });
+      return { data, total };
+    } catch {
+      return { data: [], total: 0 };
+    }
+  })();
 
-  const {
-    data: { pages, serverCategories },
-  } = await strapi.page.getServers({
+  const { pages, serverCategories } = await keystone.pages.getServers({
     slug: ['servers', 'home'],
   });
 
-  const servers = pages.find((item) => item && item.Slug === 'servers');
+  const servers = pages?.find((item) => item.slug === 'servers');
 
-  const home = pages.find((item) => item && item.Slug === 'home');
+  const home = pages?.find((item) => item && item.slug === 'home');
 
   if (!servers || !home) return notFound();
 
   return (
     <Fragment>
       <Heading>
-        <Heading.Title>{servers.Title}</Heading.Title>
+        <Heading.Title>{servers.title}</Heading.Title>
         <Heading.Breadcrumb>
           <Heading.Breadcrumb.Item as={Link} pathname={RoutePath.Index}>
-            {home.Title}
+            {home.title}
           </Heading.Breadcrumb.Item>
           <Heading.Breadcrumb.Item active>
-            {servers.Title}
+            {servers.title}
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
@@ -69,17 +74,17 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
                 {t('options.all')}
               </Nav.Link>
             </Nav.Item>
-            {serverCategories.map((item) => {
+            {serverCategories?.map((item) => {
               if (item) {
                 return (
-                  <Nav.Item key={item.Slug}>
+                  <Nav.Item key={item.slug}>
                     <Nav.Link
                       as={Link}
-                      active={category === item.Slug}
+                      active={category === item.slug}
                       pathname={RoutePath.Servers}
-                      query={{ search, category: item.Slug }}
+                      query={{ search, category: item.slug }}
                     >
-                      {item.Title}
+                      {item.title}
                     </Nav.Link>
                   </Nav.Item>
                 );
