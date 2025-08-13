@@ -11,4 +11,17 @@ export const client = new ApolloClient<NormalizedCacheObject>({
     fetch,
   }),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+    mutate: {
+      fetchPolicy: 'no-cache',
+    },
+  },
 });
