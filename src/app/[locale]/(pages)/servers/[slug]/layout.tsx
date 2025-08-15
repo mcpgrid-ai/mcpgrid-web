@@ -54,8 +54,8 @@ const ServerLayout: FC<ServerLayoutProps> = async ({ params, children }) => {
         <Image
           src={server.category?.icon?.publicUrlTransformed}
           alt={server?.title || ''}
-          width={64}
-          height={64}
+          width={40}
+          height={40}
         />
       );
 
