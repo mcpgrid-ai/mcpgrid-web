@@ -104,12 +104,14 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
                   githubOwner: item.owner,
                   slug: item.slug,
                   title: item.title,
-                  // Category: {
-                  //   Icon: item.icon,
-                  // },
-                  // Logo: {
-                  //   url: item.logo || '',
-                  // },
+                  icon: {
+                    publicUrlTransformed: item.logo,
+                  },
+                  category: {
+                    icon: {
+                      publicUrlTransformed: item.icon,
+                    },
+                  },
                   isOfficial: item.isOfficial,
                 }}
                 className="h-100"

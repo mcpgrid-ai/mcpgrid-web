@@ -4,20 +4,14 @@
  * Mcpbox API
  * OpenAPI spec version: 1.0.0
  */
-export interface HubIcon {
-  iconData: string;
-  iconName: string;
-  width: number;
-  height: number;
-}
-
 export interface ServerItem {
   id: string;
   slug: string;
   title: string;
   owner: string;
   description: string;
-  icon: HubIcon;
+  /** @nullable */
+  icon: string | null;
   isOfficial: boolean;
   /** @nullable */
   logo: string | null;

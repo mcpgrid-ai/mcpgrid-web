@@ -8,7 +8,6 @@ import { RoutePath } from '../../constants';
 
 import {
   Avatar,
-  Icon,
   Row,
   Typeahead,
   TypeaheadOnSearchCallback,
@@ -56,7 +55,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     >
-      {({ option: { logo, title, icon, slug, owner } }) => {
+      {({ option: { icon, logo, title, slug, owner } }) => {
         return (
           <Typeahead.Item as="div">
             <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
@@ -66,12 +65,9 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
                     {logo ? (
                       <Image src={logo} width={36} height={36} alt={title} />
                     ) : (
-                      <Icon.Svg
-                        height={icon.height}
-                        width={icon.width}
-                        size={20}
-                        icon={icon.iconData}
-                      />
+                      icon && (
+                        <Image src={icon} width={20} height={20} alt={title} />
+                      )
                     )}
                   </Avatar>
                 </Row.Col>
