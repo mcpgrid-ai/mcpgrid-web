@@ -8,12 +8,12 @@ import styles from './ServerCard.module.scss';
 
 import { Link } from '@core/navigation';
 import { Card, Row, Avatar, Icon, Tooltip } from '@core/uikit';
-import { DTO } from '@network/strapi';
+import { DTO } from '@network/keystone';
 import { getTranslations } from '@core/i18n';
 
 interface ServerCardProps {
   className?: string;
-  server: DTO.ServerCardFragment | null;
+  server: DTO.ServerCardFragment;
 }
 
 export const ServerCard: FC<ServerCardProps> = async ({
@@ -22,26 +22,18 @@ export const ServerCard: FC<ServerCardProps> = async ({
 }) => {
   const t = await getTranslations();
 
-  const slug = server?.Slug;
-  const title = server?.Title || '';
-  const description = server?.Description;
-  const logo = server?.Logo?.url;
-  const icon = server?.Category?.Icon;
-  const owner = server?.GitHubOwner || '';
-  const isOfficial = server?.IsOfficial;
+  const slug = server?.slug;
+  const title = server?.title || '';
+  const description = server?.description;
+  const logo = server?.icon?.publicUrlTransformed;
+  const icon = server?.category?.icon?.publicUrlTransformed;
+  const owner = server?.githubOwner || '';
+  const isOfficial = server?.isOfficial;
 
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} width={48} height={48} />;
 
-    if (icon)
-      return (
-        <Icon.Svg
-          size={20}
-          icon={icon.iconData}
-          width={icon.width}
-          height={icon.height}
-        />
-      );
+    if (icon) return <Image src={icon} alt={title} width={20} height={20} />;
 
     return null;
   })();

@@ -1215,6 +1215,20 @@ export type GetPageFaqsQueryVariables = Exact<{
 
 export type GetPageFaqsQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, subtitle?: string | null, description?: string | null }> | null, frequentlyAskedQuestions?: Array<{ __typename?: 'FrequentlyAskedQuestion', title?: string | null, description?: string | null }> | null };
 
+export type GetPageHomeQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPageHomeQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, id: string, slug?: string | null }> | null };
+
+export type GetPageHomeServersQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetPageHomeServersQuery = { __typename?: 'Query', serversCount?: number | null, serverCategory?: { __typename?: 'ServerCategory', title?: string | null, slug?: string | null } | null, servers?: Array<{ __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+
 export type GetPageServerQueryVariables = Exact<{
   server: Scalars['String']['input'];
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
@@ -1289,6 +1303,33 @@ export const GetPageFaqs = gql`
   }
 }
     `;
+export const GetPageHome = gql`
+    query getPageHome($slug: String!) {
+  pages(where: {slug: {equals: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories {
+    title
+    id
+    slug
+  }
+}
+    `;
+export const GetPageHomeServers = gql`
+    query getPageHomeServers($id: ID!) {
+  serverCategory(where: {id: $id}) {
+    title
+    slug
+  }
+  servers(where: {category: {id: {equals: $id}}}, take: 4) {
+    ...ServerCard
+  }
+  serversCount(where: {category: {id: {equals: $id}}})
+}
+    ${ServerCard}`;
 export const GetPageServer = gql`
     query getPageServer($server: String!, $slug: [String!]!) {
   pages(where: {slug: {in: $slug}}) {

@@ -99,18 +99,18 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
             <Row.Col key={item.slug} xs={12} sm={6} md={6} lg={4} xl={3}>
               <ServerCard
                 server={{
-                  Description: item.description,
-                  documentId: item.id,
-                  GitHubOwner: item.owner,
-                  Slug: item.slug,
-                  Title: item.title,
-                  Category: {
-                    Icon: item.icon,
-                  },
-                  Logo: {
-                    url: item.logo || '',
-                  },
-                  IsOfficial: item.isOfficial,
+                  description: item.description,
+                  id: item.id,
+                  githubOwner: item.owner,
+                  slug: item.slug,
+                  title: item.title,
+                  // Category: {
+                  //   Icon: item.icon,
+                  // },
+                  // Logo: {
+                  //   url: item.logo || '',
+                  // },
+                  isOfficial: item.isOfficial,
                 }}
                 className="h-100"
               />

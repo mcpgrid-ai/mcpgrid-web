@@ -6,17 +6,21 @@ import { ServersSearch } from './_partitions/ServersSearch';
 
 import { ServerCard } from '@common/components';
 import { RoutePath } from '@common/constants';
-import { Link } from '@core/navigation';
+import { Link, notFound } from '@core/navigation';
 import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
-import { strapi } from '@network/strapi';
+import { keystone } from '@network/keystone';
 
 const Home = async () => {
   const t = await getTranslations();
 
-  const { page, categories } = await strapi.page.getHome({
+  const { pages, categories } = await keystone.pages.getHome({
     slug: 'home',
   });
+
+  const page = pages?.find(({ slug }) => slug === 'home');
+
+  if (!page) return notFound();
 
   return (
     <Fragment>
@@ -26,9 +30,9 @@ const Home = async () => {
           <Row className="justify-content-center mt-3">
             <Row.Col xl={5} lg={8}>
               <div className="text-center">
-                <Typography as="h1">{page?.Subtitle}</Typography>
+                <Typography as="h1">{page?.subtitle}</Typography>
                 <Typography className="text-muted font-size-16">
-                  {page?.Description}
+                  {page?.description}
                 </Typography>
                 <div>
                   {/* <Button
@@ -61,16 +65,16 @@ const Home = async () => {
       </Row>
       <Row className="mt-5">
         <Row.Col lg={12}>
-          {categories.map(({ serverCategory, servers_connection, servers }) => {
+          {categories.map(({ serverCategory, serversCount, servers }) => {
             return (
               <ServerCategorySection
-                key={serverCategory?.Slug}
-                slug={serverCategory?.Slug}
-                title={serverCategory?.Title}
-                count={servers_connection?.pageInfo.total}
+                key={serverCategory?.slug}
+                slug={serverCategory?.slug || ''}
+                title={serverCategory?.title || ''}
+                count={serversCount || 0}
               >
                 <Row className="g-4">
-                  {servers.map((item, index, arr) => {
+                  {servers?.map((item, index, arr) => {
                     return (
                       <Row.Col
                         sm={6}
@@ -78,7 +82,7 @@ const Home = async () => {
                         md={6}
                         lg={4}
                         xl={3}
-                        key={item?.Slug}
+                        key={item?.slug}
                         className={classNames({
                           'd-xl-block':
                             arr.length === 4 && index === arr.length - 1,

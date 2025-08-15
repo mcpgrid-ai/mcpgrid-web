@@ -1,0 +1,49 @@
+#import "./fragments/ServerCard.graphql"
+
+query getPageHome($slug: String!) {
+  pages(where: { slug: { equals: $slug } }) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories {
+    title
+    id
+    slug
+  }
+}
+
+query getPageHomeServers($id: ID!) {
+  serverCategory(where: { id: $id }) {
+    title
+    slug
+  }
+  servers(where: { category: { id: { equals: $id } } }, take: 4) {
+    ...ServerCard
+  }
+  serversCount(where: { category: { id: { equals: $id } } })
+}
+
+# query getPageHome($slug: String!) {
+#   pages(where: { slug: { equals: $slug } }) {
+#     title
+#     slug
+#     subtitle
+#     description
+#   }
+#   servers(take: 1000, orderBy: { createdAt: desc }) {
+#     title
+#     slug
+#     description
+#     icon {
+#       publicUrlTransformed
+#     }
+#     category {
+#       title
+#       icon {
+#         publicUrlTransformed
+#       }
+#     }
+#   }
+# }
