@@ -706,6 +706,10 @@ export type Page = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  seoDescription?: Maybe<Scalars['String']['output']>;
+  seoIcon?: Maybe<CloudinaryImage_File>;
+  seoKeywords?: Maybe<Scalars['String']['output']>;
+  seoTitle?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   subtitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -715,6 +719,10 @@ export type Page = {
 export type PageCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  seoDescription?: InputMaybe<Scalars['String']['input']>;
+  seoIcon?: InputMaybe<Scalars['Upload']['input']>;
+  seoKeywords?: InputMaybe<Scalars['String']['input']>;
+  seoTitle?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -725,6 +733,9 @@ export type PageOrderByInput = {
   createdAt?: InputMaybe<OrderDirection>;
   description?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+  seoDescription?: InputMaybe<OrderDirection>;
+  seoKeywords?: InputMaybe<OrderDirection>;
+  seoTitle?: InputMaybe<OrderDirection>;
   slug?: InputMaybe<OrderDirection>;
   subtitle?: InputMaybe<OrderDirection>;
   title?: InputMaybe<OrderDirection>;
@@ -739,6 +750,10 @@ export type PageUpdateArgs = {
 export type PageUpdateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  seoDescription?: InputMaybe<Scalars['String']['input']>;
+  seoIcon?: InputMaybe<Scalars['Upload']['input']>;
+  seoKeywords?: InputMaybe<Scalars['String']['input']>;
+  seoTitle?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -752,6 +767,9 @@ export type PageWhereInput = {
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
+  seoDescription?: InputMaybe<StringFilter>;
+  seoKeywords?: InputMaybe<StringFilter>;
+  seoTitle?: InputMaybe<StringFilter>;
   slug?: InputMaybe<StringFilter>;
   subtitle?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
@@ -1201,6 +1219,11 @@ export type UserWhereUniqueInput = {
 
 export type ServerCardFragment = { __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null };
 
+export type GetMetadataHomeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMetadataHomeQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
+
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
@@ -1273,6 +1296,20 @@ export const ServerCard = gql`
   }
   icon {
     publicUrlTransformed
+  }
+}
+    `;
+export const GetMetadataHome = gql`
+    query getMetadataHome {
+  page(where: {slug: "home"}) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: {width: "1200", height: "630", crop: "thumb"}
+      )
+    }
   }
 }
     `;

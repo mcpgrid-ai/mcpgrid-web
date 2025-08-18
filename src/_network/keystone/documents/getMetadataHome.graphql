@@ -1,0 +1,12 @@
+query getMetadataHome {
+  page(where: { slug: "home" }) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: { width: "1200", height: "630", crop: "thumb" }
+      )
+    }
+  }
+}

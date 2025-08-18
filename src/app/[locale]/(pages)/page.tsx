@@ -105,3 +105,5 @@ const Home = async () => {
 };
 
 export default Home;
+
+export { generateMetadata } from './page.metadata';
