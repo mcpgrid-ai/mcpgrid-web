@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { keystone } from '@network/keystone';
 
 export const generateMetadata = async (): Promise<Metadata | undefined> => {
-  const { page } = await keystone.metadata.getHome();
+  const { page } = await keystone.metadata.getServers();
 
   if (page) {
     return {

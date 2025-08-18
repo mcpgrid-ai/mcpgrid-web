@@ -143,3 +143,5 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 };
 
 export default Servers;
+
+export { generateMetadata } from './page.metadata';

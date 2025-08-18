@@ -1224,6 +1224,11 @@ export type GetMetadataHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetMetadataHomeQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
 
+export type GetMetadataServersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMetadataServersQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
+
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
@@ -1302,6 +1307,20 @@ export const ServerCard = gql`
 export const GetMetadataHome = gql`
     query getMetadataHome {
   page(where: {slug: "home"}) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: {width: "1200", height: "630", crop: "thumb"}
+      )
+    }
+  }
+}
+    `;
+export const GetMetadataServers = gql`
+    query getMetadataServers {
+  page(where: {slug: "servers"}) {
     seoTitle
     seoDescription
     seoKeywords

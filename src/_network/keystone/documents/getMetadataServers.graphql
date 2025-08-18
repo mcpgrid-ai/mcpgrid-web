@@ -1,0 +1,12 @@
+query getMetadataServers {
+  page(where: { slug: "servers" }) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: { width: "1200", height: "630", crop: "thumb" }
+      )
+    }
+  }
+}
