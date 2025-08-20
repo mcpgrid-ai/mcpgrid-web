@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 
+import { getTranslations } from '@core/i18n';
 import { keystone } from '@network/keystone';
 
 interface GenerateMetadataParams {
@@ -12,10 +13,18 @@ export const generateMetadata = async ({
   params,
 }: GenerateMetadataParams): Promise<Metadata> => {
   const { slug } = await params;
+  const t = await getTranslations();
 
   const { server } = await keystone.metadata.getServer({
     slug,
   });
+
+  if (!server) {
+    return {
+      title: t('noData.serverNotFound'),
+      description: t('noData.serverNotFound'),
+    };
+  }
 
   const title = `${server?.title} | ${process.env.PRODUCT_NAME}`;
 
@@ -25,6 +34,7 @@ export const generateMetadata = async ({
 
   return {
     title,
+    keywords: server?.keywords,
     description: server?.description,
     openGraph: {
       siteName: process.env.PRODUCT_NAME,

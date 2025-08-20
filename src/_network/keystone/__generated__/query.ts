@@ -965,6 +965,7 @@ export type Server = {
   icon?: Maybe<CloudinaryImage_File>;
   id: Scalars['ID']['output'];
   isOfficial?: Maybe<Scalars['Boolean']['output']>;
+  keywords?: Maybe<Scalars['String']['output']>;
   overview?: Maybe<Scalars['String']['output']>;
   settings?: Maybe<Scalars['JSON']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
@@ -1057,6 +1058,7 @@ export type ServerCreateInput = {
   homepage?: InputMaybe<Scalars['String']['input']>;
   icon?: InputMaybe<Scalars['Upload']['input']>;
   isOfficial?: InputMaybe<Scalars['Boolean']['input']>;
+  keywords?: InputMaybe<Scalars['String']['input']>;
   overview?: InputMaybe<Scalars['String']['input']>;
   settings?: InputMaybe<Scalars['JSON']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -1076,6 +1078,7 @@ export type ServerOrderByInput = {
   homepage?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   isOfficial?: InputMaybe<OrderDirection>;
+  keywords?: InputMaybe<OrderDirection>;
   overview?: InputMaybe<OrderDirection>;
   slug?: InputMaybe<OrderDirection>;
   title?: InputMaybe<OrderDirection>;
@@ -1099,6 +1102,7 @@ export type ServerUpdateInput = {
   homepage?: InputMaybe<Scalars['String']['input']>;
   icon?: InputMaybe<Scalars['Upload']['input']>;
   isOfficial?: InputMaybe<Scalars['Boolean']['input']>;
+  keywords?: InputMaybe<Scalars['String']['input']>;
   overview?: InputMaybe<Scalars['String']['input']>;
   settings?: InputMaybe<Scalars['JSON']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -1122,6 +1126,7 @@ export type ServerWhereInput = {
   homepage?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   isOfficial?: InputMaybe<BooleanFilter>;
+  keywords?: InputMaybe<StringFilter>;
   overview?: InputMaybe<StringFilter>;
   slug?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
@@ -1231,7 +1236,7 @@ export type GetMetadataServerQueryVariables = Exact<{
 }>;
 
 
-export type GetMetadataServerQuery = { __typename?: 'Query', server?: { __typename?: 'Server', title?: string | null, description?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null } | null };
+export type GetMetadataServerQuery = { __typename?: 'Query', server?: { __typename?: 'Server', title?: string | null, keywords?: string | null, description?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null } | null };
 
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
@@ -1326,6 +1331,7 @@ export const GetMetadataServer = gql`
     query getMetadataServer($slug: String!) {
   server(where: {slug: $slug}) {
     title
+    keywords
     description
     icon {
       publicUrlTransformed(

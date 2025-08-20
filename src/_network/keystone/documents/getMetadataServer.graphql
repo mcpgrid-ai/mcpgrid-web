@@ -1,6 +1,7 @@
 query getMetadataServer($slug: String!) {
   server(where: { slug: $slug }) {
     title
+    keywords
     description
     icon {
       publicUrlTransformed(
