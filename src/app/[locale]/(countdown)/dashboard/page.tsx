@@ -6,8 +6,13 @@ import { getTranslations } from '@core/i18n';
 import { Button, Icon, Typography } from '@core/uikit';
 import { notFound } from '@core/navigation';
 import { keystone } from '@network/keystone';
+import { generateCommonMetadata } from '@common/utils';
 
 const SLUG = 'dashboard';
+
+export const generateMetadata = generateCommonMetadata({
+  slug: SLUG,
+});
 
 const DashboardSoon: FC = async () => {
   const t = await getTranslations();

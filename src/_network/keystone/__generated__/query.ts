@@ -1226,15 +1226,12 @@ export type GetMetadataCommonQueryVariables = Exact<{
 
 export type GetMetadataCommonQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
 
-export type GetMetadataHomeQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMetadataServerQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
 
 
-export type GetMetadataHomeQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
-
-export type GetMetadataServersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMetadataServersQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
+export type GetMetadataServerQuery = { __typename?: 'Query', server?: { __typename?: 'Server', title?: string | null, description?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null } | null };
 
 export type GetPageDashboardQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
@@ -1325,30 +1322,22 @@ export const GetMetadataCommon = gql`
   }
 }
     `;
-export const GetMetadataHome = gql`
-    query getMetadataHome {
-  page(where: {slug: "home"}) {
-    seoTitle
-    seoDescription
-    seoKeywords
-    seoIcon {
+export const GetMetadataServer = gql`
+    query getMetadataServer($slug: String!) {
+  server(where: {slug: $slug}) {
+    title
+    description
+    icon {
       publicUrlTransformed(
-        transformation: {width: "1200", height: "630", crop: "thumb"}
+        transformation: {width: "1200", height: "600", crop: "fill_pad"}
       )
     }
-  }
-}
-    `;
-export const GetMetadataServers = gql`
-    query getMetadataServers {
-  page(where: {slug: "servers"}) {
-    seoTitle
-    seoDescription
-    seoKeywords
-    seoIcon {
-      publicUrlTransformed(
-        transformation: {width: "1200", height: "630", crop: "thumb"}
-      )
+    category {
+      icon {
+        publicUrlTransformed(
+          transformation: {width: "1200", height: "600", crop: "fill_pad"}
+        )
+      }
     }
   }
 }

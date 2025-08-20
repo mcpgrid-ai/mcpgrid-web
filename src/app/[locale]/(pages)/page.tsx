@@ -10,6 +10,11 @@ import { Link, notFound } from '@core/navigation';
 import { Button, Heading, Icon, Row, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
 import { keystone } from '@network/keystone';
+import { generateCommonMetadata } from '@common/utils';
+
+export const generateMetadata = generateCommonMetadata({
+  slug: 'home',
+});
 
 const Home = async () => {
   const t = await getTranslations();
@@ -105,5 +110,3 @@ const Home = async () => {
 };
 
 export default Home;
-
-export { generateMetadata } from './page.metadata';

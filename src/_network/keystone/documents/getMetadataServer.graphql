@@ -1,0 +1,18 @@
+query getMetadataServer($slug: String!) {
+  server(where: { slug: $slug }) {
+    title
+    description
+    icon {
+      publicUrlTransformed(
+        transformation: { width: "1200", height: "600", crop: "fill_pad" }
+      )
+    }
+    category {
+      icon {
+        publicUrlTransformed(
+          transformation: { width: "1200", height: "600", crop: "fill_pad" }
+        )
+      }
+    }
+  }
+}
