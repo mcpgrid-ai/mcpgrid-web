@@ -33,3 +33,5 @@ const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
 };
 
 export default ServerDetailsOverview;
+
+export { generateMetadata } from './page.metadata';

@@ -10,6 +10,7 @@ import { ServerCard } from '@common/components';
 import { getTranslations } from '@core/i18n';
 import { getServers } from '@network/api';
 import { keystone } from '@network/keystone';
+import { generateCommonMetadata } from '@common/utils';
 
 interface ServersProps {
   searchParams: Promise<{
@@ -18,6 +19,10 @@ interface ServersProps {
     page?: string;
   }>;
 }
+
+export const generateMetadata = generateCommonMetadata({
+  slug: 'servers',
+});
 
 const Servers: FC<ServersProps> = async ({ searchParams }) => {
   const t = await getTranslations();

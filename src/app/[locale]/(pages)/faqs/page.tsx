@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import { FC, Fragment } from 'react';
 import { padStart } from 'lodash';
 
@@ -15,6 +14,11 @@ import {
   Row,
   Typography,
 } from '@core/uikit';
+import { generateCommonMetadata } from '@common/utils/generateCommonMetadata';
+
+export const generateMetadata = generateCommonMetadata({
+  slug: 'faqs',
+});
 
 const Faq: FC = async () => {
   const {
@@ -116,13 +120,6 @@ const Faq: FC = async () => {
       <Box mt={5} />
     </Fragment>
   );
-};
-
-export const generateMetadata = async (): Promise<Metadata> => {
-  return {
-    title: 'Blog',
-    description: 'Read this blog post',
-  };
 };
 
 export default Faq;
