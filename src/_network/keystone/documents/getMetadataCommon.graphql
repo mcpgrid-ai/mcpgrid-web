@@ -1,0 +1,12 @@
+query getMetadataCommon($slug: String!) {
+  page(where: { slug: $slug }) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: { width: "1200", height: "630", crop: "thumb" }
+      )
+    }
+  }
+}

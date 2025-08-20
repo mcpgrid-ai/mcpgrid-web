@@ -1219,6 +1219,13 @@ export type UserWhereUniqueInput = {
 
 export type ServerCardFragment = { __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null };
 
+export type GetMetadataCommonQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetMetadataCommonQuery = { __typename?: 'Query', page?: { __typename?: 'Page', seoTitle?: string | null, seoDescription?: string | null, seoKeywords?: string | null, seoIcon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null };
+
 export type GetMetadataHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1301,6 +1308,20 @@ export const ServerCard = gql`
   }
   icon {
     publicUrlTransformed
+  }
+}
+    `;
+export const GetMetadataCommon = gql`
+    query getMetadataCommon($slug: String!) {
+  page(where: {slug: $slug}) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: {width: "1200", height: "630", crop: "thumb"}
+      )
+    }
   }
 }
     `;
