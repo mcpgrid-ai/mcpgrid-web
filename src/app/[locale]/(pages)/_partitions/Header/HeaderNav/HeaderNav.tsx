@@ -29,7 +29,7 @@ export const HeaderNav: FC = async () => {
             <Nav.Item key={href}>
               <Nav.Link as={Link} pathname={href} className={styles.link}>
                 <Icon.Fi name={icon} size={16} className="me-2" />
-                <span>{label}</span>
+                <span className="d-none d-md-inline">{label}</span>
               </Nav.Link>
             </Nav.Item>
           );

@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
@@ -25,6 +26,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
                 data-bs-theme="light"
               >
                 {children}
+                {process.env.GOOGLE_ANALYTICS_ID && (
+                  <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+                )}
               </body>
             </html>
           </ApiProvider>

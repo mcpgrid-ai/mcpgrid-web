@@ -1,5 +1,7 @@
 import { FC, Fragment } from 'react';
 
+import { generateServerMetadata } from '../page.metadata';
+
 import styles from './page.module.scss';
 import { ServerTools } from './page.types';
 
@@ -13,6 +15,10 @@ interface ServerDetailsToolsProps {
     slug: string;
   }>;
 }
+
+export const generateMetadata = generateServerMetadata({
+  suffix: 'Tools',
+});
 
 const ServerDetailsTools: FC<ServerDetailsToolsProps> = async ({ params }) => {
   const { slug } = await params;

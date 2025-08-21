@@ -1,9 +1,8 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    STRAPI_HOST: string;
-    STRAPI_API_TOKEN: string;
     PRODUCT_NAME: string;
     API_HOST: string;
     KEYSTONE_SCHEMA_URL: string;
+    GOOGLE_ANALYTICS_ID: string;
   }
 }
