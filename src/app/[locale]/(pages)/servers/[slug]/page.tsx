@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { generateServerMetadata } from './page.metadata';
+
 import { Card, Markdown } from '@core/uikit';
 import { notFound } from '@core/navigation';
 import { keystone } from '@network/keystone';
@@ -9,6 +11,8 @@ interface ServerDetailsOverviewProps {
     slug: string;
   }>;
 }
+
+export const generateMetadata = generateServerMetadata({});
 
 const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
   params,
@@ -33,5 +37,3 @@ const ServerDetailsOverview: FC<ServerDetailsOverviewProps> = async ({
 };
 
 export default ServerDetailsOverview;
-
-export { generateMetadata } from './page.metadata';
