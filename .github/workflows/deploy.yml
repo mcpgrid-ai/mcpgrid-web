@@ -10,7 +10,7 @@ on:
 
 env:
   GOOGLE_ANALYTICS_ID: G-H7ZB8PTTDZ
-  PRODUCT_NAME: Mcpbox
+  PRODUCT_NAME: Mcpgrid
 
 jobs:
   deploy:
