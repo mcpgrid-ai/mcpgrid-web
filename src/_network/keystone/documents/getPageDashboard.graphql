@@ -1,5 +1,5 @@
-query getPageDashboard($slug: [String!]!) {
-  pages(where: { slug: { in: $slug } }) {
+query getPageDashboard {
+  page: page(where: { slug: "dashboard" }) {
     title
     subtitle
     description

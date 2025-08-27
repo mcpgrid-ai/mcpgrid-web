@@ -22,6 +22,62 @@ export interface GetServersResponse {
   data: ServerItem[];
 }
 
+export interface CreateWaitlistRequest {
+  email: string;
+}
+
+export interface CreateWaitlistResponse {
+  id: string;
+}
+
+export type ApiExceptionStatusCode = typeof ApiExceptionStatusCode[keyof typeof ApiExceptionStatusCode];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ApiExceptionStatusCode = {
+  NUMBER_400: 400,
+  NUMBER_401: 401,
+  NUMBER_402: 402,
+  NUMBER_403: 403,
+  NUMBER_404: 404,
+  NUMBER_405: 405,
+  NUMBER_406: 406,
+  NUMBER_407: 407,
+  NUMBER_408: 408,
+  NUMBER_409: 409,
+  NUMBER_410: 410,
+  NUMBER_411: 411,
+  NUMBER_412: 412,
+  NUMBER_413: 413,
+  NUMBER_414: 414,
+  NUMBER_415: 415,
+  NUMBER_416: 416,
+  NUMBER_417: 417,
+  NUMBER_418: 418,
+  NUMBER_419: 419,
+  NUMBER_420: 420,
+  NUMBER_421: 421,
+  NUMBER_422: 422,
+  NUMBER_423: 423,
+  NUMBER_424: 424,
+  NUMBER_425: 425,
+  NUMBER_426: 426,
+  NUMBER_427: 427,
+  NUMBER_428: 428,
+  NUMBER_429: 429,
+  NUMBER_430: 430,
+  NUMBER_451: 451,
+} as const;
+
+export type ApiExceptionMessage = string | string[];
+
+export interface ApiException {
+  statusCode: ApiExceptionStatusCode;
+  error: string;
+  message: ApiExceptionMessage;
+  code?: string;
+}
+
 export type GetServersParams = {
 take?: number;
 skip?: number;
