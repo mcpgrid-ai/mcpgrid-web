@@ -15,10 +15,12 @@ import {
   BiSolidBadgeCheck,
   BiUser,
   BiHash,
+  BiLogoGoogle,
 } from 'react-icons/bi';
 import { MdBalance } from 'react-icons/md';
 
 export const ICON_BX = {
+  'logo-google': BiLogoGoogle,
   'calendar-alt': BiCalendarAlt,
   'code-alt': BiCodeAlt,
   'info-circle': BiInfoCircle,

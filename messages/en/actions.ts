@@ -7,4 +7,6 @@ export const actions = {
   backToHome: 'Back to home',
   startServer: 'Start server',
   homepage: 'Homepage',
+  continueWithGoogle: 'Continue with Google',
+  continueWithGithub: 'Continue with GitHub',
 };

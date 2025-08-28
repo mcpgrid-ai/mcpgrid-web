@@ -11,6 +11,7 @@ export * from './components/Icon';
 export * from './components/Input';
 export * from './components/List';
 export * from './components/ListGroup';
+export * from './components/Logo';
 export * from './components/Markdown';
 export * from './components/Nav';
 export * from './components/Navbar';

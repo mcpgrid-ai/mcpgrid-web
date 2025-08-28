@@ -21,4 +21,6 @@ export type ClsxProps = Partial<{
   mx: ClsxSpacing;
   my: ClsxSpacing;
   w: ClsxWidth;
+  pt: ClsxSpacing;
+  text: 'center';
 }>;

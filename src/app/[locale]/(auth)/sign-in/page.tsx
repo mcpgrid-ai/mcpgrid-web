@@ -2,8 +2,17 @@ import { FC } from 'react';
 
 import { keystone } from '@network/keystone';
 import { notFound } from '@core/navigation';
+import { generateCommonMetadata } from '@common/utils';
+import { Box, Button, Logo, Typography } from '@core/uikit';
+import { getTranslations } from '@core/i18n';
+
+export const generateMetadata = generateCommonMetadata({
+  slug: 'sign-in',
+});
 
 const SignIn: FC = async () => {
+  const t = await getTranslations();
+
   const {
     data: { page },
   } = await keystone.pages.getSignIn({});
@@ -12,11 +21,15 @@ const SignIn: FC = async () => {
 
   return (
     <div className="auth-content my-auto">
-      <div className="text-center">
-        <h5 className="mb-0">{page?.subtitle}</h5>
-        <p className="text-muted mt-2">{page?.description}</p>
-      </div>
-      <form className="mt-4 pt-2" action="index.html">
+      <Box text="center">
+        <Typography as="h5" className="mb-0">
+          {page?.subtitle}
+        </Typography>
+        <Typography as="p" className="text-muted mt-2">
+          {page?.description}{' '}
+        </Typography>
+      </Box>
+      {/* <form className="mt-4 pt-2" action="index.html">
         <div className="mb-3">
           <label className="form-label">Username</label>
           <input
@@ -77,16 +90,19 @@ const SignIn: FC = async () => {
             Log In
           </button>
         </div>
-      </form>
+      </form> */}
 
-      <div className="mt-4 pt-2 text-center">
+      <Box mt={4} pt={2} text="center">
         <div className="signin-other-title">
-          <h5 className="font-size-14 mb-3 text-muted fw-medium">
-            - Sign in with -
-          </h5>
+          <Typography
+            as="h5"
+            className="font-size-14 mb-3 text-muted fw-medium"
+          >
+            - {t('labels.signInWith')} -
+          </Typography>
         </div>
 
-        <ul className="list-inline mb-0">
+        {/* <ul className="list-inline mb-0">
           <li className="list-inline-item">
             <a
               href="javascript:void()"
@@ -111,10 +127,21 @@ const SignIn: FC = async () => {
               <i className="mdi mdi-google"></i>
             </a>
           </li>
-        </ul>
-      </div>
+        </ul> */}
+      </Box>
 
-      <div className="mt-5 text-center">
+      <Box d="grid" gap={3}>
+        <Button variant="outline-light">
+          <Logo name="google" className="me-2" />
+          {t('actions.continueWithGoogle')}
+        </Button>
+        <Button variant="outline-light">
+          <Logo name="github" className="me-2" />
+          {t('actions.continueWithGithub')}
+        </Button>
+      </Box>
+
+      {/* <div className="mt-5 text-center">
         <p className="text-muted mb-0">
           Don't have an account ?{' '}
           <a href="auth-register.html" className="text-primary fw-semibold">
@@ -122,7 +149,7 @@ const SignIn: FC = async () => {
             Signup now{' '}
           </a>{' '}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
