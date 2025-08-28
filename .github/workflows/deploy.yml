@@ -9,7 +9,7 @@ on:
         type: environment
 
 env:
-  GOOGLE_ANALYTICS_ID: G-H7ZB8PTTDZ
+  GOOGLE_ANALYTICS_ID: G-BSC823LMT3
   PRODUCT_NAME: Mcpgrid
 
 jobs:
