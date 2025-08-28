@@ -1394,6 +1394,11 @@ export type GetPageServersQueryVariables = Exact<{
 
 export type GetPageServersQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null };
 
+export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPageSignInQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null } | null };
+
 export const ServerCard = gql`
     fragment ServerCard on Server {
   id
@@ -1560,6 +1565,15 @@ export const GetPageServers = gql`
   serverCategories(take: 100) {
     title
     slug
+  }
+}
+    `;
+export const GetPageSignIn = gql`
+    query getPageSignIn {
+  page: page(where: {slug: "sign-in"}) {
+    title
+    subtitle
+    description
   }
 }
     `;
