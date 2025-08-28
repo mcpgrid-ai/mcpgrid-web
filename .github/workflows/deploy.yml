@@ -43,6 +43,7 @@ jobs:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Deploy to Google Cloud App Engine
+        id: deploy
         uses: google-github-actions/deploy-appengine@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -58,3 +59,12 @@ jobs:
           limit: 1
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           credentials: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Warm up service
+        run: |
+          for i in {1..5}; do
+            curl -fsS "${{ steps.deploy.outputs.url }}" && exit 0
+            echo "Retrying in 3s..."
+            sleep 3
+          done
+          echo "Service did not respond successfully" && exit 1
