@@ -1,16 +1,17 @@
 'use client';
 
 import { FC, useCallback } from 'react';
-import { castArray } from 'lodash';
+import { capitalize, castArray } from 'lodash';
 
-import { Input, InputOnSubmitCallback } from '@core/uikit';
+import { Input, InputOnSubmitCallback, useUtils } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
 import { useCreateWaitlist } from '@network/api';
 
 export const WaitlistForm: FC = () => {
   const t = useTranslations();
+  const { toast } = useUtils();
 
-  const { isPending, mutate } = useCreateWaitlist();
+  const { data, isPending, mutate } = useCreateWaitlist();
 
   const handleOnSubmit: InputOnSubmitCallback = useCallback(
     ({ value: email }) => {
@@ -21,18 +22,35 @@ export const WaitlistForm: FC = () => {
           },
         },
         {
-          onError: ({ message }) => {
-            console.log(castArray(message)[0]);
+          onError: ({ message, statusCode }) => {
+            if (statusCode === 409) {
+              toast({
+                duration: null,
+                message: t('notifications.waitlist.conflict'),
+              });
+            } else {
+              toast({
+                duration: null,
+                variant: 'error',
+                message: capitalize(castArray(message)[0]),
+              });
+            }
           },
-          onSuccess: () => {},
+          onSuccess: () => {
+            toast({
+              duration: null,
+              message: t('notifications.waitlist.succeeded'),
+            });
+          },
         },
       );
     },
-    [mutate],
+    [mutate, toast, t],
   );
 
   return (
     <Input
+      key={data?.id}
       isLoading={isPending}
       icon="paper-plane"
       onSubmit={handleOnSubmit}

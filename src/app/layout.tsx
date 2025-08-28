@@ -14,7 +14,7 @@ ApiClient.instance({
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider name={process.env.PRODUCT_NAME}>
       <TranslationsProvider>
         <QueryProvider>
           <ApiProvider baseUrl={process.env.API_HOST}>

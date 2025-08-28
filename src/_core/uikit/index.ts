@@ -22,5 +22,8 @@ export * from './components/Tooltip';
 export * from './components/Typeahead';
 export * from './components/Typography';
 
+// Hooks
+export * from './hooks/useUtils';
+
 // Assets
 export { IMAGES } from './assets/images';
