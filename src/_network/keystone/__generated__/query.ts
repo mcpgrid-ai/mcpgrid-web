@@ -423,6 +423,8 @@ export type Mutation = {
   createServers?: Maybe<Array<Maybe<Server>>>;
   createUser?: Maybe<User>;
   createUsers?: Maybe<Array<Maybe<User>>>;
+  createWaitlist?: Maybe<Waitlist>;
+  createWaitlists?: Maybe<Array<Maybe<Waitlist>>>;
   deleteConfig?: Maybe<Config>;
   deleteConfigs?: Maybe<Array<Maybe<Config>>>;
   deleteFrequentlyAskedQuestion?: Maybe<FrequentlyAskedQuestion>;
@@ -437,6 +439,8 @@ export type Mutation = {
   deleteServers?: Maybe<Array<Maybe<Server>>>;
   deleteUser?: Maybe<User>;
   deleteUsers?: Maybe<Array<Maybe<User>>>;
+  deleteWaitlist?: Maybe<Waitlist>;
+  deleteWaitlists?: Maybe<Array<Maybe<Waitlist>>>;
   endSession: Scalars['Boolean']['output'];
   updateConfig?: Maybe<Config>;
   updateConfigs?: Maybe<Array<Maybe<Config>>>;
@@ -452,6 +456,8 @@ export type Mutation = {
   updateServers?: Maybe<Array<Maybe<Server>>>;
   updateUser?: Maybe<User>;
   updateUsers?: Maybe<Array<Maybe<User>>>;
+  updateWaitlist?: Maybe<Waitlist>;
+  updateWaitlists?: Maybe<Array<Maybe<Waitlist>>>;
 };
 
 
@@ -536,6 +542,16 @@ export type MutationCreateUsersArgs = {
 };
 
 
+export type MutationCreateWaitlistArgs = {
+  data: WaitlistCreateInput;
+};
+
+
+export type MutationCreateWaitlistsArgs = {
+  data: Array<WaitlistCreateInput>;
+};
+
+
 export type MutationDeleteConfigArgs = {
   where?: ConfigWhereUniqueInput;
 };
@@ -603,6 +619,16 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDeleteUsersArgs = {
   where: Array<UserWhereUniqueInput>;
+};
+
+
+export type MutationDeleteWaitlistArgs = {
+  where: WaitlistWhereUniqueInput;
+};
+
+
+export type MutationDeleteWaitlistsArgs = {
+  where: Array<WaitlistWhereUniqueInput>;
 };
 
 
@@ -680,6 +706,17 @@ export type MutationUpdateUserArgs = {
 
 export type MutationUpdateUsersArgs = {
   data: Array<UserUpdateArgs>;
+};
+
+
+export type MutationUpdateWaitlistArgs = {
+  data: WaitlistUpdateInput;
+  where: WaitlistWhereUniqueInput;
+};
+
+
+export type MutationUpdateWaitlistsArgs = {
+  data: Array<WaitlistUpdateArgs>;
 };
 
 export type NestedStringFilter = {
@@ -811,6 +848,9 @@ export type Query = {
   user?: Maybe<User>;
   users?: Maybe<Array<User>>;
   usersCount?: Maybe<Scalars['Int']['output']>;
+  waitlist?: Maybe<Waitlist>;
+  waitlists?: Maybe<Array<Waitlist>>;
+  waitlistsCount?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -944,6 +984,25 @@ export type QueryUsersArgs = {
 
 export type QueryUsersCountArgs = {
   where?: UserWhereInput;
+};
+
+
+export type QueryWaitlistArgs = {
+  where: WaitlistWhereUniqueInput;
+};
+
+
+export type QueryWaitlistsArgs = {
+  cursor?: InputMaybe<WaitlistWhereUniqueInput>;
+  orderBy?: Array<WaitlistOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: WaitlistWhereInput;
+};
+
+
+export type QueryWaitlistsCountArgs = {
+  where?: WaitlistWhereInput;
 };
 
 export enum QueryMode {
@@ -1222,6 +1281,48 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type Waitlist = {
+  __typename?: 'Waitlist';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+};
+
+export type WaitlistCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type WaitlistOrderByInput = {
+  createdAt?: InputMaybe<OrderDirection>;
+  email?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+};
+
+export type WaitlistUpdateArgs = {
+  data: WaitlistUpdateInput;
+  where: WaitlistWhereUniqueInput;
+};
+
+export type WaitlistUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type WaitlistWhereInput = {
+  AND?: InputMaybe<Array<WaitlistWhereInput>>;
+  NOT?: InputMaybe<Array<WaitlistWhereInput>>;
+  OR?: InputMaybe<Array<WaitlistWhereInput>>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  email?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+};
+
+export type WaitlistWhereUniqueInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type ServerCardFragment = { __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null };
 
 export type GetMetadataCommonQueryVariables = Exact<{
@@ -1238,12 +1339,10 @@ export type GetMetadataServerQueryVariables = Exact<{
 
 export type GetMetadataServerQuery = { __typename?: 'Query', server?: { __typename?: 'Server', title?: string | null, keywords?: string | null, description?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null } | null };
 
-export type GetPageDashboardQueryVariables = Exact<{
-  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
+export type GetPageDashboardQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPageDashboardQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, config?: { __typename?: 'Config', releaseDate?: any | null } | null };
+export type GetPageDashboardQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null } | null, config?: { __typename?: 'Config', releaseDate?: any | null } | null };
 
 export type GetPageFaqsQueryVariables = Exact<{
   slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
@@ -1349,8 +1448,8 @@ export const GetMetadataServer = gql`
 }
     `;
 export const GetPageDashboard = gql`
-    query getPageDashboard($slug: [String!]!) {
-  pages(where: {slug: {in: $slug}}) {
+    query getPageDashboard {
+  page: page(where: {slug: "dashboard"}) {
     title
     subtitle
     description

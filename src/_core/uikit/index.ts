@@ -8,6 +8,7 @@ export * from './components/Collapsible';
 export * from './components/Dropdown';
 export * from './components/Heading';
 export * from './components/Icon';
+export * from './components/Input';
 export * from './components/List';
 export * from './components/ListGroup';
 export * from './components/Markdown';
@@ -20,6 +21,9 @@ export * from './components/ThemeProvider';
 export * from './components/Tooltip';
 export * from './components/Typeahead';
 export * from './components/Typography';
+
+// Hooks
+export * from './hooks/useUtils';
 
 // Assets
 export { IMAGES } from './assets/images';
