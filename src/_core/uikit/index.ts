@@ -1,3 +1,5 @@
+import { Carousel, CarouselItem } from 'react-bootstrap';
+
 // Components
 export * from './components/Avatar';
 export * from './components/Badge';
@@ -28,3 +30,6 @@ export * from './hooks/useUtils';
 
 // Assets
 export { IMAGES } from './assets/images';
+
+//
+export { Carousel, CarouselItem };

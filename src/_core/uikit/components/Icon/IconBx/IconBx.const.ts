@@ -16,6 +16,7 @@ import {
   BiUser,
   BiHash,
   BiLogoGoogle,
+  BiSolidQuoteAltLeft,
 } from 'react-icons/bi';
 import { MdBalance } from 'react-icons/md';
 
@@ -27,6 +28,7 @@ export const ICON_BX = {
   'logo-git-hub': BiLogoGithub,
   'paper-plane': BiPaperPlane,
   'solid-badge-check': BiSolidBadgeCheck,
+  'solid-quote-alt-left': BiSolidQuoteAltLeft,
   balance: MdBalance,
   buildings: BiBuildings,
   cog: BiCog,
