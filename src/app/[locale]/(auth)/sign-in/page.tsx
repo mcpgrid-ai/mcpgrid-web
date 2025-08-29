@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { SignInGoogle } from './_partitions/SignInGoogle';
+
 import { keystone } from '@network/keystone';
 import { notFound } from '@core/navigation';
 import { generateCommonMetadata } from '@common/utils';
@@ -131,10 +133,7 @@ const SignIn: FC = async () => {
       </Box>
 
       <Box d="grid" gap={3}>
-        <Button variant="outline-light">
-          <Logo name="google" className="me-2" />
-          {t('actions.continueWithGoogle')}
-        </Button>
+        <SignInGoogle />
         <Button variant="outline-light">
           <Logo name="github" className="me-2" />
           {t('actions.continueWithGithub')}

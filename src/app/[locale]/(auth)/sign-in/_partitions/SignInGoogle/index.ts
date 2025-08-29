@@ -1,0 +1,1 @@
+export { SignInGoogle } from './SignInGoogle';
