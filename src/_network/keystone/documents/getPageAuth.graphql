@@ -1,0 +1,17 @@
+query getPageAuth {
+  testimonials {
+    title
+    fullName
+    feedback
+    avatar {
+      publicUrlTransformed(
+        transformation: {
+          width: "120"
+          height: "120"
+          gravity: "face"
+          crop: "thumb"
+        }
+      )
+    }
+  }
+}

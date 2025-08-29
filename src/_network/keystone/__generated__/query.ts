@@ -421,6 +421,8 @@ export type Mutation = {
   createServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   createServerCategory?: Maybe<ServerCategory>;
   createServers?: Maybe<Array<Maybe<Server>>>;
+  createTestimonial?: Maybe<Testimonial>;
+  createTestimonials?: Maybe<Array<Maybe<Testimonial>>>;
   createUser?: Maybe<User>;
   createUsers?: Maybe<Array<Maybe<User>>>;
   createWaitlist?: Maybe<Waitlist>;
@@ -437,6 +439,8 @@ export type Mutation = {
   deleteServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   deleteServerCategory?: Maybe<ServerCategory>;
   deleteServers?: Maybe<Array<Maybe<Server>>>;
+  deleteTestimonial?: Maybe<Testimonial>;
+  deleteTestimonials?: Maybe<Array<Maybe<Testimonial>>>;
   deleteUser?: Maybe<User>;
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteWaitlist?: Maybe<Waitlist>;
@@ -454,6 +458,8 @@ export type Mutation = {
   updateServerCategories?: Maybe<Array<Maybe<ServerCategory>>>;
   updateServerCategory?: Maybe<ServerCategory>;
   updateServers?: Maybe<Array<Maybe<Server>>>;
+  updateTestimonial?: Maybe<Testimonial>;
+  updateTestimonials?: Maybe<Array<Maybe<Testimonial>>>;
   updateUser?: Maybe<User>;
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateWaitlist?: Maybe<Waitlist>;
@@ -529,6 +535,16 @@ export type MutationCreateServerCategoryArgs = {
 
 export type MutationCreateServersArgs = {
   data: Array<ServerCreateInput>;
+};
+
+
+export type MutationCreateTestimonialArgs = {
+  data: TestimonialCreateInput;
+};
+
+
+export type MutationCreateTestimonialsArgs = {
+  data: Array<TestimonialCreateInput>;
 };
 
 
@@ -609,6 +625,16 @@ export type MutationDeleteServerCategoryArgs = {
 
 export type MutationDeleteServersArgs = {
   where: Array<ServerWhereUniqueInput>;
+};
+
+
+export type MutationDeleteTestimonialArgs = {
+  where: TestimonialWhereUniqueInput;
+};
+
+
+export type MutationDeleteTestimonialsArgs = {
+  where: Array<TestimonialWhereUniqueInput>;
 };
 
 
@@ -695,6 +721,17 @@ export type MutationUpdateServerCategoryArgs = {
 
 export type MutationUpdateServersArgs = {
   data: Array<ServerUpdateArgs>;
+};
+
+
+export type MutationUpdateTestimonialArgs = {
+  data: TestimonialUpdateInput;
+  where: TestimonialWhereUniqueInput;
+};
+
+
+export type MutationUpdateTestimonialsArgs = {
+  data: Array<TestimonialUpdateArgs>;
 };
 
 
@@ -845,6 +882,9 @@ export type Query = {
   serverCategory?: Maybe<ServerCategory>;
   servers?: Maybe<Array<Server>>;
   serversCount?: Maybe<Scalars['Int']['output']>;
+  testimonial?: Maybe<Testimonial>;
+  testimonials?: Maybe<Array<Testimonial>>;
+  testimonialsCount?: Maybe<Scalars['Int']['output']>;
   user?: Maybe<User>;
   users?: Maybe<Array<User>>;
   usersCount?: Maybe<Scalars['Int']['output']>;
@@ -965,6 +1005,25 @@ export type QueryServersArgs = {
 
 export type QueryServersCountArgs = {
   where?: ServerWhereInput;
+};
+
+
+export type QueryTestimonialArgs = {
+  where: TestimonialWhereUniqueInput;
+};
+
+
+export type QueryTestimonialsArgs = {
+  cursor?: InputMaybe<TestimonialWhereUniqueInput>;
+  orderBy?: Array<TestimonialOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: TestimonialWhereInput;
+};
+
+
+export type QueryTestimonialsCountArgs = {
+  where?: TestimonialWhereInput;
 };
 
 
@@ -1213,6 +1272,60 @@ export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Testimonial = {
+  __typename?: 'Testimonial';
+  avatar?: Maybe<CloudinaryImage_File>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  feedback?: Maybe<Scalars['String']['output']>;
+  fullName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type TestimonialCreateInput = {
+  avatar?: InputMaybe<Scalars['Upload']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  feedback?: InputMaybe<Scalars['String']['input']>;
+  fullName?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TestimonialOrderByInput = {
+  createdAt?: InputMaybe<OrderDirection>;
+  feedback?: InputMaybe<OrderDirection>;
+  fullName?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  title?: InputMaybe<OrderDirection>;
+};
+
+export type TestimonialUpdateArgs = {
+  data: TestimonialUpdateInput;
+  where: TestimonialWhereUniqueInput;
+};
+
+export type TestimonialUpdateInput = {
+  avatar?: InputMaybe<Scalars['Upload']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  feedback?: InputMaybe<Scalars['String']['input']>;
+  fullName?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TestimonialWhereInput = {
+  AND?: InputMaybe<Array<TestimonialWhereInput>>;
+  NOT?: InputMaybe<Array<TestimonialWhereInput>>;
+  OR?: InputMaybe<Array<TestimonialWhereInput>>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  feedback?: InputMaybe<StringFilter>;
+  fullName?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  title?: InputMaybe<StringFilter>;
+};
+
+export type TestimonialWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type User = {
   __typename?: 'User';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1339,6 +1452,11 @@ export type GetMetadataServerQueryVariables = Exact<{
 
 export type GetMetadataServerQuery = { __typename?: 'Query', server?: { __typename?: 'Server', title?: string | null, keywords?: string | null, description?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null } | null };
 
+export type GetPageAuthQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPageAuthQuery = { __typename?: 'Query', testimonials?: Array<{ __typename?: 'Testimonial', title?: string | null, fullName?: string | null, feedback?: string | null, avatar?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+
 export type GetPageDashboardQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1394,6 +1512,11 @@ export type GetPageServersQueryVariables = Exact<{
 
 export type GetPageServersQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null };
 
+export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPageSignInQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null } | null };
+
 export const ServerCard = gql`
     fragment ServerCard on Server {
   id
@@ -1443,6 +1566,20 @@ export const GetMetadataServer = gql`
           transformation: {width: "1200", height: "600", crop: "fill_pad"}
         )
       }
+    }
+  }
+}
+    `;
+export const GetPageAuth = gql`
+    query getPageAuth {
+  testimonials {
+    title
+    fullName
+    feedback
+    avatar {
+      publicUrlTransformed(
+        transformation: {width: "120", height: "120", gravity: "face", crop: "thumb"}
+      )
     }
   }
 }
@@ -1560,6 +1697,15 @@ export const GetPageServers = gql`
   serverCategories(take: 100) {
     title
     slug
+  }
+}
+    `;
+export const GetPageSignIn = gql`
+    query getPageSignIn {
+  page: page(where: {slug: "sign-in"}) {
+    title
+    subtitle
+    description
   }
 }
     `;

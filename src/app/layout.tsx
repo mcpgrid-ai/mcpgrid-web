@@ -19,17 +19,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
         <QueryProvider>
           <ApiProvider baseUrl={process.env.API_HOST}>
             <html lang="en">
-              <body
-                data-layout-size="boxed"
-                data-layout="horizontal"
-                data-topbar="light"
-                data-bs-theme="light"
-              >
-                {children}
-                {process.env.GOOGLE_ANALYTICS_ID && (
-                  <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-                )}
-              </body>
+              {children}
+              {process.env.GOOGLE_ANALYTICS_ID && (
+                <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+              )}
             </html>
           </ApiProvider>
         </QueryProvider>

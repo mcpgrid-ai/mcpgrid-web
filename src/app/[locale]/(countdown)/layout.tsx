@@ -1,4 +1,4 @@
-import { FC, Fragment, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import Image from 'next/image';
 
 import BG_IMG from './layout.jpg';
@@ -12,7 +12,7 @@ type CountdownLayoutProps = PropsWithChildren;
 
 const CountdownLayout: FC<CountdownLayoutProps> = ({ children }) => {
   return (
-    <Fragment>
+    <body>
       <div className="preview-img overflow-hidden ">
         <div className="swiper-container preview-thumb">
           <div className="swiper-wrapper">
@@ -52,7 +52,7 @@ const CountdownLayout: FC<CountdownLayoutProps> = ({ children }) => {
           </Row>
         </div>
       </div>
-    </Fragment>
+    </body>
   );
 };
 

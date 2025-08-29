@@ -1,0 +1,12 @@
+.carousel {
+  :global(.carousel-indicators) {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  button[data-bs-target] {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+  }
+}

@@ -7,15 +7,22 @@ type PagesLayoutProps = PropsWithChildren;
 
 const PagesLayout: FC<PagesLayoutProps> = ({ children }) => {
   return (
-    <div id="layout-wrapper">
-      <Header background />
-      <div className="main-content">
-        <div className="page-content mt-3">
-          <div className="container-fluid">{children}</div>
-          <Footer />
+    <body
+      data-layout-size="boxed"
+      data-layout="horizontal"
+      data-topbar="light"
+      data-bs-theme="light"
+    >
+      <div id="layout-wrapper">
+        <Header background />
+        <div className="main-content">
+          <div className="page-content mt-3">
+            <div className="container-fluid">{children}</div>
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
+    </body>
   );
 };
 
