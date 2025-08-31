@@ -12,4 +12,5 @@ export enum RoutePath {
   ServerDetailsTools = '/servers/:slug/tools',
   ServerDetailsReadme = '/servers/:slug/readme',
   Admin = '/admin',
+  AdminServers = '/admin/servers',
 }
