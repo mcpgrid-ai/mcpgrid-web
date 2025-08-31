@@ -3,6 +3,7 @@
 import { FC, PropsWithChildren, useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { FirebaseOptions, initializeApp } from 'firebase/app';
+import { SessionProvider } from 'next-auth/react';
 
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -15,6 +16,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ config, children }) => {
   const { current: auth } = useRef(getAuth(app));
 
   return (
-    <AuthContext.Provider value={{ auth }}>{children}</AuthContext.Provider>
+    <SessionProvider>
+      <AuthContext.Provider value={{ auth }}>{children}</AuthContext.Provider>
+    </SessionProvider>
   );
 };

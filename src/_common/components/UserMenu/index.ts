@@ -1,3 +1,1 @@
-import { FC } from 'react';
-
-export const UserMenu: FC = () => {};
+export { UserMenu } from './UserMenu';

@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { signIn } from 'next-auth/react';
 
-const provider = new GoogleAuthProvider();
+const provider = new GithubAuthProvider();
 
-interface UseSignInWithGoogleMutationParams {
+interface UseSignInWithGitHubMutationParams {
   callbackUrl: string;
 }
 
-export const useSignInWithGoogle = () => {
-  return useMutation<void, Error, UseSignInWithGoogleMutationParams>({
+export const useSignInWithGitHub = () => {
+  return useMutation<void, Error, UseSignInWithGitHubMutationParams>({
     mutationFn: async ({ callbackUrl }) => {
       try {
         const auth = getAuth();
@@ -24,6 +24,6 @@ export const useSignInWithGoogle = () => {
         throw err;
       }
     },
-    mutationKey: ['useSignInWithGoogle'],
+    mutationKey: ['useSignInWithGitHub'],
   });
 };

@@ -12,7 +12,7 @@ type DashboardLayoutProps = PropsWithChildren<{
 }>;
 
 const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
-  const session = getSession();
+  const session = await getSession();
 
   if (!session) {
     redirect({

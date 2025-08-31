@@ -52,6 +52,8 @@ jobs:
             API_HOST=${{ vars.API_HOST }}
             KEYSTONE_SCHEMA_URL=${{ secrets.KEYSTONE_GRAPHQL_SCHEMA_URL }}
             GOOGLE_ANALYTICS_ID=${{ env.GOOGLE_ANALYTICS_ID }}
+            NEXTAUTH_URL=http://mcpgrid.ai
+            NEXTAUTH_SECRET=${{ secrets.SESSION_SECRET }}
 
       - name: Remove Cloud App Engine versions
         uses: Reviewable/appengine-remove-action@v2.1.2
