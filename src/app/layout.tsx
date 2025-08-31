@@ -5,7 +5,7 @@ import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
-import { Auth, AuthProvider } from '@core/auth';
+import { AuthProvider, Auth } from '@core/auth';
 
 type CommonLayoutProps = PropsWithChildren;
 

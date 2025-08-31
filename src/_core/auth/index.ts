@@ -1,5 +1,14 @@
 // Components
 export * from './components/AuthProvider';
 
-// Service
+// Hooks
+export * from './hooks/useSignInWithGoogle';
+
+// Types
+export * from './types';
+
+// Handlers
+export * as handlers from './handlers';
+
+// Services
 export { Auth } from './services/auth';
