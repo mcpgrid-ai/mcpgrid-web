@@ -4,21 +4,10 @@ import { Button } from 'react-bootstrap';
 
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
-import { Dropdown, Icon, IMAGES } from '@core/uikit';
-import { getSession } from '@core/auth/server';
-import { signOut } from '@core/auth/client';
-import { getTranslations } from '@core/i18n';
+import { IMAGES } from '@core/uikit';
 import { UserMenu } from '@common/components';
 
 export const DashboardHeader: FC = async () => {
-  const session = await getSession();
-  const t = await getTranslations();
-
-  const handleOnSignOut = () =>
-    signOut({
-      callbackUrl: RoutePath.SignIn,
-    });
-
   return (
     <header id="page-topbar">
       <div className="navbar-header">
