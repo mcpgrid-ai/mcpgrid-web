@@ -1,9 +1,21 @@
-import NextAuth from 'next-auth';
+import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import admin from 'firebase-admin';
 
-// import { AuthAdmin } from './services/auth-admin';
+const app = (() => {
+  if (admin.apps[0]) return admin.apps[0];
+  return admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: 'mcp-box',
+      clientEmail: process.env.GCP_CLIENT_EMAIL,
+      privateKey: process.env.GCP_PRIVATE_KEY,
+    }),
+  });
+})();
 
-const handler = NextAuth({
+const auth = app.auth();
+
+export const AUTH_OPTIONS: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Firebase',
@@ -13,10 +25,13 @@ const handler = NextAuth({
       authorize: async (credentials) => {
         if (!credentials?.token) return null;
         try {
-          // const decoded = await AuthAdmin.verifyIdToken(credentials);
+          const decoded = await auth.verifyIdToken(credentials.token);
+          const user = await auth.getUser(decoded.uid);
           return {
-            id: 'decoded.uid',
-            email: 'decoded.email',
+            id: user.uid,
+            email: user.email,
+            image: user.photoURL,
+            name: user.displayName,
           };
         } catch (e) {
           console.error('Invalid Firebase token', e);
@@ -38,6 +53,4 @@ const handler = NextAuth({
       return session;
     },
   },
-});
-
-export { handler };
+};

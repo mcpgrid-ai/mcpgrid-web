@@ -2,9 +2,9 @@
 
 import { FC } from 'react';
 
+import { useSignInWithGoogle } from '@core/auth/client';
 import { Button, Logo } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
-import { useSignInWithGoogle } from '@core/auth';
 
 export const SignInGoogle: FC = () => {
   const t = useTranslations();

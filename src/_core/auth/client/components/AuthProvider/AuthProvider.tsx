@@ -6,11 +6,8 @@ import { FirebaseOptions, initializeApp } from 'firebase/app';
 
 import { AuthContext } from '../../contexts/AuthContext';
 
-import { AuthStateChangeParams } from './AuthProvider.types';
-
 export type AuthProviderProps = PropsWithChildren<{
   config: FirebaseOptions;
-  onAuthStateChange?: (state: AuthStateChangeParams) => void;
 }>;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ config, children }) => {

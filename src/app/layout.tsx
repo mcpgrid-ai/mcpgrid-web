@@ -5,7 +5,7 @@ import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
-import { AuthProvider, Auth } from '@core/auth';
+import { AuthProvider } from '@core/auth/client';
 
 type CommonLayoutProps = PropsWithChildren;
 
@@ -22,8 +22,6 @@ const config = {
 ApiClient.instance({
   baseURL: process.env.API_HOST,
 });
-
-Auth.init(config);
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
