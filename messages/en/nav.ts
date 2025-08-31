@@ -5,4 +5,5 @@ export const nav = {
   dashboard: 'Dashboard',
   servers: 'Servers',
   catalog: 'Catalog',
+  profile: 'Profile',
 };
