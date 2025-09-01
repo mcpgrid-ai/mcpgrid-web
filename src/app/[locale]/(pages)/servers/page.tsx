@@ -8,7 +8,8 @@ import { Heading, Nav, Pagination, Row } from '@core/uikit';
 import { Link, notFound } from '@core/navigation';
 import { ServerCard } from '@common/components';
 import { getTranslations } from '@core/i18n';
-import { DTO, keystone } from '@network/keystone';
+import { getServers } from '@network/api';
+import { keystone } from '@network/keystone';
 import { generateCommonMetadata } from '@common/utils';
 
 interface ServersProps {
@@ -28,41 +29,22 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 
   const { category, search, page = '1' } = await searchParams;
 
-  const {
-    pages,
-    serverCategories,
-    servers: list,
-    serversCount,
-  } = await keystone.pages.getServers({
-    take: PAGE_SIZE,
-    skip: (toNumber(page) - 1) * PAGE_SIZE,
-    where: {
-      category: {
-        slug: {
-          equals: category,
-        },
-      },
-      OR: [
-        {
-          title: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          description: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          keywords: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-      ],
-    },
+  const { data, total } = await (async () => {
+    try {
+      const { data, total } = await getServers({
+        take: PAGE_SIZE,
+        q: search,
+        category,
+        skip: (toNumber(page) - 1) * PAGE_SIZE,
+      });
+      return { data, total };
+    } catch {
+      return { data: [], total: 0 };
+    }
+  })();
+
+  const { pages, serverCategories } = await keystone.pages.getServers({
+    slug: ['servers', 'home'],
   });
 
   const servers = pages?.find((item) => item.slug === 'servers');
@@ -117,21 +99,35 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
         </Row.Col>
       </Row>
       <Row className="g-4">
-        {list?.map((item) => {
+        {data.map((item) => {
           return (
             <Row.Col key={item.slug} xs={12} sm={6} md={6} lg={4} xl={3}>
-              <ServerCard server={item} className="h-100" />
+              <ServerCard
+                server={{
+                  description: item.description,
+                  id: item.id,
+                  githubOwner: item.owner,
+                  slug: item.slug,
+                  title: item.title,
+                  icon: {
+                    publicUrlTransformed: item.logo,
+                  },
+                  category: {
+                    icon: {
+                      publicUrlTransformed: item.icon,
+                    },
+                  },
+                  isOfficial: item.isOfficial,
+                }}
+                className="h-100"
+              />
             </Row.Col>
           );
         })}
       </Row>
       <Row className="mt-4">
         <Row.Col className="d-flex justify-content-center">
-          <Pagination
-            total={serversCount || 0}
-            page={toNumber(page)}
-            size={PAGE_SIZE}
-          >
+          <Pagination total={total} page={toNumber(page)} size={PAGE_SIZE}>
             {/* @ts-expect-error x3 error */}
             {({ children, page, className }) => {
               return (

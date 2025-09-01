@@ -1506,13 +1506,11 @@ export type GetPageServerToolsQueryVariables = Exact<{
 export type GetPageServerToolsQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, tools?: any | null }> | null };
 
 export type GetPageServersQueryVariables = Exact<{
-  where?: InputMaybe<ServerWhereInput>;
-  take: Scalars['Int']['input'];
-  skip: Scalars['Int']['input'];
+  slug: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
 
 
-export type GetPageServersQuery = { __typename?: 'Query', serversCount?: number | null, pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null, servers?: Array<{ __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+export type GetPageServersQuery = { __typename?: 'Query', pages?: Array<{ __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null, slug?: string | null }> | null, serverCategories?: Array<{ __typename?: 'ServerCategory', title?: string | null, slug?: string | null }> | null };
 
 export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1689,8 +1687,8 @@ export const GetPageServerTools = gql`
 }
     `;
 export const GetPageServers = gql`
-    query getPageServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
-  pages(where: {slug: {in: ["servers", "home"]}}) {
+    query getPageServers($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
     title
     subtitle
     description
@@ -1700,12 +1698,8 @@ export const GetPageServers = gql`
     title
     slug
   }
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
 }
-    ${ServerCard}`;
+    `;
 export const GetPageSignIn = gql`
     query getPageSignIn {
   page: page(where: {slug: "sign-in"}) {
