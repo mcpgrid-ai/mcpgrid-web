@@ -7,6 +7,7 @@ import { Dropdown, Icon } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
 import { signOut, useSession } from '@core/auth/client';
 import { RoutePath } from '@common/constants';
+import { Link } from '@core/navigation';
 
 export const UserMenu: FC = () => {
   const t = useTranslations();
@@ -37,8 +38,12 @@ export const UserMenu: FC = () => {
         <Icon.Bx name="chevron-down" className="d-none d-xl-inline-block" />
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item>{t('nav.dashboard')}</Dropdown.Item>
-        <Dropdown.Item>{t('nav.profile')}</Dropdown.Item>
+        <Dropdown.Item as={Link} pathname={RoutePath.Admin}>
+          {t('nav.dashboard')}
+        </Dropdown.Item>
+        <Dropdown.Item as={Link} pathname={RoutePath.Profile}>
+          {t('nav.profile')}
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item onClick={handleOnSignOut}>
           {t('actions.logout')}

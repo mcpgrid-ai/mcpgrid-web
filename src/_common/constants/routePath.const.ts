@@ -13,4 +13,5 @@ export enum RoutePath {
   ServerDetailsReadme = '/servers/:slug/readme',
   Admin = '/admin',
   AdminServers = '/admin/servers',
+  Profile = '/profile',
 }
