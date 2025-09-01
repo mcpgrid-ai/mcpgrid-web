@@ -8,11 +8,15 @@ import { IMAGES, Row } from '@core/uikit';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 import { keystone } from '@network/keystone';
+import { getSession } from '@core/auth/server';
 
 type AuthLayoutProps = PropsWithChildren;
 
 const AuthLayout: FC<AuthLayoutProps> = async ({ children }) => {
   const t = await getTranslations();
+
+  const session = await getSession();
+  console.log(session);
 
   const page = await keystone.pages.getAuth({});
 

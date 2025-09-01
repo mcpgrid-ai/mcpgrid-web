@@ -1,8 +1,10 @@
-import { FC, PropsWithChildren } from 'react';
-import BsDropdown from 'react-bootstrap/Dropdown';
+import { forwardRef, PropsWithChildren } from 'react';
+import BsDropdownMenu from 'react-bootstrap/DropdownMenu';
 
 type DropdownMenuProps = PropsWithChildren;
 
-export const DropdownMenu: FC<DropdownMenuProps> = ({ children }) => {
-  return <BsDropdown.Menu>{children}</BsDropdown.Menu>;
-};
+export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(
+  function DropdownMenu({ children }, ref) {
+    return <BsDropdownMenu ref={ref}>{children}</BsDropdownMenu>;
+  },
+);

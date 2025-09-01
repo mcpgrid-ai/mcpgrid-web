@@ -52,6 +52,10 @@ jobs:
             API_HOST=${{ vars.API_HOST }}
             KEYSTONE_SCHEMA_URL=${{ secrets.KEYSTONE_GRAPHQL_SCHEMA_URL }}
             GOOGLE_ANALYTICS_ID=${{ env.GOOGLE_ANALYTICS_ID }}
+            NEXTAUTH_URL=${{ vars.WEB_HOST }}
+            NEXTAUTH_SECRET=${{ secrets.SESSION_SECRET }}
+            GCP_FIREBASE_ACCOUNT_KEY=${{ secrets.GCP_FIREBASE_ACCOUNT_KEY }}
+            GCP_ADMIN_ACCOUNT_KEY=${{ secrets.GCP_ADMIN_ACCOUNT_KEY }}
 
       - name: Remove Cloud App Engine versions
         uses: Reviewable/appengine-remove-action@v2.1.2

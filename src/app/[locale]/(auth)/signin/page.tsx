@@ -1,16 +1,28 @@
 import { FC } from 'react';
 
+import { SignInGoogle } from './_partitions/SignInGoogle';
+import { SignInGitHub } from './_partitions/SignInGitHub';
+
 import { keystone } from '@network/keystone';
-import { notFound } from '@core/navigation';
+import { notFound, redirect } from '@core/navigation';
 import { generateCommonMetadata } from '@common/utils';
-import { Box, Button, Logo, Typography } from '@core/uikit';
+import { Box, Typography } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
+import { getSession } from '@core/auth/server';
+import { RoutePath } from '@common/constants';
 
 export const generateMetadata = generateCommonMetadata({
   slug: 'sign-in',
 });
 
 const SignIn: FC = async () => {
+  const session = await getSession();
+
+  if (session)
+    redirect({
+      pathname: RoutePath.Admin,
+    });
+
   const t = await getTranslations();
 
   const {
@@ -131,14 +143,8 @@ const SignIn: FC = async () => {
       </Box>
 
       <Box d="grid" gap={3}>
-        <Button variant="outline-light">
-          <Logo name="google" className="me-2" />
-          {t('actions.continueWithGoogle')}
-        </Button>
-        <Button variant="outline-light">
-          <Logo name="github" className="me-2" />
-          {t('actions.continueWithGithub')}
-        </Button>
+        <SignInGoogle />
+        <SignInGitHub />
       </Box>
 
       {/* <div className="mt-5 text-center">

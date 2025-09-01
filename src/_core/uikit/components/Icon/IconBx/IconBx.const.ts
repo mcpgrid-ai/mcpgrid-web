@@ -17,15 +17,19 @@ import {
   BiHash,
   BiLogoGoogle,
   BiSolidQuoteAltLeft,
+  BiChevronDown,
+  BiSolidUser,
+  BiServer,
 } from 'react-icons/bi';
 import { MdBalance } from 'react-icons/md';
 
 export const ICON_BX = {
-  'logo-google': BiLogoGoogle,
   'calendar-alt': BiCalendarAlt,
+  'chevron-down': BiChevronDown,
   'code-alt': BiCodeAlt,
   'info-circle': BiInfoCircle,
   'logo-git-hub': BiLogoGithub,
+  'logo-google': BiLogoGoogle,
   'paper-plane': BiPaperPlane,
   'solid-badge-check': BiSolidBadgeCheck,
   'solid-quote-alt-left': BiSolidQuoteAltLeft,
@@ -40,4 +44,6 @@ export const ICON_BX = {
   link: BiLink,
   rocket: BiRocket,
   user: BiUser,
+  server: BiServer,
+  'solid-user': BiSolidUser,
 };

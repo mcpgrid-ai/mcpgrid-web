@@ -12,8 +12,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'storage.googleapis.com',
+        hostname: 'lh3.googleusercontent.com',
         pathname: '**',
+      },
+      {
+        protocol: 'https',
+        pathname: '**',
+        hostname: 'avatars.githubusercontent.com',
       },
     ],
   },

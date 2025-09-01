@@ -1,7 +1,8 @@
-import { FiHelpCircle, FiServer, FiArrowRight } from 'react-icons/fi';
+import { FiHelpCircle, FiServer, FiArrowRight, FiHome } from 'react-icons/fi';
 
 export const ICON_FI = {
-  'help-circle': FiHelpCircle,
-  server: FiServer,
   'arrow-right': FiArrowRight,
+  'help-circle': FiHelpCircle,
+  home: FiHome,
+  server: FiServer,
 };

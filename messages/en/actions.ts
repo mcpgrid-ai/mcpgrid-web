@@ -9,4 +9,5 @@ export const actions = {
   homepage: 'Homepage',
   continueWithGoogle: 'Continue with Google',
   continueWithGithub: 'Continue with GitHub',
+  logout: 'Logout',
 };

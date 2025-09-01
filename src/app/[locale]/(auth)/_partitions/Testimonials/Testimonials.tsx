@@ -12,7 +12,6 @@ export const Testimonials: FC<DTO.GetPageAuthQuery> = ({ testimonials }) => {
   return (
     <Carousel interval={5000} controls={false} className={styles.carousel}>
       {testimonials?.map(({ fullName, feedback, title, avatar }) => {
-        console.log(avatar?.publicUrlTransformed);
         return (
           <Carousel.Item key={fullName}>
             <div className="testi-contain text-white">

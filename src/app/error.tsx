@@ -37,7 +37,13 @@ const Err: FC = () => {
           <div className="row justify-content-center">
             <div className="col-md-10 col-xl-8">
               <div>
-                <Image {...IMAGE} alt="" className="img-fluid" />
+                <Image
+                  src={IMAGE.src}
+                  width={IMAGE.width}
+                  height={IMAGE.height}
+                  alt=""
+                  className="img-fluid"
+                />
               </div>
             </div>
           </div>

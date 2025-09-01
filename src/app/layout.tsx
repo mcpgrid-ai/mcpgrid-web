@@ -5,6 +5,7 @@ import { ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
+import { AuthProvider } from '@core/auth/client';
 
 type CommonLayoutProps = PropsWithChildren;
 
@@ -12,19 +13,26 @@ ApiClient.instance({
   baseURL: process.env.API_HOST,
 });
 
+const config = () => {
+  if (!process.env.GCP_FIREBASE_ACCOUNT_KEY) return {};
+  return JSON.parse(process.env.GCP_FIREBASE_ACCOUNT_KEY);
+};
+
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider name={process.env.PRODUCT_NAME}>
       <TranslationsProvider>
         <QueryProvider>
-          <ApiProvider baseUrl={process.env.API_HOST}>
-            <html lang="en">
-              {children}
-              {process.env.GOOGLE_ANALYTICS_ID && (
-                <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-              )}
-            </html>
-          </ApiProvider>
+          <AuthProvider config={config()}>
+            <ApiProvider baseUrl={process.env.API_HOST}>
+              <html lang="en">
+                {children}
+                {process.env.GOOGLE_ANALYTICS_ID && (
+                  <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+                )}
+              </html>
+            </ApiProvider>
+          </AuthProvider>
         </QueryProvider>
       </TranslationsProvider>
     </ThemeProvider>

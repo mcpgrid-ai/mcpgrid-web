@@ -1,5 +1,5 @@
-import { FC, PropsWithChildren } from 'react';
-import BsDropdown from 'react-bootstrap/Dropdown';
+import { forwardRef, PropsWithChildren } from 'react';
+import BsDropdownToggle from 'react-bootstrap/DropdownToggle';
 
 import { ButtonVariant } from '../../Button';
 
@@ -8,14 +8,13 @@ type DropdownToggleProps = PropsWithChildren<{
   variant?: ButtonVariant;
 }>;
 
-export const DropdownToggle: FC<DropdownToggleProps> = ({
-  children,
-  className,
-  variant,
-}) => {
+export const DropdownToggle = forwardRef<
+  HTMLButtonElement,
+  DropdownToggleProps
+>(function DropdownToggle({ children, className, variant }, ref) {
   return (
-    <BsDropdown.Toggle className={className} variant={variant}>
+    <BsDropdownToggle ref={ref} className={className} variant={variant}>
       {children}
-    </BsDropdown.Toggle>
+    </BsDropdownToggle>
   );
-};
+});

@@ -11,6 +11,8 @@ import { getTranslations } from '@core/i18n';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 import { DomNodeId } from '@common/constants/domNodeId.const';
+import { getSession } from '@core/auth/server';
+import { UserMenu } from '@common/components';
 
 type HeaderProps = PropsWithChildren<{
   background?: boolean;
@@ -21,6 +23,7 @@ export const Header: FC<HeaderProps> = async ({
   background = false,
 }) => {
   const t = await getTranslations();
+  const session = await getSession();
 
   return (
     <Fragment>
@@ -42,9 +45,17 @@ export const Header: FC<HeaderProps> = async ({
           </Box>
 
           <Box d="flex" ms={4}>
-            <Button className="f-flex" as={Link} pathname={RoutePath.Dashboard}>
-              {t('actions.getStarted')}
-            </Button>
+            {!session ? (
+              <Button
+                className="f-flex"
+                as={Link}
+                pathname={RoutePath.Dashboard}
+              >
+                {t('actions.getStarted')}
+              </Button>
+            ) : (
+              <UserMenu />
+            )}
           </Box>
 
           <div className="d-flex">
