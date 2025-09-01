@@ -13,7 +13,10 @@ ApiClient.instance({
   baseURL: process.env.API_HOST,
 });
 
-const config = () => JSON.parse(process.env.GCP_FIREBASE_JSON);
+const config = () => {
+  if (!process.env.GCP_FIREBASE_JSON) return {};
+  return JSON.parse(process.env.GCP_FIREBASE_JSON);
+};
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
