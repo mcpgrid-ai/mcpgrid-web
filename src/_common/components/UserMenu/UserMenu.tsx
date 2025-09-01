@@ -17,6 +17,8 @@ export const UserMenu: FC = () => {
       callbackUrl: RoutePath.SignIn,
     });
 
+  if (!session) return null;
+
   return (
     <Dropdown>
       <Dropdown.Toggle className="header-item bg-light-subtle border-start border-end">

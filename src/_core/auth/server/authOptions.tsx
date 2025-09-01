@@ -1,19 +1,7 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import admin from 'firebase-admin';
 
-const app = (() => {
-  if (admin.apps[0]) return admin.apps[0];
-  return admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: 'mcp-box',
-      clientEmail: process.env.GCP_CLIENT_EMAIL,
-      privateKey: process.env.GCP_PRIVATE_KEY,
-    }),
-  });
-})();
-
-const auth = app.auth();
+import { auth } from './services/auth';
 
 export const AUTH_OPTIONS: AuthOptions = {
   providers: [
@@ -25,8 +13,8 @@ export const AUTH_OPTIONS: AuthOptions = {
       authorize: async (credentials) => {
         if (!credentials?.token) return null;
         try {
-          const decoded = await auth.verifyIdToken(credentials.token);
-          const user = await auth.getUser(decoded.uid);
+          const decoded = await auth().verifyIdToken(credentials.token);
+          const user = await auth().getUser(decoded.uid);
           return {
             id: user.uid,
             email: user.email,
