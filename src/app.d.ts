@@ -7,5 +7,6 @@ declare namespace NodeJS {
     GCP_CLIENT_EMAIL: string;
     GCP_PRIVATE_KEY: string;
     GCP_FIREBASE_ACCOUNT_KEY: string;
+    GCP_ADMIN_ACCOUNT_KEY: string;
   }
 }
