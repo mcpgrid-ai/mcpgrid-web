@@ -1,7 +1,5 @@
-#import "./fragments/ServerCard.graphql"
-
-query getPageServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
-  pages(where: { slug: { in: ["servers", "home"] } }) {
+query getPageServers($slug: [String!]!) {
+  pages(where: { slug: { in: $slug } }) {
     title
     subtitle
     description
@@ -11,8 +9,4 @@ query getPageServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
     title
     slug
   }
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
 }
