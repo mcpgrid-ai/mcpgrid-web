@@ -14,8 +14,12 @@ ApiClient.instance({
 });
 
 const config = () => {
-  if (!process.env.GCP_FIREBASE_ACCOUNT_KEY) return {};
-  return JSON.parse(process.env.GCP_FIREBASE_ACCOUNT_KEY);
+  if (!process.env.GCP_FIREBASE_ACCOUNT_KEY_BASE64) return {};
+  const str = Buffer.from(
+    process.env.GCP_FIREBASE_ACCOUNT_KEY_BASE64,
+    'base64',
+  ).toString('utf-8');
+  return JSON.parse(str);
 };
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
