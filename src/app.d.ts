@@ -6,5 +6,6 @@ declare namespace NodeJS {
     GOOGLE_ANALYTICS_ID: string;
     GCP_CLIENT_EMAIL: string;
     GCP_PRIVATE_KEY: string;
+    GCP_FIREBASE_JSON: string;
   }
 }

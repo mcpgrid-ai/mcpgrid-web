@@ -9,16 +9,6 @@ import { AuthProvider } from '@core/auth/client';
 
 type CommonLayoutProps = PropsWithChildren;
 
-const config = {
-  apiKey: 'AIzaSyDdvlBIo2OGdFU0AhV75jcyAz0Si9doXCE',
-  authDomain: 'mcp-box.firebaseapp.com',
-  projectId: 'mcp-box',
-  storageBucket: 'mcp-box.firebasestorage.app',
-  messagingSenderId: '120593878309',
-  appId: '1:120593878309:web:b8eec34386503c944d5ecc',
-  measurementId: 'G-BSC823LMT3',
-};
-
 ApiClient.instance({
   baseURL: process.env.API_HOST,
 });
@@ -28,7 +18,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
     <ThemeProvider name={process.env.PRODUCT_NAME}>
       <TranslationsProvider>
         <QueryProvider>
-          <AuthProvider config={config}>
+          <AuthProvider config={JSON.parse(process.env.GCP_FIREBASE_JSON)}>
             <ApiProvider baseUrl={process.env.API_HOST}>
               <html lang="en">
                 {children}
