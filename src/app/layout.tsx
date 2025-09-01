@@ -13,12 +13,14 @@ ApiClient.instance({
   baseURL: process.env.API_HOST,
 });
 
+const config = () => JSON.parse(process.env.GCP_FIREBASE_JSON);
+
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider name={process.env.PRODUCT_NAME}>
       <TranslationsProvider>
         <QueryProvider>
-          <AuthProvider config={JSON.parse(process.env.GCP_FIREBASE_JSON)}>
+          <AuthProvider config={config()}>
             <ApiProvider baseUrl={process.env.API_HOST}>
               <html lang="en">
                 {children}
