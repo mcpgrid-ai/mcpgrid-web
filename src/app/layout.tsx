@@ -6,6 +6,7 @@ import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
 import { AuthProvider } from '@core/auth/client';
+import { KeystoneProvider } from '@network/keystone';
 
 type CommonLayoutProps = PropsWithChildren;
 
@@ -28,14 +29,16 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
       <TranslationsProvider>
         <QueryProvider>
           <AuthProvider config={config()}>
-            <ApiProvider baseUrl={process.env.API_HOST}>
-              <html lang="en">
-                {children}
-                {process.env.GOOGLE_ANALYTICS_ID && (
-                  <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-                )}
-              </html>
-            </ApiProvider>
+            <KeystoneProvider baseUrl={process.env.KEYSTONE_SCHEMA_URL}>
+              <ApiProvider baseUrl={process.env.API_HOST}>
+                <html lang="en">
+                  {children}
+                  {process.env.GOOGLE_ANALYTICS_ID && (
+                    <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+                  )}
+                </html>
+              </ApiProvider>
+            </KeystoneProvider>
           </AuthProvider>
         </QueryProvider>
       </TranslationsProvider>

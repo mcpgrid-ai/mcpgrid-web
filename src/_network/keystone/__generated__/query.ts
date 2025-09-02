@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/react-query';
+import { useFetchData } from '../hooks/useFetchData/useFetchData.hook';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1519,6 +1521,15 @@ export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPageSignInQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null } | null };
 
+export type ServersSearchQueryVariables = Exact<{
+  where?: InputMaybe<ServerWhereInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ServersSearchQuery = { __typename?: 'Query', serversCount?: number | null, servers?: Array<{ __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
+
 export const ServerCard = gql`
     fragment ServerCard on Server {
   id
@@ -1715,3 +1726,683 @@ export const GetPageSignIn = gql`
   }
 }
     `;
+export const ServersSearch = gql`
+    query serversSearch($where: ServerWhereInput, $take: Int = 5, $skip: Int = 0) {
+  servers(where: $where, take: $take, skip: $skip) {
+    ...ServerCard
+  }
+  serversCount(where: $where)
+}
+    ${ServerCard}`;
+
+export const ServerCardFragmentDoc = `
+    fragment ServerCard on Server {
+  id
+  title
+  slug
+  isOfficial
+  description
+  githubOwner
+  category {
+    icon {
+      publicUrlTransformed
+    }
+  }
+  icon {
+    publicUrlTransformed
+  }
+}
+    `;
+export const GetMetadataCommonDocument = `
+    query getMetadataCommon($slug: String!) {
+  page(where: {slug: $slug}) {
+    seoTitle
+    seoDescription
+    seoKeywords
+    seoIcon {
+      publicUrlTransformed(
+        transformation: {width: "1200", height: "630", crop: "thumb"}
+      )
+    }
+  }
+}
+    `;
+
+export const useGetMetadataCommonQuery = <
+      TData = GetMetadataCommonQuery,
+      TError = unknown
+    >(
+      variables: GetMetadataCommonQueryVariables,
+      options?: Omit<UseQueryOptions<GetMetadataCommonQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetMetadataCommonQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetMetadataCommonQuery, TError, TData>(
+      {
+    queryKey: ['getMetadataCommon', variables],
+    queryFn: useFetchData<GetMetadataCommonQuery, GetMetadataCommonQueryVariables>(GetMetadataCommonDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetMetadataCommonQuery = <
+      TData = InfiniteData<GetMetadataCommonQuery>,
+      TError = unknown
+    >(
+      variables: GetMetadataCommonQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetMetadataCommonQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetMetadataCommonQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetMetadataCommonQuery, GetMetadataCommonQueryVariables>(GetMetadataCommonDocument)
+    return useInfiniteQuery<GetMetadataCommonQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getMetadataCommon.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetMetadataServerDocument = `
+    query getMetadataServer($slug: String!) {
+  server(where: {slug: $slug}) {
+    title
+    keywords
+    description
+    icon {
+      publicUrlTransformed(
+        transformation: {width: "1200", height: "600", crop: "fill_pad"}
+      )
+    }
+    category {
+      icon {
+        publicUrlTransformed(
+          transformation: {width: "1200", height: "600", crop: "fill_pad"}
+        )
+      }
+    }
+  }
+}
+    `;
+
+export const useGetMetadataServerQuery = <
+      TData = GetMetadataServerQuery,
+      TError = unknown
+    >(
+      variables: GetMetadataServerQueryVariables,
+      options?: Omit<UseQueryOptions<GetMetadataServerQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetMetadataServerQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetMetadataServerQuery, TError, TData>(
+      {
+    queryKey: ['getMetadataServer', variables],
+    queryFn: useFetchData<GetMetadataServerQuery, GetMetadataServerQueryVariables>(GetMetadataServerDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetMetadataServerQuery = <
+      TData = InfiniteData<GetMetadataServerQuery>,
+      TError = unknown
+    >(
+      variables: GetMetadataServerQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetMetadataServerQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetMetadataServerQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetMetadataServerQuery, GetMetadataServerQueryVariables>(GetMetadataServerDocument)
+    return useInfiniteQuery<GetMetadataServerQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getMetadataServer.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageAuthDocument = `
+    query getPageAuth {
+  testimonials {
+    title
+    fullName
+    feedback
+    avatar {
+      publicUrlTransformed(
+        transformation: {width: "120", height: "120", gravity: "face", crop: "thumb"}
+      )
+    }
+  }
+}
+    `;
+
+export const useGetPageAuthQuery = <
+      TData = GetPageAuthQuery,
+      TError = unknown
+    >(
+      variables?: GetPageAuthQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageAuthQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageAuthQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageAuthQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['getPageAuth'] : ['getPageAuth', variables],
+    queryFn: useFetchData<GetPageAuthQuery, GetPageAuthQueryVariables>(GetPageAuthDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageAuthQuery = <
+      TData = InfiniteData<GetPageAuthQuery>,
+      TError = unknown
+    >(
+      variables: GetPageAuthQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageAuthQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageAuthQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageAuthQuery, GetPageAuthQueryVariables>(GetPageAuthDocument)
+    return useInfiniteQuery<GetPageAuthQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? variables === undefined ? ['getPageAuth.infinite'] : ['getPageAuth.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageDashboardDocument = `
+    query getPageDashboard {
+  page: page(where: {slug: "dashboard"}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  config {
+    releaseDate
+  }
+}
+    `;
+
+export const useGetPageDashboardQuery = <
+      TData = GetPageDashboardQuery,
+      TError = unknown
+    >(
+      variables?: GetPageDashboardQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageDashboardQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageDashboardQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageDashboardQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['getPageDashboard'] : ['getPageDashboard', variables],
+    queryFn: useFetchData<GetPageDashboardQuery, GetPageDashboardQueryVariables>(GetPageDashboardDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageDashboardQuery = <
+      TData = InfiniteData<GetPageDashboardQuery>,
+      TError = unknown
+    >(
+      variables: GetPageDashboardQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageDashboardQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageDashboardQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageDashboardQuery, GetPageDashboardQueryVariables>(GetPageDashboardDocument)
+    return useInfiniteQuery<GetPageDashboardQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? variables === undefined ? ['getPageDashboard.infinite'] : ['getPageDashboard.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageFaqsDocument = `
+    query getPageFaqs($slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    slug
+    subtitle
+    description
+  }
+  frequentlyAskedQuestions(orderBy: {id: asc}) {
+    title
+    description
+  }
+}
+    `;
+
+export const useGetPageFaqsQuery = <
+      TData = GetPageFaqsQuery,
+      TError = unknown
+    >(
+      variables: GetPageFaqsQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageFaqsQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageFaqsQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageFaqsQuery, TError, TData>(
+      {
+    queryKey: ['getPageFaqs', variables],
+    queryFn: useFetchData<GetPageFaqsQuery, GetPageFaqsQueryVariables>(GetPageFaqsDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageFaqsQuery = <
+      TData = InfiniteData<GetPageFaqsQuery>,
+      TError = unknown
+    >(
+      variables: GetPageFaqsQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageFaqsQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageFaqsQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageFaqsQuery, GetPageFaqsQueryVariables>(GetPageFaqsDocument)
+    return useInfiniteQuery<GetPageFaqsQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageFaqs.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageHomeDocument = `
+    query getPageHome($slug: String!) {
+  pages(where: {slug: {equals: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories {
+    title
+    id
+    slug
+  }
+}
+    `;
+
+export const useGetPageHomeQuery = <
+      TData = GetPageHomeQuery,
+      TError = unknown
+    >(
+      variables: GetPageHomeQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageHomeQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageHomeQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageHomeQuery, TError, TData>(
+      {
+    queryKey: ['getPageHome', variables],
+    queryFn: useFetchData<GetPageHomeQuery, GetPageHomeQueryVariables>(GetPageHomeDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageHomeQuery = <
+      TData = InfiniteData<GetPageHomeQuery>,
+      TError = unknown
+    >(
+      variables: GetPageHomeQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageHomeQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageHomeQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageHomeQuery, GetPageHomeQueryVariables>(GetPageHomeDocument)
+    return useInfiniteQuery<GetPageHomeQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageHome.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageHomeServersDocument = `
+    query getPageHomeServers($id: ID!) {
+  serverCategory(where: {id: $id}) {
+    title
+    slug
+  }
+  servers(where: {category: {id: {equals: $id}}}, take: 4) {
+    ...ServerCard
+  }
+  serversCount(where: {category: {id: {equals: $id}}})
+}
+    ${ServerCardFragmentDoc}`;
+
+export const useGetPageHomeServersQuery = <
+      TData = GetPageHomeServersQuery,
+      TError = unknown
+    >(
+      variables: GetPageHomeServersQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageHomeServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageHomeServersQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageHomeServersQuery, TError, TData>(
+      {
+    queryKey: ['getPageHomeServers', variables],
+    queryFn: useFetchData<GetPageHomeServersQuery, GetPageHomeServersQueryVariables>(GetPageHomeServersDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageHomeServersQuery = <
+      TData = InfiniteData<GetPageHomeServersQuery>,
+      TError = unknown
+    >(
+      variables: GetPageHomeServersQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageHomeServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageHomeServersQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageHomeServersQuery, GetPageHomeServersQueryVariables>(GetPageHomeServersDocument)
+    return useInfiniteQuery<GetPageHomeServersQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageHomeServers.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageServerDocument = `
+    query getPageServer($server: String!, $slug: [String!]!) {
+  pages(where: {slug: {in: $slug}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  servers(where: {slug: {equals: $server}}) {
+    title
+    slug
+    homepage
+    isOfficial
+    description
+    githubUrl
+    githubOwner
+    githubLicense
+    githubLanguage
+    githubPublishedAt
+    settings
+    category {
+      icon {
+        publicUrlTransformed
+      }
+    }
+    icon {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+
+export const useGetPageServerQuery = <
+      TData = GetPageServerQuery,
+      TError = unknown
+    >(
+      variables: GetPageServerQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageServerQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageServerQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageServerQuery, TError, TData>(
+      {
+    queryKey: ['getPageServer', variables],
+    queryFn: useFetchData<GetPageServerQuery, GetPageServerQueryVariables>(GetPageServerDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageServerQuery = <
+      TData = InfiniteData<GetPageServerQuery>,
+      TError = unknown
+    >(
+      variables: GetPageServerQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageServerQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageServerQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageServerQuery, GetPageServerQueryVariables>(GetPageServerDocument)
+    return useInfiniteQuery<GetPageServerQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageServer.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageServerOverviewDocument = `
+    query getPageServerOverview($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    title
+    overview
+  }
+}
+    `;
+
+export const useGetPageServerOverviewQuery = <
+      TData = GetPageServerOverviewQuery,
+      TError = unknown
+    >(
+      variables: GetPageServerOverviewQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageServerOverviewQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageServerOverviewQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageServerOverviewQuery, TError, TData>(
+      {
+    queryKey: ['getPageServerOverview', variables],
+    queryFn: useFetchData<GetPageServerOverviewQuery, GetPageServerOverviewQueryVariables>(GetPageServerOverviewDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageServerOverviewQuery = <
+      TData = InfiniteData<GetPageServerOverviewQuery>,
+      TError = unknown
+    >(
+      variables: GetPageServerOverviewQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageServerOverviewQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageServerOverviewQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageServerOverviewQuery, GetPageServerOverviewQueryVariables>(GetPageServerOverviewDocument)
+    return useInfiniteQuery<GetPageServerOverviewQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageServerOverview.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageServerToolsDocument = `
+    query getPageServerTools($slug: String!) {
+  servers(where: {slug: {equals: $slug}}) {
+    slug
+    tools
+  }
+}
+    `;
+
+export const useGetPageServerToolsQuery = <
+      TData = GetPageServerToolsQuery,
+      TError = unknown
+    >(
+      variables: GetPageServerToolsQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageServerToolsQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageServerToolsQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageServerToolsQuery, TError, TData>(
+      {
+    queryKey: ['getPageServerTools', variables],
+    queryFn: useFetchData<GetPageServerToolsQuery, GetPageServerToolsQueryVariables>(GetPageServerToolsDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageServerToolsQuery = <
+      TData = InfiniteData<GetPageServerToolsQuery>,
+      TError = unknown
+    >(
+      variables: GetPageServerToolsQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageServerToolsQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageServerToolsQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageServerToolsQuery, GetPageServerToolsQueryVariables>(GetPageServerToolsDocument)
+    return useInfiniteQuery<GetPageServerToolsQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageServerTools.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageServersDocument = `
+    query getPageServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
+  pages(where: {slug: {in: ["servers", "home"]}}) {
+    title
+    subtitle
+    description
+    slug
+  }
+  serverCategories(take: 100) {
+    title
+    slug
+  }
+  servers(where: $where, take: $take, skip: $skip) {
+    ...ServerCard
+  }
+  serversCount(where: $where)
+}
+    ${ServerCardFragmentDoc}`;
+
+export const useGetPageServersQuery = <
+      TData = GetPageServersQuery,
+      TError = unknown
+    >(
+      variables: GetPageServersQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageServersQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageServersQuery, TError, TData>(
+      {
+    queryKey: ['getPageServers', variables],
+    queryFn: useFetchData<GetPageServersQuery, GetPageServersQueryVariables>(GetPageServersDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageServersQuery = <
+      TData = InfiniteData<GetPageServersQuery>,
+      TError = unknown
+    >(
+      variables: GetPageServersQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageServersQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageServersQuery, GetPageServersQueryVariables>(GetPageServersDocument)
+    return useInfiniteQuery<GetPageServersQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? ['getPageServers.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetPageSignInDocument = `
+    query getPageSignIn {
+  page: page(where: {slug: "sign-in"}) {
+    title
+    subtitle
+    description
+  }
+}
+    `;
+
+export const useGetPageSignInQuery = <
+      TData = GetPageSignInQuery,
+      TError = unknown
+    >(
+      variables?: GetPageSignInQueryVariables,
+      options?: Omit<UseQueryOptions<GetPageSignInQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPageSignInQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPageSignInQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['getPageSignIn'] : ['getPageSignIn', variables],
+    queryFn: useFetchData<GetPageSignInQuery, GetPageSignInQueryVariables>(GetPageSignInDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetPageSignInQuery = <
+      TData = InfiniteData<GetPageSignInQuery>,
+      TError = unknown
+    >(
+      variables: GetPageSignInQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetPageSignInQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetPageSignInQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetPageSignInQuery, GetPageSignInQueryVariables>(GetPageSignInDocument)
+    return useInfiniteQuery<GetPageSignInQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? variables === undefined ? ['getPageSignIn.infinite'] : ['getPageSignIn.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const ServersSearchDocument = `
+    query serversSearch($where: ServerWhereInput, $take: Int = 5, $skip: Int = 0) {
+  servers(where: $where, take: $take, skip: $skip) {
+    ...ServerCard
+  }
+  serversCount(where: $where)
+}
+    ${ServerCardFragmentDoc}`;
+
+export const useServersSearchQuery = <
+      TData = ServersSearchQuery,
+      TError = unknown
+    >(
+      variables?: ServersSearchQueryVariables,
+      options?: Omit<UseQueryOptions<ServersSearchQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<ServersSearchQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<ServersSearchQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['serversSearch'] : ['serversSearch', variables],
+    queryFn: useFetchData<ServersSearchQuery, ServersSearchQueryVariables>(ServersSearchDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteServersSearchQuery = <
+      TData = InfiniteData<ServersSearchQuery>,
+      TError = unknown
+    >(
+      variables: ServersSearchQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<ServersSearchQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<ServersSearchQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<ServersSearchQuery, ServersSearchQueryVariables>(ServersSearchDocument)
+    return useInfiniteQuery<ServersSearchQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? variables === undefined ? ['serversSearch.infinite'] : ['serversSearch.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};

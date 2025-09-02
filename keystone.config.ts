@@ -19,15 +19,17 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-document-nodes',
+        'typescript-react-query',
       ],
-      // config: {
-      //   withHooks: true,
-      //   addInfiniteQuery: true,
-      //   fetcher: {
-      //     func: '../hooks/useFetchData/useFetchData.hook#useFetchData',
-      //     isReactHook: true,
-      //   },
-      // },
+      config: {
+        withHooks: true,
+        addInfiniteQuery: true,
+        reactQueryVersion: 5,
+        fetcher: {
+          func: '../hooks/useFetchData/useFetchData.hook#useFetchData',
+          isReactHook: true,
+        },
+      },
     },
   },
   config: {
