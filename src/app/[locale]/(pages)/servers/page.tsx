@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react';
-import { toNumber } from 'lodash';
+import { castArray, toNumber } from 'lodash';
 
 import { PAGE_SIZE } from './page.const';
 
@@ -28,6 +28,33 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
 
   const { category, search, page = '1' } = await searchParams;
 
+  const or: DTO.ServerWhereInput['OR'] = [search]
+    .concat(search?.split(' '))
+    .reduce(
+      (res, contains): DTO.ServerWhereInput['OR'] => [
+        ...(res ? castArray(res) : []),
+        {
+          title: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+        {
+          description: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+        {
+          keywords: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+      ],
+      [] as DTO.ServerWhereInput['OR'],
+    );
+
   const {
     pages,
     serverCategories,
@@ -42,26 +69,7 @@ const Servers: FC<ServersProps> = async ({ searchParams }) => {
           equals: category,
         },
       },
-      OR: [
-        {
-          title: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          description: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          keywords: {
-            contains: search,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-      ],
+      OR: or,
     },
   });
 

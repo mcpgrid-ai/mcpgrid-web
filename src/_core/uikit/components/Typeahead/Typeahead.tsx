@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactElement, ReactNode } from 'react';
+import { KeyboardEventHandler, ReactElement, ReactNode, useRef } from 'react';
 import { AsyncTypeahead, Menu } from 'react-bootstrap-typeahead';
 import classNames from 'classnames';
 import BsSpinner from 'react-bootstrap/Spinner';
@@ -48,8 +48,21 @@ export const Typeahead: TypeaheadComponent = ({
   label,
   icon = 'magnifying-glass',
 }) => {
+  const form = useRef<HTMLFormElement>(null);
+
+  const handleOnKeyDown: KeyboardEventHandler = ({ key }) => {
+    if (key === 'Enter') {
+      form.current?.submit();
+    }
+  };
+
   return (
-    <form method="get" action={action} className={classNames(styles.wrapper)}>
+    <form
+      ref={form}
+      method="get"
+      action={action}
+      className={classNames(styles.wrapper)}
+    >
       <AsyncTypeahead
         isLoading={isLoading}
         labelKey={label.toString()}
@@ -74,6 +87,7 @@ export const Typeahead: TypeaheadComponent = ({
               [styles.bg]: bg,
             })}
             name={name}
+            onKeyDown={handleOnKeyDown}
           />
         )}
         renderMenu={(results, menuProps) => (

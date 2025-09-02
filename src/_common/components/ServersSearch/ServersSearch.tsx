@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useCallback, useMemo, useState } from 'react';
-import { get } from 'lodash';
+import { castArray, get } from 'lodash';
 import Image from 'next/image';
 
 import { RoutePath } from '../../constants';
@@ -14,8 +14,8 @@ import {
   Typography,
 } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
-import { useGetServers } from '@network/api';
 import { Link } from '@core/navigation';
+import { DTO, useServersSearchQuery } from '@network/keystone';
 
 interface ServersSearchProps {
   bg?: boolean;
@@ -25,15 +25,42 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   const t = useTranslations();
   const [query, setQuery] = useState<string>();
 
-  const { isLoading, data } = useGetServers(
+  const or: DTO.ServerWhereInput['OR'] = [query]
+    .concat(query?.split(' '))
+    .filter((v) => !!v)
+    .reduce(
+      (res, contains): DTO.ServerWhereInput['OR'] => [
+        ...(res ? castArray(res) : []),
+        {
+          title: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+        {
+          description: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+        {
+          keywords: {
+            contains,
+            mode: DTO.QueryMode.Insensitive,
+          },
+        },
+      ],
+      [] as DTO.ServerWhereInput['OR'],
+    );
+
+  const { isLoading, data } = useServersSearchQuery(
     {
-      q: query,
-      take: 5,
+      where: {
+        OR: or,
+      },
     },
     {
-      query: {
-        enabled: !!query,
-      },
+      enabled: !!query,
     },
   );
 
@@ -42,7 +69,20 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
     [setQuery],
   );
 
-  const options = useMemo(() => get(data, ['data'], []), [data]);
+  const options = useMemo(() => {
+    if (data?.servers?.length) {
+      return get(data, ['servers'], [])?.reduce(
+        (res, item) => {
+          if (item !== null && item !== undefined) {
+            return [...res, item];
+          }
+          return res;
+        },
+        [] as Exclude<DTO.ServersSearchQuery['servers'], null | undefined>,
+      );
+    }
+    return [];
+  }, [data]);
 
   return (
     <Typeahead
@@ -50,23 +90,33 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
       name="search"
       label="title"
       action={RoutePath.Servers}
-      options={options}
+      options={options || []}
       isLoading={isLoading}
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     >
-      {({ option: { icon, logo, title, slug, owner } }) => {
+      {({ option: { icon, title, slug, category, githubOwner } }) => {
         return (
           <Typeahead.Item as="div">
             <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
               <Row className="gx-2">
                 <Row.Col xs="auto">
                   <Avatar size={36}>
-                    {logo ? (
-                      <Image src={logo} width={36} height={36} alt={title} />
+                    {icon?.publicUrlTransformed ? (
+                      <Image
+                        src={icon?.publicUrlTransformed}
+                        width={36}
+                        height={36}
+                        alt={title || ''}
+                      />
                     ) : (
-                      icon && (
-                        <Image src={icon} width={20} height={20} alt={title} />
+                      category?.icon?.publicUrlTransformed && (
+                        <Image
+                          src={category?.icon?.publicUrlTransformed}
+                          width={20}
+                          height={20}
+                          alt={title || ''}
+                        />
                       )
                     )}
                   </Avatar>
@@ -76,7 +126,9 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
                     {title}
                   </Typography>
                   <Typography className="m-0 text-muted">
-                    {t('values.byOwner', { value: owner })}
+                    {t('values.byOwner', {
+                      value: githubOwner || '',
+                    })}
                   </Typography>
                 </Row.Col>
               </Row>
