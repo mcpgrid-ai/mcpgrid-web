@@ -20,6 +20,7 @@ import {
   BiChevronDown,
   BiSolidUser,
   BiServer,
+  BiSearch,
 } from 'react-icons/bi';
 import { MdBalance } from 'react-icons/md';
 
@@ -33,6 +34,7 @@ export const ICON_BX = {
   'paper-plane': BiPaperPlane,
   'solid-badge-check': BiSolidBadgeCheck,
   'solid-quote-alt-left': BiSolidQuoteAltLeft,
+  'solid-user': BiSolidUser,
   balance: MdBalance,
   buildings: BiBuildings,
   cog: BiCog,
@@ -43,7 +45,7 @@ export const ICON_BX = {
   key: BiKey,
   link: BiLink,
   rocket: BiRocket,
-  user: BiUser,
+  search: BiSearch,
   server: BiServer,
-  'solid-user': BiSolidUser,
+  user: BiUser,
 };

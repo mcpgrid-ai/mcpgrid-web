@@ -6,10 +6,15 @@ import { DashboardSidebar } from './_partitions/DashboardSidebar';
 import { getSession } from '@core/auth/server';
 import { redirect } from '@core/navigation';
 import { RoutePath } from '@common/constants';
+import { generateCommonMetadata } from '@common/utils';
 
 type DashboardLayoutProps = PropsWithChildren<{
   params: Promise<unknown>;
 }>;
+
+export const generateMetadata = generateCommonMetadata({
+  slug: 'dashboard',
+});
 
 const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
   const session = await getSession();
@@ -28,10 +33,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ children }) => {
         <DashboardSidebar />
         <div className="main-content">
           <div className="page-content">
-            <div className="container-fluid">
-              {children}
-              {/* @@include("partials/page-title.html", {"pagetitle": "Pages", "title": "Starter Page"}) */}
-            </div>
+            <div className="container-fluid">{children}</div>
           </div>
 
           {/* @@include("partials/footer.html") */}

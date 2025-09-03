@@ -1,0 +1,16 @@
+#import "../fragments/ServerCard.graphql"
+
+query getServers(
+  $where: ServerWhereInput
+  $take: Int!
+  $skip: Int!
+) {
+  # serverCategories(take: 100) {
+  #   title
+  #   slug
+  # }
+  servers(where: $where, take: $take, skip: $skip) {
+    ...ServerCard
+  }
+  serversCount(where: $where)
+}

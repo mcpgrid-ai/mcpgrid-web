@@ -5,4 +5,7 @@ export * as DTO from './__generated__/query';
 export * from './components/KeystoneProvider';
 
 // Hooks
-export { useServersSearchQuery } from './__generated__/query';
+export {
+  useServersSearchQuery,
+  useGetServersQuery,
+} from './__generated__/query';
