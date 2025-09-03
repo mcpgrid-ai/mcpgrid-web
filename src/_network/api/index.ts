@@ -1,3 +1,5 @@
+export * as DTO from './__generated__/api.schemas';
+
 // Components
 export * from './components/MeilisearchProvider';
 

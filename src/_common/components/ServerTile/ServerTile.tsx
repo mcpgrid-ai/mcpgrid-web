@@ -7,29 +7,22 @@ import styles from '../components.module.scss';
 
 import { Link } from '@core/navigation';
 import { Card, Row, Avatar, Icon, Tooltip } from '@core/uikit';
-import { DTO } from '@network/keystone';
+import { DTO } from '@network/api';
 import { useTranslations } from '@core/i18n';
 
 interface ServerTileProps {
   className?: string;
-  server: DTO.ServerCardFragment;
+  server: DTO.ServerItem;
 }
 
-export const ServerTile: FC<ServerTileProps> = ({ className, server }) => {
+export const ServerTile: FC<ServerTileProps> = ({
+  className,
+  server: { id, title, description, logo, isOfficial, owner },
+}) => {
   const t = useTranslations();
-
-  const id = server.id;
-  const title = server?.title || '';
-  const description = server?.description;
-  const logo = server?.icon?.publicUrlTransformed;
-  const icon = server?.category?.icon?.publicUrlTransformed;
-  const owner = server?.githubOwner || '';
-  const isOfficial = server?.isOfficial;
 
   const avatar = (() => {
     if (logo) return <Image src={logo} alt={title} width={48} height={48} />;
-
-    if (icon) return <Image src={icon} alt={title} width={20} height={20} />;
 
     return null;
   })();

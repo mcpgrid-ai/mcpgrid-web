@@ -6,15 +6,15 @@ import { PAGE_SIZE } from './page.const';
 
 import { Heading, Input, Pagination, Row } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
-import { useGetServersQuery } from '@network/keystone';
 import { ServerTile } from '@common/components';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
+import { useGetServers } from '@network/api';
 
 const Servers: FC = () => {
   const t = useTranslations();
 
-  const { data } = useGetServersQuery({
+  const { data } = useGetServers({
     take: PAGE_SIZE,
     skip: 0,
   });
@@ -36,7 +36,7 @@ const Servers: FC = () => {
         </Row.Col>
       </Row>
       <Row className="g-4 mb-4">
-        {data?.servers?.map((item) => {
+        {data?.data.map((item) => {
           return (
             <Row.Col key={item.slug} xs={12} sm={6} md={6} lg={4} xl={3}>
               <ServerTile server={item} className="h-100" />
@@ -47,7 +47,7 @@ const Servers: FC = () => {
       <Row className="mt-4">
         <Row.Col className="d-flex justify-content-center">
           <Pagination
-            total={data?.serversCount || 0}
+            total={data?.total || 0}
             // page={toNumber(page)}
             size={PAGE_SIZE}
           >
