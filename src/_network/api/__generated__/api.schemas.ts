@@ -10,8 +10,6 @@ export interface ServerItem {
   title: string;
   owner: string;
   description: string;
-  /** @nullable */
-  icon: string | null;
   isOfficial: boolean;
   /** @nullable */
   logo: string | null;
