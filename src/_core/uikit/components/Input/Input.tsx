@@ -2,6 +2,7 @@ import { noop } from 'lodash';
 import { FormEventHandler, memo, useId } from 'react';
 import BsFormControl from 'react-bootstrap/FormControl';
 import BsSpinner from 'react-bootstrap/Spinner';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Icon, IconBxName } from '../Icon';
@@ -34,7 +35,10 @@ export const Input = memo<InputProps>(function Input({
   };
 
   return (
-    <form className={className} onSubmit={handleOnSubmit}>
+    <form
+      className={classNames('app-search', className)}
+      onSubmit={handleOnSubmit}
+    >
       <div className="position-relative">
         <BsFormControl name={name} type="text" placeholder={placeholder} />
         <Button type="submit">

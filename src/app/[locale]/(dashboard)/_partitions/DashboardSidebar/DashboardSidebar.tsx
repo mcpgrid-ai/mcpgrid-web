@@ -23,7 +23,7 @@ export const DashboardSidebar: FC = async () => {
             <li className="menu-title mt-2">{t('nav.catalog')}</li>
 
             <li>
-              <Link pathname={RoutePath.AdminServers}>
+              <Link pathname={RoutePath.CatalogServers}>
                 <Icon.Fi name="server" />
                 <span>{t('nav.servers')}</span>
               </Link>
