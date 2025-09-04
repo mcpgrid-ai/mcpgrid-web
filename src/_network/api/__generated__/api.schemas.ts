@@ -6,13 +6,20 @@
  */
 export interface ServerItem {
   id: string;
-  slug: string;
-  title: string;
-  owner: string;
-  description: string;
-  isOfficial: boolean;
   /** @nullable */
-  logo: string | null;
+  slug?: string | null;
+  /** @nullable */
+  title?: string | null;
+  /** @nullable */
+  owner?: string | null;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  isOfficial?: boolean | null;
+  /** @nullable */
+  logo?: string | null;
+  /** @nullable */
+  icon?: string | null;
 }
 
 export interface GetServersResponse {
