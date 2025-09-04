@@ -16,6 +16,7 @@ type UseRouteReturnType<P extends object> = [UseRouteReturnState<P>];
 
 export const useRoute = <
   P extends object = object,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   S extends object = object,
 >(): UseRouteReturnType<P> => {
   const pathname = usePathname();
@@ -27,7 +28,7 @@ export const useRoute = <
     {
       pathname,
       segment,
-      params: params as T,
+      params: params as P,
     },
   ];
 };
