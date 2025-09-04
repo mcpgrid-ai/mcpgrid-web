@@ -4,6 +4,7 @@ export enum RoutePath {
   Blog = '/blog',
   BlogPost = '/blog/:slug',
   CatalogServerDetails = '/catalog/servers/:id',
+  CatalogServerDetailsTools = '/catalog/servers/:id/tools',
   CatalogServers = '/catalog/servers',
   ContactUs = '/contact-us',
   Dashboard = '/dashboard',

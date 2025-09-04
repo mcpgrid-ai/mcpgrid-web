@@ -14,4 +14,4 @@ export { useCreateWaitlist } from './__generated__/waitlists/waitlists';
 export { ApiClient } from './services/api-client';
 
 // X3
-export { getServers } from './__generated__/servers/servers';
+export { getServers, useGetServer } from './__generated__/servers/servers';
