@@ -1,12 +1,14 @@
+'use client';
+
 import { FC, Fragment } from 'react';
 
 import { Heading } from '@core/uikit';
-import { getTranslations } from '@core/i18n';
+import { useTranslations } from '@core/i18n';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 
-const CatalogServer: FC = async () => {
-  const t = await getTranslations();
+const CatalogServer: FC = () => {
+  const t = useTranslations();
 
   return (
     <Fragment>
