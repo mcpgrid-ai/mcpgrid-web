@@ -10,6 +10,7 @@ export * from './components/Collapsible';
 export * from './components/Dropdown';
 export * from './components/Heading';
 export * from './components/Icon';
+export * from './components/InfiniteScroll';
 export * from './components/Input';
 export * from './components/List';
 export * from './components/ListGroup';

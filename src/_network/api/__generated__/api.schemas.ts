@@ -6,18 +6,79 @@
  */
 export interface ServerItem {
   id: string;
-  slug: string;
-  title: string;
-  owner: string;
-  description: string;
-  isOfficial: boolean;
   /** @nullable */
-  logo: string | null;
+  slug?: string | null;
+  /** @nullable */
+  title?: string | null;
+  /** @nullable */
+  owner?: string | null;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  isOfficial?: boolean | null;
+  /** @nullable */
+  logo?: string | null;
+  /** @nullable */
+  icon?: string | null;
 }
 
 export interface GetServersResponse {
   total: number;
   data: ServerItem[];
+}
+
+export interface ServerToolParameter {
+  name: string;
+  type: string;
+  description?: string;
+  required?: boolean;
+}
+
+export interface ServerTool {
+  id: string;
+  description?: string;
+  parameters?: ServerToolParameter[];
+}
+
+export interface ServerSetting {
+  name: string;
+  required: boolean;
+  description?: string;
+  secured: boolean;
+}
+
+export interface GetServerResponse {
+  id: string;
+  /** @nullable */
+  slug?: string | null;
+  /** @nullable */
+  title?: string | null;
+  /** @nullable */
+  githubOwner?: string | null;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  isOfficial?: boolean | null;
+  /** @nullable */
+  logo?: string | null;
+  /** @nullable */
+  icon?: string | null;
+  /** @nullable */
+  homepage?: string | null;
+  /** @nullable */
+  githubUrl?: string | null;
+  /** @nullable */
+  githubLanguage?: string | null;
+  /** @nullable */
+  githubLicense?: string | null;
+  /** @nullable */
+  githubPublishedAt?: string | null;
+  /** @nullable */
+  overview?: string | null;
+  /** @nullable */
+  tools?: ServerTool[] | null;
+  /** @nullable */
+  settings?: ServerSetting[] | null;
 }
 
 export interface CreateWaitlistRequest {

@@ -17,12 +17,16 @@ interface ServerTileProps {
 
 export const ServerTile: FC<ServerTileProps> = ({
   className,
-  server: { id, title, description, logo, isOfficial, owner },
+  server: { id, title, description, logo, isOfficial, owner, icon },
 }) => {
   const t = useTranslations();
 
   const avatar = (() => {
-    if (logo) return <Image src={logo} alt={title} width={48} height={48} />;
+    if (logo)
+      return <Image src={logo} alt={title || ''} width={48} height={48} />;
+
+    if (icon)
+      return <Image src={icon} alt={title || ''} width={20} height={20} />;
 
     return null;
   })();
@@ -53,7 +57,9 @@ export const ServerTile: FC<ServerTileProps> = ({
               )}
             </Card.Title>
             <Card.Subtitle className="mb-1">
-              {t('values.byOwner', { value: owner })}
+              {t('values.byOwner', {
+                value: owner || '',
+              })}
             </Card.Subtitle>
             <Card.Text truncate={3}>{description}</Card.Text>
           </Row.Col>
