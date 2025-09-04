@@ -1,7 +1,6 @@
 'use client';
 
-import { FC, useCallback, useMemo, useState } from 'react';
-import { castArray, get } from 'lodash';
+import { FC, useCallback, useState } from 'react';
 import Image from 'next/image';
 
 import { RoutePath } from '../../constants';
@@ -15,7 +14,7 @@ import {
 } from '@core/uikit';
 import { useTranslations } from '@core/i18n';
 import { Link } from '@core/navigation';
-import { DTO, useServersSearchQuery } from '@network/keystone';
+import { useGetServers } from '@network/api';
 
 interface ServersSearchProps {
   bg?: boolean;
@@ -25,42 +24,15 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
   const t = useTranslations();
   const [query, setQuery] = useState<string>();
 
-  const or: DTO.ServerWhereInput['OR'] = [query]
-    .concat(query?.split(' '))
-    .filter((v) => !!v)
-    .reduce(
-      (res, contains): DTO.ServerWhereInput['OR'] => [
-        ...(res ? castArray(res) : []),
-        {
-          title: {
-            contains,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          description: {
-            contains,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-        {
-          keywords: {
-            contains,
-            mode: DTO.QueryMode.Insensitive,
-          },
-        },
-      ],
-      [] as DTO.ServerWhereInput['OR'],
-    );
-
-  const { isLoading, data } = useServersSearchQuery(
+  const { isFetching, data } = useGetServers(
     {
-      where: {
-        OR: or,
-      },
+      take: 5,
+      q: query,
     },
     {
-      enabled: !!query,
+      query: {
+        enabled: !!query,
+      },
     },
   );
 
@@ -69,50 +41,35 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
     [setQuery],
   );
 
-  const options = useMemo(() => {
-    if (data?.servers?.length) {
-      return get(data, ['servers'], [])?.reduce(
-        (res, item) => {
-          if (item !== null && item !== undefined) {
-            return [...res, item];
-          }
-          return res;
-        },
-        [] as Exclude<DTO.ServersSearchQuery['servers'], null | undefined>,
-      );
-    }
-    return [];
-  }, [data]);
-
   return (
     <Typeahead
       bg={bg}
       name="search"
       label="title"
       action={RoutePath.Servers}
-      options={options || []}
-      isLoading={isLoading}
+      options={data?.data || []}
+      isLoading={isFetching}
       onSearch={handleOnSearch}
       placeholder={t('placeholders.search')}
     >
-      {({ option: { icon, title, slug, category, githubOwner } }) => {
+      {({ option: { icon, title, slug, owner, logo } }) => {
         return (
           <Typeahead.Item as="div">
             <Link pathname={RoutePath.ServerDetails} params={{ slug }}>
               <Row className="gx-2">
                 <Row.Col xs="auto">
                   <Avatar size={36}>
-                    {icon?.publicUrlTransformed ? (
+                    {logo ? (
                       <Image
-                        src={icon?.publicUrlTransformed}
+                        src={logo}
                         width={36}
                         height={36}
                         alt={title || ''}
                       />
                     ) : (
-                      category?.icon?.publicUrlTransformed && (
+                      icon && (
                         <Image
-                          src={category?.icon?.publicUrlTransformed}
+                          src={icon}
                           width={20}
                           height={20}
                           alt={title || ''}
@@ -127,7 +84,7 @@ export const ServersSearch: FC<ServersSearchProps> = ({ bg }) => {
                   </Typography>
                   <Typography className="m-0 text-muted">
                     {t('values.byOwner', {
-                      value: githubOwner || '',
+                      value: owner || '',
                     })}
                   </Typography>
                 </Row.Col>

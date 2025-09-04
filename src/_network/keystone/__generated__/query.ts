@@ -1521,24 +1521,6 @@ export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPageSignInQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null } | null };
 
-export type GetServersQueryVariables = Exact<{
-  where?: InputMaybe<ServerWhereInput>;
-  take: Scalars['Int']['input'];
-  skip: Scalars['Int']['input'];
-}>;
-
-
-export type GetServersQuery = { __typename?: 'Query', serversCount?: number | null, servers?: Array<{ __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
-
-export type ServersSearchQueryVariables = Exact<{
-  where?: InputMaybe<ServerWhereInput>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type ServersSearchQuery = { __typename?: 'Query', serversCount?: number | null, servers?: Array<{ __typename?: 'Server', id: string, title?: string | null, slug?: string | null, isOfficial?: boolean | null, description?: string | null, githubOwner?: string | null, category?: { __typename?: 'ServerCategory', icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> | null };
-
 export const ServerCard = gql`
     fragment ServerCard on Server {
   id
@@ -1735,22 +1717,6 @@ export const GetPageSignIn = gql`
   }
 }
     `;
-export const GetServers = gql`
-    query getServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
-}
-    ${ServerCard}`;
-export const ServersSearch = gql`
-    query serversSearch($where: ServerWhereInput, $take: Int = 5, $skip: Int = 0) {
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
-}
-    ${ServerCard}`;
 
 export const ServerCardFragmentDoc = `
     fragment ServerCard on Server {
@@ -2374,94 +2340,6 @@ export const useInfiniteGetPageSignInQuery = <
     const { queryKey: optionsQueryKey, ...restOptions } = options;
     return {
       queryKey: optionsQueryKey ?? variables === undefined ? ['getPageSignIn.infinite'] : ['getPageSignIn.infinite', variables],
-      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
-      ...restOptions
-    }
-  })()
-    )};
-
-export const GetServersDocument = `
-    query getServers($where: ServerWhereInput, $take: Int!, $skip: Int!) {
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
-}
-    ${ServerCardFragmentDoc}`;
-
-export const useGetServersQuery = <
-      TData = GetServersQuery,
-      TError = unknown
-    >(
-      variables: GetServersQueryVariables,
-      options?: Omit<UseQueryOptions<GetServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetServersQuery, TError, TData>['queryKey'] }
-    ) => {
-    
-    return useQuery<GetServersQuery, TError, TData>(
-      {
-    queryKey: ['getServers', variables],
-    queryFn: useFetchData<GetServersQuery, GetServersQueryVariables>(GetServersDocument).bind(null, variables),
-    ...options
-  }
-    )};
-
-export const useInfiniteGetServersQuery = <
-      TData = InfiniteData<GetServersQuery>,
-      TError = unknown
-    >(
-      variables: GetServersQueryVariables,
-      options: Omit<UseInfiniteQueryOptions<GetServersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetServersQuery, TError, TData>['queryKey'] }
-    ) => {
-    const query = useFetchData<GetServersQuery, GetServersQueryVariables>(GetServersDocument)
-    return useInfiniteQuery<GetServersQuery, TError, TData>(
-      (() => {
-    const { queryKey: optionsQueryKey, ...restOptions } = options;
-    return {
-      queryKey: optionsQueryKey ?? ['getServers.infinite', variables],
-      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
-      ...restOptions
-    }
-  })()
-    )};
-
-export const ServersSearchDocument = `
-    query serversSearch($where: ServerWhereInput, $take: Int = 5, $skip: Int = 0) {
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
-}
-    ${ServerCardFragmentDoc}`;
-
-export const useServersSearchQuery = <
-      TData = ServersSearchQuery,
-      TError = unknown
-    >(
-      variables?: ServersSearchQueryVariables,
-      options?: Omit<UseQueryOptions<ServersSearchQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<ServersSearchQuery, TError, TData>['queryKey'] }
-    ) => {
-    
-    return useQuery<ServersSearchQuery, TError, TData>(
-      {
-    queryKey: variables === undefined ? ['serversSearch'] : ['serversSearch', variables],
-    queryFn: useFetchData<ServersSearchQuery, ServersSearchQueryVariables>(ServersSearchDocument).bind(null, variables),
-    ...options
-  }
-    )};
-
-export const useInfiniteServersSearchQuery = <
-      TData = InfiniteData<ServersSearchQuery>,
-      TError = unknown
-    >(
-      variables: ServersSearchQueryVariables,
-      options: Omit<UseInfiniteQueryOptions<ServersSearchQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<ServersSearchQuery, TError, TData>['queryKey'] }
-    ) => {
-    const query = useFetchData<ServersSearchQuery, ServersSearchQueryVariables>(ServersSearchDocument)
-    return useInfiniteQuery<ServersSearchQuery, TError, TData>(
-      (() => {
-    const { queryKey: optionsQueryKey, ...restOptions } = options;
-    return {
-      queryKey: optionsQueryKey ?? variables === undefined ? ['serversSearch.infinite'] : ['serversSearch.infinite', variables],
       queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
       ...restOptions
     }

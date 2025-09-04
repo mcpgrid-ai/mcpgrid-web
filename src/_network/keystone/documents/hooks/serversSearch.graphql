@@ -1,8 +1,0 @@
-#import "../fragments/ServerCard.graphql"
-
-query serversSearch($where: ServerWhereInput, $take: Int = 5, $skip: Int = 0) {
-  servers(where: $where, take: $take, skip: $skip) {
-    ...ServerCard
-  }
-  serversCount(where: $where)
-}
