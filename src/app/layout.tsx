@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
-import { UiKitProvider, ThemeProvider } from '@core/uikit';
+import { UiKitProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
@@ -30,16 +30,14 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
         <QueryProvider>
           <AuthProvider config={config()}>
             <KeystoneProvider baseUrl={process.env.KEYSTONE_SCHEMA_URL}>
-              <ThemeProvider>
-                <ApiProvider baseUrl={process.env.API_HOST}>
-                  <html lang="en" suppressHydrationWarning>
-                    {children}
-                    {process.env.GOOGLE_ANALYTICS_ID && (
-                      <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-                    )}
-                  </html>
-                </ApiProvider>
-              </ThemeProvider>
+              <ApiProvider baseUrl={process.env.API_HOST}>
+                <html lang="en" suppressHydrationWarning>
+                  {children}
+                  {process.env.GOOGLE_ANALYTICS_ID && (
+                    <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+                  )}
+                </html>
+              </ApiProvider>
             </KeystoneProvider>
           </AuthProvider>
         </QueryProvider>
