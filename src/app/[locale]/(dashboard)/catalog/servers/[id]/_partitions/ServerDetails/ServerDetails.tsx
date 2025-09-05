@@ -16,8 +16,6 @@ export const ServerDetails: FC = () => {
     ({ server }) => server,
   );
 
-  console.log(server);
-
   const detailsSourceCode: ServerDetailsItem[] = server?.githubUrl
     ? [
         {

@@ -22,7 +22,6 @@ export const useRoute = <
   const pathname = usePathname();
   const segment = useSelectedLayoutSegment();
   const params = useParams();
-  console.log(params);
 
   return [
     {

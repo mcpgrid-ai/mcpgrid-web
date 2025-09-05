@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from '@core/navigation';
 import { RoutePath } from '@common/constants';
 import { IMAGES } from '@core/uikit';
-import { UserMenu } from '@common/components';
+import { UserMenu, ThemeSelector } from '@common/components';
 
 export const DashboardHeader: FC = async () => {
   return (
@@ -62,6 +62,7 @@ export const DashboardHeader: FC = async () => {
         </div>
 
         <div className="d-flex">
+          <ThemeSelector />
           <UserMenu />
         </div>
       </div>

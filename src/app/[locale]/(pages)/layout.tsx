@@ -7,12 +7,7 @@ type PagesLayoutProps = PropsWithChildren;
 
 const PagesLayout: FC<PagesLayoutProps> = ({ children }) => {
   return (
-    <body
-      data-layout-size="boxed"
-      data-layout="horizontal"
-      data-topbar="light"
-      data-bs-theme="light"
-    >
+    <body data-layout-size="boxed" data-layout="horizontal">
       <div id="layout-wrapper">
         <Header background />
         <div className="main-content">
