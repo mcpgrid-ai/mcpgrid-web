@@ -1,3 +1,3 @@
 export { ThemeProvider } from './ThemeProvider';
-export { useTheme } from './ThemeProvider.hooks';
-export { ThemeMode } from './ThemeProvider.types';
+export type { ThemeProviderProps } from './ThemeProvider';
+export { useTheme } from 'next-themes';

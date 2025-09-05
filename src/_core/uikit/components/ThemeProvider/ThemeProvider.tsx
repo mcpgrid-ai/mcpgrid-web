@@ -1,12 +1,15 @@
+'use client';
+
 import { FC, PropsWithChildren } from 'react';
+import { ThemeProvider as NextThemeProvider } from 'next-themes';
 
-import { ToastsProvider } from './ToastsProvider';
-import './ThemeProvider.scss';
+export type ThemeProviderProps = PropsWithChildren;
 
-type ThemeProviderProps = PropsWithChildren<{
-  name: string;
-}>;
-
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children, name }) => {
-  return <ToastsProvider name={name}>{children}</ToastsProvider>;
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
+  // data-bs-theme
+  return (
+    <NextThemeProvider enableSystem attribute="data-bs-theme">
+      {children}
+    </NextThemeProvider>
+  );
 };

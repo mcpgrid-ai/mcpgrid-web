@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
-import { ThemeProvider } from '@core/uikit';
+import { UiKitProvider, ThemeProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
 import { ApiProvider, ApiClient } from '@network/api';
@@ -25,24 +25,26 @@ const config = () => {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   return (
-    <ThemeProvider name={process.env.PRODUCT_NAME}>
+    <UiKitProvider name={process.env.PRODUCT_NAME}>
       <TranslationsProvider>
         <QueryProvider>
           <AuthProvider config={config()}>
             <KeystoneProvider baseUrl={process.env.KEYSTONE_SCHEMA_URL}>
-              <ApiProvider baseUrl={process.env.API_HOST}>
-                <html lang="en">
-                  {children}
-                  {process.env.GOOGLE_ANALYTICS_ID && (
-                    <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
-                  )}
-                </html>
-              </ApiProvider>
+              <ThemeProvider>
+                <ApiProvider baseUrl={process.env.API_HOST}>
+                  <html lang="en" suppressHydrationWarning>
+                    {children}
+                    {process.env.GOOGLE_ANALYTICS_ID && (
+                      <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
+                    )}
+                  </html>
+                </ApiProvider>
+              </ThemeProvider>
             </KeystoneProvider>
           </AuthProvider>
         </QueryProvider>
       </TranslationsProvider>
-    </ThemeProvider>
+    </UiKitProvider>
   );
 };
 

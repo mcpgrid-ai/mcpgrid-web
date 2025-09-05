@@ -25,6 +25,7 @@ export * from './components/ThemeProvider';
 export * from './components/Tooltip';
 export * from './components/Typeahead';
 export * from './components/Typography';
+export * from './components/UiKitProvider';
 
 // Hooks
 export * from './hooks/useUtils';
