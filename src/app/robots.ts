@@ -9,7 +9,7 @@ const robots = async (): Promise<MetadataRoute.Robots> => {
       allow: '/',
       disallow: PRIVATE_PATHS,
     },
-    sitemap: 'https://mcpbox.com/sitemap.xml',
+    sitemap: 'https://mcpgrid.ai/sitemap.xml',
   };
 };
 

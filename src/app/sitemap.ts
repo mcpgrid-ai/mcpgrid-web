@@ -20,7 +20,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       (acc, { slug, updatedAt }): MetadataRoute.Sitemap => [
         ...acc,
         {
-          url: `https://mcpbox.com/${slug}`,
+          url: `https://mcpgrid.ai/${slug}`,
           lastModified: new Date(updatedAt),
           changeFrequency: 'weekly',
           priority: get(PRIORITY, `${slug}`, 0.8),
@@ -34,13 +34,13 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       (acc, { slug, updatedAt }): MetadataRoute.Sitemap => [
         ...acc,
         {
-          url: `https://mcpbox.com/servers/${slug}`,
+          url: `https://mcpgrid.ai/servers/${slug}`,
           lastModified: new Date(updatedAt),
           changeFrequency: 'weekly',
           priority: 0.8,
         },
         {
-          url: `https://mcpbox.com/servers/${slug}/tools`,
+          url: `https://mcpgrid.ai/servers/${slug}/tools`,
           lastModified: new Date(updatedAt),
           changeFrequency: 'weekly',
           priority: 0.7,
@@ -53,7 +53,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     ...pages,
     ...servers,
     {
-      url: 'https://mcpbox.com',
+      url: 'https://mcpgrid.ai',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
