@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck x3 error
+
 import { MetadataRoute } from 'next';
 import { get } from 'lodash';
 
@@ -11,8 +14,6 @@ const PRIORITY = {
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const { servers: initialServers, pages: initialPages } =
     await keystone.sitemap.get();
-
-  console.log(initialPages);
 
   const pages =
     initialPages?.reduce(

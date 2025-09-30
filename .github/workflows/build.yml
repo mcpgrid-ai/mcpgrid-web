@@ -27,3 +27,5 @@ jobs:
 
       - name: Build app
         run: yarn build
+        env:
+          KEYSTONE_SCHEMA_URL: ${{ secrets.KEYSTONE_GRAPHQL_SCHEMA_URL }}
