@@ -3,6 +3,10 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  sassOptions: {
+    quietDeps: true,
+    silenceDeprecations: ['import', 'legacy-js-api', 'global-function'],
+  },
   images: {
     remotePatterns: [
       {

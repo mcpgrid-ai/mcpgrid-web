@@ -1521,6 +1521,11 @@ export type GetPageSignInQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPageSignInQuery = { __typename?: 'Query', page?: { __typename?: 'Page', title?: string | null, subtitle?: string | null, description?: string | null } | null };
 
+export type GetSitemapQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSitemapQuery = { __typename?: 'Query', servers?: Array<{ __typename?: 'Server', slug?: string | null, updatedAt?: any | null }> | null, pages?: Array<{ __typename?: 'Page', slug?: string | null, updatedAt?: any | null }> | null };
+
 export type GetServersQueryVariables = Exact<{
   where?: InputMaybe<ServerWhereInput>;
   take: Scalars['Int']['input'];
@@ -1723,6 +1728,18 @@ export const GetPageSignIn = gql`
     title
     subtitle
     description
+  }
+}
+    `;
+export const GetSitemap = gql`
+    query getSitemap {
+  servers(take: 100000) {
+    slug
+    updatedAt
+  }
+  pages(take: 100000) {
+    slug
+    updatedAt
   }
 }
     `;
@@ -2357,6 +2374,54 @@ export const useInfiniteGetPageSignInQuery = <
     const { queryKey: optionsQueryKey, ...restOptions } = options;
     return {
       queryKey: optionsQueryKey ?? variables === undefined ? ['getPageSignIn.infinite'] : ['getPageSignIn.infinite', variables],
+      queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
+      ...restOptions
+    }
+  })()
+    )};
+
+export const GetSitemapDocument = `
+    query getSitemap {
+  servers(take: 100000) {
+    slug
+    updatedAt
+  }
+  pages(take: 100000) {
+    slug
+    updatedAt
+  }
+}
+    `;
+
+export const useGetSitemapQuery = <
+      TData = GetSitemapQuery,
+      TError = unknown
+    >(
+      variables?: GetSitemapQueryVariables,
+      options?: Omit<UseQueryOptions<GetSitemapQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetSitemapQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetSitemapQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['getSitemap'] : ['getSitemap', variables],
+    queryFn: useFetchData<GetSitemapQuery, GetSitemapQueryVariables>(GetSitemapDocument).bind(null, variables),
+    ...options
+  }
+    )};
+
+export const useInfiniteGetSitemapQuery = <
+      TData = InfiniteData<GetSitemapQuery>,
+      TError = unknown
+    >(
+      variables: GetSitemapQueryVariables,
+      options: Omit<UseInfiniteQueryOptions<GetSitemapQuery, TError, TData>, 'queryKey'> & { queryKey?: UseInfiniteQueryOptions<GetSitemapQuery, TError, TData>['queryKey'] }
+    ) => {
+    const query = useFetchData<GetSitemapQuery, GetSitemapQueryVariables>(GetSitemapDocument)
+    return useInfiniteQuery<GetSitemapQuery, TError, TData>(
+      (() => {
+    const { queryKey: optionsQueryKey, ...restOptions } = options;
+    return {
+      queryKey: optionsQueryKey ?? variables === undefined ? ['getSitemap.infinite'] : ['getSitemap.infinite', variables],
       queryFn: (metaData) => query({...variables, ...(metaData.pageParam ?? {})}),
       ...restOptions
     }

@@ -18,3 +18,9 @@ export enum RoutePath {
   SignIn = '/signin',
   SignUp = '/signup',
 }
+
+export const PRIVATE_PATHS = [
+  RoutePath.Admin,
+  RoutePath.CatalogServers,
+  RoutePath.Profile,
+];

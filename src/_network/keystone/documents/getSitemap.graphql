@@ -1,0 +1,10 @@
+query getSitemap {
+  servers(take: 100000) {
+    slug
+    updatedAt
+  }
+  pages(take: 100000) {
+    slug
+    updatedAt
+  }
+}

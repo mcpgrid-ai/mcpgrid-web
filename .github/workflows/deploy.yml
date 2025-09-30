@@ -36,6 +36,8 @@ jobs:
 
       - name: Build application
         run: yarn build
+        env:
+          KEYSTONE_SCHEMA_URL: ${{ secrets.KEYSTONE_GRAPHQL_SCHEMA_URL }}
 
       - name: Auth to Google Cloud
         uses: google-github-actions/auth@v2
