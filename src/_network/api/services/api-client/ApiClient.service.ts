@@ -14,7 +14,6 @@ export class ApiClient {
     this.axios = axios.create({
       baseURL,
       timeout: 30000,
-      withCredentials: true,
       paramsSerializer: (params) => stringify(params, { indices: false }),
     });
   }

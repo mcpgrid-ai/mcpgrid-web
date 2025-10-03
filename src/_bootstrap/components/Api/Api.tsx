@@ -26,6 +26,8 @@ export const Api: FC<ApiProps> = ({ children, ...props }) => {
     return Promise.resolve(config);
   };
 
+  // console.log('token', token);
+
   return (
     <ApiProvider
       key={token}
