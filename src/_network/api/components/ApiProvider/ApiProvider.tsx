@@ -63,5 +63,6 @@ export const ApiProvider: FC<ApiProviderProps> = ({
     instance.axios.interceptors.request.eject(requestInterceptor);
     instance.axios.interceptors.response.eject(responseInterceptor);
   });
+
   return <>{children}</>;
 };

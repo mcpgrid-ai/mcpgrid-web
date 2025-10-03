@@ -13,9 +13,11 @@ export const AUTH_OPTIONS: AuthOptions = {
       authorize: async (credentials) => {
         if (!credentials?.token) return null;
         try {
+          const { token } = credentials;
           const decoded = await auth().verifyIdToken(credentials.token);
           const user = await auth().getUser(decoded.uid);
           return {
+            token,
             id: user.uid,
             email: user.email,
             image: user.photoURL,
@@ -37,6 +39,7 @@ export const AUTH_OPTIONS: AuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
+      console.log('session', token);
       if (token.user) session.user = token.user;
       return session;
     },

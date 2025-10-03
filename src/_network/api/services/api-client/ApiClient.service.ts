@@ -14,18 +14,12 @@ export class ApiClient {
     this.axios = axios.create({
       baseURL,
       timeout: 30000,
+      withCredentials: true,
       paramsSerializer: (params) => stringify(params, { indices: false }),
     });
   }
 
   public static instance(params?: ApiClientParams): ApiClient {
-    // if (isServer) {
-    //   return makeQueryClient();
-    // } else {
-    //   if (!browserQueryClient) browserQueryClient = makeQueryClient();
-    //   return browserQueryClient;
-    // }
-
     if (!ApiClient.client && params) {
       ApiClient.client = new ApiClient(params);
     }
