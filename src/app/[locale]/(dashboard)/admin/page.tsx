@@ -1,5 +1,7 @@
 import { FC, Fragment } from 'react';
 
+import { DashboardInstances } from './_partitions/DashboardInstances';
+
 import { generateCommonMetadata } from '@common/utils';
 import { Heading } from '@core/uikit';
 import { getTranslations } from '@core/i18n';
@@ -21,6 +23,7 @@ const Dashboard: FC = async () => {
           </Heading.Breadcrumb.Item>
         </Heading.Breadcrumb>
       </Heading>
+      <DashboardInstances />
     </Fragment>
   );
 };

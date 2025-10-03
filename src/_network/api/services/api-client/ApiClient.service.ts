@@ -19,13 +19,6 @@ export class ApiClient {
   }
 
   public static instance(params?: ApiClientParams): ApiClient {
-    // if (isServer) {
-    //   return makeQueryClient();
-    // } else {
-    //   if (!browserQueryClient) browserQueryClient = makeQueryClient();
-    //   return browserQueryClient;
-    // }
-
     if (!ApiClient.client && params) {
       ApiClient.client = new ApiClient(params);
     }

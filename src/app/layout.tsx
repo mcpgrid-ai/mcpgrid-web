@@ -4,9 +4,10 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { UiKitProvider } from '@core/uikit';
 import { TranslationsProvider } from '@core/i18n';
 import { QueryProvider } from '@network/common';
-import { ApiProvider, ApiClient } from '@network/api';
+import { ApiClient } from '@network/api';
 import { AuthProvider } from '@core/auth/client';
 import { KeystoneProvider } from '@network/keystone';
+import { Api } from '@bootstrap/components';
 
 type CommonLayoutProps = PropsWithChildren;
 
@@ -30,14 +31,14 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
         <QueryProvider>
           <AuthProvider config={config()}>
             <KeystoneProvider baseUrl={process.env.KEYSTONE_SCHEMA_URL}>
-              <ApiProvider baseUrl={process.env.API_HOST}>
+              <Api baseUrl={process.env.API_HOST}>
                 <html lang="en" suppressHydrationWarning>
                   {children}
                   {process.env.GOOGLE_ANALYTICS_ID && (
                     <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID} />
                   )}
                 </html>
-              </ApiProvider>
+              </Api>
             </KeystoneProvider>
           </AuthProvider>
         </QueryProvider>
